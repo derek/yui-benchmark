@@ -7,7 +7,8 @@
         "nopt": "*",
         "benchmark": "*",
         "microtime": "*",
-        "JSON2": "*"
+        "JSON2": "*",
+        "useragent": "*"
     },
     "bin": {
         "ybench": "./bin/ybench.js"
