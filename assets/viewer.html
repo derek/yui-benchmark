@@ -1,0 +1,38 @@
+<DOCTYPE html>
+<html>
+  <head>
+		<style>
+			#chart {
+				height:85%;
+				width:95%;
+			}
+		</style>
+		
+		<!-- <link rel="stylesheet" href="../build/cssbase/cssbase.css" type="text/css" charset="utf-8"> -->
+		<script src="{{yuiBase}}/build/yui/yui-min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+		
+			YUI().use('charts-legend', 'querystring-parse', function (Y) {
+				Y.Get.js("/viewer/data.js", function (err) {
+					Y.one('#title').setContent(chart.meta.title);
+					Y.one('#description').setContent(chart.meta.description);
+					
+					new Y.Chart({
+						dataProvider: chart.data, 
+						render: "#chart", 
+						legend: {
+							position: "right"
+						}
+					});
+				});
+			});
+		
+		</script>
+	</head>
+
+	<body>
+		<h1 id="title"></h1>
+		<p id="description"></p>
+		<div id="chart"></div>
+	</body>
+</html>
