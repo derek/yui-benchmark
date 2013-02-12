@@ -8,7 +8,7 @@
         "benchmark": "*",
         "microtime": "*",
         "JSON2": "*",
-        "useragent": "*"
+        "node-phantom": "*"
     },
     "bin": {
         "ybench": "./bin/ybench.js"

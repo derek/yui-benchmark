@@ -48,6 +48,7 @@ config = {
 	source: options.source,
 	yuipath: options.yuipath,
 	outputPath: options.output,
+	phantomjs: options.phantomjs,
 	ybenchpath: path.join(__dirname, '../')
 };
 
