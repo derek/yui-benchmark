@@ -15,11 +15,12 @@ var path = require("path"),
 	config;
 
 // Make sure some important files exist
-if (!fs.existsSync(path.join(options.yuipath, 'build/yui/yui.js'))) {
+if (!options.yuipath || !fs.existsSync(path.join(options.yuipath, 'build/yui/yui.js'))) {
 	console.log("yui.js not found. Check --yuipath");
 	return false;
 }
-if (!fs.existsSync(path.join(options.source))) {
+
+if (!options.source || !fs.existsSync(path.join(options.source))) {
 	console.log("source not found. Check --source");
 	return false;
 }
