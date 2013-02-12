@@ -14,6 +14,17 @@ var path = require("path"),
 	tasks = [],
 	config;
 
+// Make sure some important files exist
+if (!fs.existsSync(path.join(options.yuipath, 'build/yui/yui.js'))) {
+	console.log("yui.js not found. Check --yuipath");
+	return false;
+}
+if (!fs.existsSync(path.join(options.source))) {
+	console.log("source not found. Check --source");
+	return false;
+}
+
+// Develop the task list
 tasks.push('master');
 
 if (options.v360) {
@@ -30,6 +41,7 @@ if (options.v380) {
 
 tasks.push('end');
 
+// Generate the yBench config and execute
 config = {
 	tasks: tasks,
 	port: options.port || 3000,
