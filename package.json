@@ -1,0 +1,15 @@
+{
+    "name": "ybench",
+    "version": "0.0.1",
+    "engines": { "node": ">=0.4.0" },
+    "dependencies": {
+        "express": "*",
+        "nopt": "*",
+        "benchmark": "*",
+        "microtime": "*",
+        "JSON2": "*"
+    },
+    "bin": {
+        "ybench": "./bin/ybench.js"
+    }
+}
