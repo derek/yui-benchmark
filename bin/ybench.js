@@ -26,7 +26,7 @@ if (!options.source || !fs.existsSync(path.join(options.source))) {
 }
 
 // Develop the task list
-tasks.push('master');
+tasks.push('yui3');
 
 if (options.v360) {
 	tasks.push('3.6.0');
