@@ -1,0 +1,29 @@
+<script type="text/javascript" charset="utf-8">
+
+    YUI().use('scrollview-base', 'ybench', function (Y) {
+
+        var container = document.createElement('div'),
+            bench,
+            scrollview;
+
+        container.id = "container";
+        document.body.appendChild(container);
+
+        suite = new Y.Bench({
+            component: 'ScrollView',
+            name: 'Create and destroy',
+            constructor: Benchmark.Deferred
+        });
+
+        suite.add(function (deferred) {
+            console.log(deferred);
+            scrollview = new Y.ScrollView({
+                render: container
+            });
+            scrollview.destroy();
+        });
+
+        suite.run();
+    });
+
+</script>
