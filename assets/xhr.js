@@ -1,11 +1,10 @@
 // Based on tinyxhr by Shimon Doodkin (https://gist.github.com/4706967)
-
 function xhr(url, callback, method, data, contenttype) {
-    var requestTimeout, 
-    	method = (method ? method : "get").toUpperCase(),
-    	contentType = (contenttype ? contenttype : 'application/x-www-form-urlencoded'),
-    	xhr;
-    
+    var method = (method ? method : "get").toUpperCase(),
+        contentType = (contenttype ? contenttype : 'application/x-www-form-urlencoded'),
+        requestTimeout,
+        xhr;
+
     try {
         xhr = new XMLHttpRequest();
     } catch (e) {
@@ -21,7 +20,7 @@ function xhr(url, callback, method, data, contenttype) {
         xhr.abort();
         callback(new Error("xhr: aborted by a timeout"), "", xhr);
     }, 10000);
-    
+
     xhr.onreadystatechange = function () {
         if (xhr.readyState != 4) return;
         clearTimeout(requestTimeout);
@@ -31,10 +30,9 @@ function xhr(url, callback, method, data, contenttype) {
     xhr.open(method, url, true);
 
     if (!data) {
-    	xhr.send();
-    }
-    else {
+        xhr.send();
+    } else {
         xhr.setRequestHeader('Content-type', contentType);
-        xhr.send(data)
+        xhr.send(data);
     }
 }
