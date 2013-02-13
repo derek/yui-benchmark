@@ -6,7 +6,7 @@
 	YUI().use('charts-legend', function (Y) {
 		Y.Get.js("/viewer/data.js", function (err) {
 			Y.one('#title').setContent(chart.meta.component + ": " + chart.meta.title);
-			
+
 			new Y.Chart({
 				height: 500,
 				width: 1000,
