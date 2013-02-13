@@ -48,7 +48,6 @@ if (options.v380) {
 }
 
 tasks.push('yui3');
-tasks.push('end');
 
 console.log('Task list:', tasks, '\n');
 
