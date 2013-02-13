@@ -50,17 +50,16 @@ if (options.v380) {
 tasks.push('yui3');
 tasks.push('end');
 
-// Generate the yBench config and execute
-config = {
-	tasks: tasks,
-	port: options.port || 3000,
-	source: options.source,
-	yuipath: options.yuipath,
-	outputPath: options.output,
-	phantomjs: options.phantomjs,
-	ybenchpath: path.join(__dirname, '../')
-};
+console.log('Task list:', tasks, '\n');
 
-console.log("Config: ", config);
+// This will be cleaned up later
+global.tasks = tasks;
+global.port = options.port || 3000;
+global.source = options.source;
+global.yuipath = options.yuipath;
+global.outputPath = options.output;
+global.phantomjs = options.phantomjs;
+global.ybenchpath = path.join(__dirname, '../');
+global.results = [];
 
-require('../lib/app.js')(config);
+require('../lib/app.js')();
