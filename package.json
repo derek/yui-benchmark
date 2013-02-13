@@ -8,7 +8,8 @@
         "benchmark": "*",
         "microtime": "*",
         "JSON2": "*",
-        "node-phantom": "*"
+        "node-phantom": "*",
+        "mime": "*"
     },
     "bin": {
         "ybench": "./bin/ybench.js"
