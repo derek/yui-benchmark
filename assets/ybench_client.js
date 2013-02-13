@@ -16,21 +16,28 @@ YUI.add('ybench', function (Y, NAME) {
         var self = this;
 
         this.component = config.component;
-        this.title = config.title;
+        this.name = config.name;
         this.yuiVersion = YUI.version;
         this.UA = getUA();
 
-        if (config.type === "benchmarkjs") {
-            this.bench = new Benchmark.Suite(this.title);
-
-            this.bench.on('complete', function () {
-                var results = this[0];
-                self.setValue(results.hz, results.stats);
-                console.log(this);
-            });
+        if (config.constructor) {
+            if (config.constructor === Benchmark.Suite) {
+                this.benchmark = new config.constructor(config);
+            }
+            else if (config.constructor === Benchmark) {
+                this.benchmark = new config.constructor(config);
+            }
+            else if (config.constructor === Benchmark.Deferred) {
+                this.benchmark = new config.constructor(config);
+            }
         }
 
-        return this.bench;
+        if (this.benchmark) {
+            this.benchmark.on('complete', function () {
+                var results = this[0];
+                self.setValue(results.hz, results.stats);
+            });
+        }
     }
 
     YBench.prototype.setValue = function (val, stats) {
@@ -39,7 +46,7 @@ YUI.add('ybench', function (Y, NAME) {
             
         self._sendResult({
             component: self.component,
-            title: self.title,
+            name: self.name,
             yuiVersion: self.yuiVersion,
             UA: self.UA,
             value: val,

@@ -5,7 +5,7 @@
 
 	YUI().use('charts-legend', function (Y) {
 		Y.Get.js("/viewer/data.js", function (err) {
-			Y.one('#title').setContent(chart.meta.component + ": " + chart.meta.title);
+			Y.one('#name').setContent(chart.meta.component + ": " + chart.meta.name);
 
 			new Y.Chart({
 				height: 500,
@@ -14,6 +14,11 @@
 				render: "#chart", 
 				legend: {
 					position: "right"
+				},
+				axes: {
+					values : {
+						// alwaysShowZero: false
+					}
 				}
 			});
 		});
@@ -21,5 +26,5 @@
 
 </script>
 
-<h1 id="title"></h1>
+<h1 id="name"></h1>
 <div id="chart"></div>
