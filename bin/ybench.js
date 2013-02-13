@@ -26,7 +26,14 @@ if (!options.source || !fs.existsSync(path.join(options.source))) {
 }
 
 // Develop the task list
-tasks.push('yui3');
+
+if (options.v340) {
+	tasks.push('3.4.0');
+}
+
+if (options.v350) {
+	tasks.push('3.5.0');
+}
 
 if (options.v360) {
 	tasks.push('3.6.0');
@@ -40,6 +47,7 @@ if (options.v380) {
 	tasks.push('3.8.0');
 }
 
+tasks.push('yui3');
 tasks.push('end');
 
 // Generate the yBench config and execute
