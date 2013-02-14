@@ -27,7 +27,6 @@ if (!options.source || !fs.existsSync(path.join(options.source))) {
 }
 
 // Develop the task list
-
 if (options.v340) {
 	tasks.push('3.4.0');
 }
@@ -53,13 +52,13 @@ tasks.push('yui3');
 console.log('\nTask list:', tasks, '\n');
 
 // This will be cleaned up later
-global.tasks = tasks;
-global.port = options.port || 3000;
-global.source = options.source;
 global.yuipath = options.yuipath;
 global.outputPath = options.output;
-global.phantomjs = options.phantomjs;
-global.yuiBenchPath = path.join(__dirname, '../');
 global.results = [];
 
-require('../lib/app.js')();
+require('../lib/app.js')({
+	tasks: tasks,
+	port: options.port || 3000,
+	source: options.source,
+	phantomjs: options.phantomjs || false
+});
