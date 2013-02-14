@@ -9,7 +9,8 @@
         "microtime": "*",
         "node-phantom": "*",
         "mime": "*",
-        "yeti": "*"
+        "yeti": "*",
+        "useragent": "*"
     },
     "bin": {
         "ybench": "./bin/yui-bench.js"
