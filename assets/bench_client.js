@@ -1,15 +1,5 @@
 YUI.add('bench', function (Y, NAME) {
 
-    function getUA () {
-        var ua = null;
-        Y.each(Y.UA, function(v, k) {
-            if (!Y.Lang.isFunction(v) && v && Y.Lang.isNumber(v)) {
-                ua = k + " " + v;
-            }
-        });
-        return ua;
-    }
-
     function Bench(config) {
         var self = this;
         
@@ -19,7 +9,6 @@ YUI.add('bench', function (Y, NAME) {
         this.component = config.component;
         this.name = config.name;
         this.yuiVersion = YUI.version;
-        this.UA = getUA();
 
         if (config.constructor) {
             if (config.constructor === Benchmark.Suite) {
@@ -49,7 +38,6 @@ YUI.add('bench', function (Y, NAME) {
             component: self.component,
             name: self.name,
             yuiVersion: self.yuiVersion,
-            UA: self.UA,
             value: val,
             stats: stats
         });
