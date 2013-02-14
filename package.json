@@ -1,6 +1,6 @@
 {
-    "name": "ybench",
-    "version": "0.0.2",
+    "name": "yui-bench",
+    "version": "0.0.3",
     "engines": { "node": ">=0.4.0" },
     "dependencies": {
         "express": "*",
@@ -13,6 +13,6 @@
         "yeti": "*"
     },
     "bin": {
-        "ybench": "./bin/ybench.js"
+        "ybench": "./bin/yui-bench.js"
     }
 }

@@ -59,7 +59,7 @@ global.source = options.source;
 global.yuipath = options.yuipath;
 global.outputPath = options.output;
 global.phantomjs = options.phantomjs;
-global.ybenchpath = path.join(__dirname, '../');
+global.yuiBenchPath = path.join(__dirname, '../');
 global.results = [];
 
 require('../lib/app.js')();
