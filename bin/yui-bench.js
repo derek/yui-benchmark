@@ -54,7 +54,7 @@ console.log('\nTask list:', tasks, '\n');
 // This will be cleaned up later
 global.yuipath = options.yuipath;
 global.outputPath = options.output;
-global.results = [];
+global.results = {};
 
 require('../lib/app.js')({
 	tasks: tasks,
