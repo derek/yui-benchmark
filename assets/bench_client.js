@@ -1,6 +1,4 @@
-YUI.add('ybench', function (Y, NAME) {
-
-    var Bench;
+YUI.add('bench', function (Y, NAME) {
 
     function getUA () {
         var ua = null;
@@ -12,11 +10,11 @@ YUI.add('ybench', function (Y, NAME) {
         return ua;
     }
 
-    function YBench(config) {
+    function Bench(config) {
         var self = this;
         
         // Set a global for Yeti detection
-        Y.config.win.YBench = this;
+        Y.config.win.YUIBench = this;
 
         this.component = config.component;
         this.name = config.name;
@@ -43,7 +41,7 @@ YUI.add('ybench', function (Y, NAME) {
         }
     }
 
-    YBench.prototype.setValue = function (val, stats) {
+    Bench.prototype.setValue = function (val, stats) {
         var self = this,
             stats = stats || {};
             
@@ -55,22 +53,22 @@ YUI.add('ybench', function (Y, NAME) {
             value: val,
             stats: stats
         });
-    }
+    };
 
-    YBench.prototype.go = function () {
-        Bench.run({async:true});
-    }
+    Bench.prototype.go = function () {
+        this.run({async:true});
+    };
 
-    YBench.prototype._sendResult = function (results) {
+    Bench.prototype._sendResult = function (results) {
         // TODO: Figure out a way to not have this be delayed
-        Y.later(1000, Y.config.win.YBench, function () {
-            this.fire('ybenchResult', {
+        Y.later(1000, Y.config.win.YUIBench, function () {
+            this.fire('result', {
                 results: results
             });
         });
-    }
+    };
 
-    Y.augment(YBench, Y.EventTarget);
+    Y.augment(Bench, Y.EventTarget);
     
-    Y.Bench = YBench;
+    Y.Bench = Bench;
 });
