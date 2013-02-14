@@ -7,7 +7,6 @@
         "nopt": "*",
         "benchmark": "*",
         "microtime": "*",
-        "JSON2": "*",
         "node-phantom": "*",
         "mime": "*",
         "yeti": "*"
