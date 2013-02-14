@@ -4,7 +4,7 @@
 <script>
 
 	YUI().use('charts-legend', function (Y) {
-		Y.Get.js("/viewer/data.js", function (err) {
+		Y.Get.js("/results/data.js", function (err) {
 			Y.one('#name').setContent(chart.meta.component + ": " + chart.meta.name);
 
 			new Y.Chart({
