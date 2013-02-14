@@ -3,6 +3,7 @@
 // Import required modules
 var path = require("path"),
 	nopt = require("nopt"),
+	yeti = require("yeti"),
 	fs = require("fs"),
     pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8')),
     version = pack.version,
@@ -49,7 +50,7 @@ if (options.v380) {
 
 tasks.push('yui3');
 
-console.log('Task list:', tasks, '\n');
+console.log('\nTask list:', tasks, '\n');
 
 // This will be cleaned up later
 global.tasks = tasks;

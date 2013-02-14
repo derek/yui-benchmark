@@ -9,7 +9,8 @@
         "microtime": "*",
         "JSON2": "*",
         "node-phantom": "*",
-        "mime": "*"
+        "mime": "*",
+        "yeti": "*"
     },
     "bin": {
         "ybench": "./bin/ybench.js"

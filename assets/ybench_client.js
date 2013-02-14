@@ -14,6 +14,9 @@ YUI.add('ybench', function (Y, NAME) {
 
     function YBench(config) {
         var self = this;
+        
+        // Set a global for Yeti detection
+        Y.config.win.YBench = this;
 
         this.component = config.component;
         this.name = config.name;
@@ -58,11 +61,16 @@ YUI.add('ybench', function (Y, NAME) {
         Bench.run({async:true});
     }
 
-    YBench.prototype._sendResult = function (result) {
-        xhr("/write", function (err, data, xhr){
-            window.location = JSON.parse(data).location;
-        }, 'POST', 'result=' + JSON.stringify(result));
+    YBench.prototype._sendResult = function (results) {
+        // TODO: Figure out a way to not have this be delayed
+        Y.later(1000, Y.config.win.YBench, function () {
+            this.fire('ybenchResult', {
+                results: results
+            });
+        });
     }
 
+    Y.augment(YBench, Y.EventTarget);
+    
     Y.Bench = YBench;
 });
