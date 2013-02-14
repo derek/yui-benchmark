@@ -16,6 +16,7 @@ page.open(path, function (status) {
     }
 });
 
-// page.onConsoleMessage = function(msg) {
-//     phantom.exit();
-// };
+page.onConsoleMessage = function(msg) {
+	console.log(msg);
+    phantom.exit();
+};

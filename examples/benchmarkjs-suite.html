@@ -14,15 +14,16 @@
             name: 'Create and destroy',
             constructor: Benchmark.Suite
         });
-
-
+        
         bench.benchmark.add(function () {
             scrollview = new Y.ScrollView({
                 render: container
             });
             scrollview.destroy();
         });
+        
         bench.benchmark.run();
+
     });
 
 </script>
