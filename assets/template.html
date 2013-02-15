@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="{{yuiBase}}/build/yui/yui-min.js"></script>
+		<script src="{{seedBase}}/build/yui/yui-min.js"></script>
 		<script src="/assets/bench_client.js"></script>
 		<script src="/yeti/public/inject.js"></script>
 		<script src="/benchmark.js"></script>
+		<script>
+			YUI_BENCH_TASKID = "{{taskID}}";
+		</script>
 		<style>
 			#chart {
 				height:85%;
