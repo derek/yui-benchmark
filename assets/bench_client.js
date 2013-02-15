@@ -8,7 +8,6 @@ YUI.add('bench', function (Y, NAME) {
 
         this.component = config.component;
         this.name = config.name;
-        this.yuiVersion = YUI.version;
 
         if (config.constructor) {
             if (config.constructor === Benchmark.Suite) {
@@ -35,9 +34,9 @@ YUI.add('bench', function (Y, NAME) {
             stats = stats || {};
             
         self._sendResult({
+            taskID: YUI_BENCH_TASKID,
             component: self.component,
             name: self.name,
-            yuiVersion: self.yuiVersion,
             value: val,
             stats: stats
         });

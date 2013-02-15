@@ -10,7 +10,10 @@
         "node-phantom": "*",
         "mime": "*",
         "yeti": "*",
-        "useragent": "*"
+        "useragent": "*",
+        "osenv": "*",
+        "async": "*",
+        "async": "*"
     },
     "bin": {
         "ybench": "./bin/yui-bench.js"

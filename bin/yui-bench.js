@@ -4,6 +4,8 @@
 var path = require("path"),
 	nopt = require("nopt"),
 	yeti = require("yeti"),
+    osenv = require('osenv'),
+    Task = require('../lib/task').Task,
 	fs = require("fs"),
     pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8')),
     version = pack.version,
@@ -12,7 +14,8 @@ var path = require("path"),
 		"yuipath" : path, 
 		"output" : path
 	}, {}, process.argv, 2),
-	tasks = [],
+	tasks = {},
+	refs = options.ref || [],
 	config;
 
 // Make sure some important files exist
@@ -26,38 +29,36 @@ if (!options.source || !fs.existsSync(path.join(options.source))) {
 	return false;
 }
 
-// Develop the task list
-if (options.v340) {
-	tasks.push('3.4.0');
+tmpRoot = osenv.tmpdir();
+
+if (!fs.existsSync(tmpRoot)) {
+    fs.mkdirSync(tmpRoot);
 }
 
-if (options.v350) {
-	tasks.push('3.5.0');
+// Normalize it as an array
+if (!refs.push) {
+	refs = [refs]
 }
 
-if (options.v360) {
-	tasks.push('3.6.0');
+function getRandomID() {
+	return Math.floor((Math.random()*1000000)+1)
 }
 
-if (options.v370) {
-	tasks.push('3.7.0');
-}
+refs.forEach(function (ref) {
+	var id = getRandomID();
+	tasks[id] = new Task({ id: id, ref: ref, tmpRoot: tmpRoot});
+});
 
-if (options.v380) {
-	tasks.push('3.8.0');
-}
-
-tasks.push('yui3');
-
-console.log('\nTask list:', tasks, '\n');
+// var id = getRandomID();
+// tasks[id] = new Task({ id: id, ref: 'HEAD', tmpRoot: tmpRoot});
 
 // This will be cleaned up later
-global.yuipath = options.yuipath;
+global.yuiPath = options.yuipath;
 global.outputPath = options.output;
 global.results = {};
+global.tasks = tasks;
 
 require('../lib/app.js')({
-	tasks: tasks,
 	port: options.port || 3000,
 	source: options.source,
 	phantomjs: options.phantomjs || false
