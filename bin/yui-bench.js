@@ -12,8 +12,7 @@ var path = require("path"),
 	options = require("../lib/opts"),
 	Task = require('../lib/task'),
 	pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8')),
-	version = pack.version,
-	refs = options.ref;
+	version = pack.version;
 	
 // Make sure some important files exist
 if (!options.yuipath || !fs.existsSync(path.join(options.yuipath, 'build/yui/yui.js'))) {
@@ -26,14 +25,4 @@ if (!options.source || !fs.existsSync(path.join(options.source))) {
 	return false;
 }
 
-refs.forEach(function (ref) {
-	new Task.create({ ref: ref});
-});
-
-// new Task({ ref: 'HEAD', tmpRoot: tmpRoot});
-
-require('../lib/app.js')({
-	port: options.port || 3000,
-	source: options.source,
-	phantomjs: options.phantomjs || false
-});
+require('../lib/app.js')();
