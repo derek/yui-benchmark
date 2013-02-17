@@ -7,7 +7,7 @@
         "nopt": "*",
         "benchmark": "*",
         "microtime": "*",
-        "node-phantom": "*",
+        "win-spawn": "*",
         "mime": "*",
         "yeti": "*",
         "useragent": "*",
