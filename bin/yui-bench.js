@@ -9,10 +9,7 @@ http://yuilibrary.com/license/
 // Import required modules
 var path = require("path"),
 	fs = require("fs"),
-	options = require("../lib/opts"),
-	Task = require('../lib/task'),
-	pack = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8')),
-	version = pack.version;
+	options = require("../lib/opts");
 	
 // Make sure some important files exist
 if (!options.yuipath || !fs.existsSync(path.join(options.yuipath, 'build/yui/yui.js'))) {
