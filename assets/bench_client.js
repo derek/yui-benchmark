@@ -41,6 +41,7 @@ YUI.add('bench', function (Y, NAME) {
             
         self._sendResult({
             taskID: YUI_BENCH_TASKID,
+            ref: YUI_BENCH_REF,
             component: self.component,
             name: self.name,
             value: val,
