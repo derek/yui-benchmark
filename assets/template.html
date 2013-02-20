@@ -3,24 +3,18 @@
 	<head>
 		<script src="{{seedBase}}/build/yui/yui-min.js"></script>
 		<script src="/assets/bench_client.js"></script>
-		<script src="/yeti/public/inject.js"></script>
 		<script src="/benchmark.js"></script>
 		<script>
 			YUI_BENCH_TASKID = "{{taskID}}";
 			YUI_BENCH_REF = "{{ref}}";
 		</script>
 		<style>
-			#chart {
-				height:85%;
-				width:95%;
-			}
+			{{css}}
 		</style>
-
+		{{head}}
 	</head>
 
 	<body class="yui3-skin-sam">
-		
 		{{body}}
-
 	</body>
 </html>
