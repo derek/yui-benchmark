@@ -59,6 +59,11 @@ YUI.add('bench', function (Y, NAME) {
             this.fire('result', {
                 results: results
             });
+
+            // Figure out a cleaner way. Is there a Yeti event?
+            Y.later(500, null, function () {
+                console.log('phantomjs:exit');
+            })
         });
     };
 
