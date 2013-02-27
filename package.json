@@ -13,7 +13,8 @@
         "useragent": "*",
         "osenv": "*",
         "async": "*",
-        "async": "*"
+        "async": "*",
+        "ansi-color": "*"
     },
     "bin": {
         "ybench": "./bin/yui-bench.js"
