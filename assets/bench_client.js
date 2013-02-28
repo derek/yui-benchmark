@@ -11,49 +11,56 @@ YUI.add('bench', function (Y, NAME) {
         
         // Set a global for Yeti detection
         Y.config.win.YUIBench = this;
-
-        this.component = config.component;
-        this.name = config.name;
+        this.config = config;
+        this.results = [];
 
         if (config.constructor) {
             if (config.constructor === Benchmark.Suite) {
-                this.benchmark = new config.constructor(config);
+                this.benchmarkjs = new config.constructor(config);
             }
             else if (config.constructor === Benchmark) {
-                this.benchmark = new config.constructor(config);
+                this.benchmarkjs = new config.constructor(config);
             }
             else if (config.constructor === Benchmark.Deferred) {
-                this.benchmark = new config.constructor(config);
+                this.benchmarkjs = new config.constructor(config);
             }
         }
 
-        if (this.benchmark) {
-            this.benchmark.on('complete', function () {
-                var results = this[0];
-                self.setValue(results.hz, results.stats);
+        if (this.benchmarkjs) {
+            this.benchmarkjs.on('complete', function () {
+
+                for(var i = 0; i < this.length; i++) {
+                    self.results.push({
+                        taskID: YUI_BENCH_TASKID,
+                        ref: YUI_BENCH_REF,
+                        component: self.config.component,
+                        name: this[i].name,
+                        // stats: this[i].stats,
+                        value: this[i].hz
+                    });
+                }
+
+                self._sendResult(self.results);
             });
         }
     }
 
-    Bench.prototype.setValue = function (val, stats) {
-        var self = this,
-            stats = stats || {};
+    // Bench.prototype.setValue = function (val, stats) {
+    //     var self = this,
+    //         stats = stats || {};
             
-        self._sendResult({
-            taskID: YUI_BENCH_TASKID,
-            ref: YUI_BENCH_REF,
-            component: self.component,
-            name: self.name,
-            value: val,
-            stats: stats
-        });
-    };
-
-    Bench.prototype.go = function () {
-        this.run({async:true});
-    };
+    //     self._sendResult({
+    //         taskID: YUI_BENCH_TASKID,
+    //         ref: YUI_BENCH_REF,
+    //         component: self.component,
+    //         name: self.name,
+    //         value: val,
+    //         stats: stats
+    //     });
+    // };
 
     Bench.prototype._sendResult = function (results) {
+
         // TODO: Figure out a way to not have this be delayed
         Y.later(1000, Y.config.win.YUIBench, function () {
             this.fire('result', {
@@ -69,5 +76,5 @@ YUI.add('bench', function (Y, NAME) {
 
     Y.augment(Bench, Y.EventTarget);
     
-    Y.Bench = Bench;
+    Y.BenchmarkTest = Bench;
 });
