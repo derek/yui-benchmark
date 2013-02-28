@@ -8,21 +8,22 @@
 
         container.id = "container";
         document.body.appendChild(container);
-
-        bench = new Y.Bench({
+        
+        var bench = new Y.BenchmarkTest({
             component: 'ScrollView',
-            name: 'Create and destroy',
             constructor: Benchmark.Suite
         });
-        
-        bench.benchmark.add(function () {
+
+        var suite = bench.benchmarkjs;
+
+        suite.add('Create', function () {
             scrollview = new Y.ScrollView({
                 render: container
             });
             scrollview.destroy();
         });
         
-        bench.benchmark.run();
+        suite.run();
 
     });
 
