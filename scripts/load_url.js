@@ -23,9 +23,5 @@ page.open(path, function (status) {
 });
 
 page.onConsoleMessage = function(msg) {
-	console.log(msg);
-
-	if (msg === 'phantomjs:exit') {
-	    phantom.exit();	
-	}
+	console.log('phantom.js: ' + msg);
 };
