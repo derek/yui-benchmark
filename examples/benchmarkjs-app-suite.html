@@ -1,13 +1,8 @@
 <script type="text/javascript" charset="utf-8">
 
-	YUI().use('app', 'bench', function (Y) {
+	YUI().use('app', 'benchmark', function (Y) {
 
-        var bench = new Y.BenchmarkTest({
-            component: 'App',
-            constructor: Benchmark.Suite
-        });
-
-        var suite = bench.benchmarkjs;
+		var suite = new Benchmark.Suite();
 
 		// -- Y.Model ------------------------------------------------------------------
 		suite.add('Y.Model: Instantiate a bare model', function () {
@@ -29,8 +24,9 @@
 		//         view   = new MyView();
 		// });
 
+        Y.Benchmark.addTest(suite);
+        
         suite.run(true);
-
 	});
 
 </script>
