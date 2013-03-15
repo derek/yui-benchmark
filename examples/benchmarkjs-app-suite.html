@@ -3,7 +3,8 @@
 	YUI().use('app', 'benchmark', function (Y) {
 
 		var suite = new Benchmark.Suite();
-
+        Y.Benchmark.addTest(suite);
+        
 		// -- Y.Model ------------------------------------------------------------------
 		suite.add('Y.Model: Instantiate a bare model', function () {
 		    var model = new Y.Model();
@@ -24,8 +25,6 @@
 		//         view   = new MyView();
 		// });
 
-        Y.Benchmark.addTest(suite);
-        
         suite.run(true);
 	});
 

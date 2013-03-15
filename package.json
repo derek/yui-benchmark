@@ -17,6 +17,6 @@
         "ansi-color": "*"
     },
     "bin": {
-        "ybench": "./bin/yui-bench.js"
+        "yui-bench": "./bin/yui-bench.js"
     }
 }

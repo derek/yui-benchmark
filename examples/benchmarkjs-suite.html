@@ -1,6 +1,6 @@
 <script type="text/javascript" charset="utf-8">
 
-    YUI().use('scrollview-base', 'bench', function (Y) {
+    YUI().use('scrollview-base', 'benchmark', function (Y) {
 
         var container = document.createElement('div'),
             bench,
@@ -9,12 +9,8 @@
         container.id = "container";
         document.body.appendChild(container);
         
-        var bench = new Y.BenchmarkTest({
-            component: 'ScrollView',
-            constructor: Benchmark.Suite
-        });
-
-        var suite = bench.benchmarkjs;
+        var suite = new Benchmark.Suite();
+        Y.Benchmark.addTest(suite);
 
         suite.add('Create', function () {
             scrollview = new Y.ScrollView({

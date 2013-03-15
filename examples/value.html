@@ -5,12 +5,7 @@
 </style>
 
 <script type="text/javascript" charset="utf-8">
-YUI().use('scrollview', 'node-event-simulate', 'bench', function(Y) {
-
-    var bench = new Y.Bench({
-        component: 'ScrollView',
-        name: 'FPS'
-    });
+YUI().use('scrollview', 'node-event-simulate', 'benchmark', function(Y) {
 
     var start = Y.one('#start'),
         timeStart = 0,
@@ -35,7 +30,7 @@ YUI().use('scrollview', 'node-event-simulate', 'bench', function(Y) {
         var fps = frameCount / ((Y.Lang.now() - timeStart) / 1000),
             fps = fps.toFixed(2);
 
-        bench.setValue(fps);
+        Y.Benchmark.submitValue(fps);
     }
 
     scrollview.after('scrollEnd', onScrollEnd);
