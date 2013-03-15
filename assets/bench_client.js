@@ -22,8 +22,11 @@ YUI.add('benchmark', function (Y, NAME) {
                 test.on('complete', onComplete);
             }
             else {
-                // Some other type?
+                // Something else?
             }
+        },
+        submitValue: function (val) {
+            console.log('I got' + val);
         }
     }
 
