@@ -10,10 +10,11 @@ In order to use `yui-benchmark`, you will first need to clone this repository an
 At this point, you have everything you need to gather raw JSON dumps of performance tests.  You can test it out by running
 
 ```
-yui-bench --yuipath=/path/to/yui --iterations=1 --source=tests/benchmark/scrollview-benchmark.html --phantomjs=true --json=true --ref=v3.6.0 --ref=v3.7.0 --ref=HEAD
+yui-bench --yuipath=/path/to/yui --iterations=1 --source=tests/benchmark/scrollview-benchmark.html --phantomjs=true --json=true --ref=v3.8.0 --ref=v3.9.0 --ref=HEAD
 ```
 
 Additionally, you can use via [Yogi](https://github.com/yui/yogi) by simply typing `yogi bench` from without your component's directory, and it will execute any tests found in your local `tests/benchmark/` directory.  For this functionality, you will also need a patched version of Yogi, which you can find [this repo](https://github.com/derek/yogi/).  Clone, and execute `sudo npm install -g`.
+
 
 Options
 ---
