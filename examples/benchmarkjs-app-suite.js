@@ -1,7 +1,7 @@
 YUI().use('app', 'benchmark', function (Y) {
 
 	var suite = new Benchmark.Suite();
-	`
+	
     Y.Benchmark.addTest(suite);
     
 	// -- Y.Model ------------------------------------------------------------------

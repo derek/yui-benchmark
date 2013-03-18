@@ -14,7 +14,8 @@
         "osenv": "*",
         "async": "*",
         "async": "*",
-        "ansi-color": "*"
+        "ansi-color": "*",
+        "cli-table": "*"
     },
     "bin": {
         "yui-bench": "./bin/yui-bench.js"
