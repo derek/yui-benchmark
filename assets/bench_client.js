@@ -5,6 +5,8 @@ http://yuilibrary.com/license/
 */
 
 YUI.add('benchmark', function (Y, NAME) {
+    
+    var results = [];
 
     function YUIBench () { /* Nothing, for now */}
 
@@ -14,42 +16,43 @@ YUI.add('benchmark', function (Y, NAME) {
     Y.config.win.YUIBench = new YUIBench();
 
     Y.Benchmark = {
+        submitValue: function (name, value) {
+            addResult({
+                name: name,
+                value: value
+            });
+
+            _sendResult();
+        },
         addTest: function (test) {
             if (test instanceof Benchmark ||
                 test instanceof Benchmark.Suite || 
                 test instanceof Benchmark.Deferred) 
             {
-                test.on('complete', onComplete);
+                test.on('complete', function () {
+                    for(var i = 0; i < test.length; i++) {
+                        addResult({
+                            name: this[i].name,
+                            value: this[i].hz
+                        });
+                    }
+
+                    _sendResult();
+                });
             }
             else {
                 // Something else?
             }
-        },
-        submitValue: function (val) {
-            console.log('I got' + val);
         }
     }
 
-    function onComplete () {
-        var test = this,
-            results = [],
-            i;
-        
-        for(i = 0; i < test.length; i++) {
-            results.push({
-                taskID: YUI_BENCH_TASKID,
-                ref: YUI_BENCH_REF,
-                name: test[i].name,
-                // component: config.component,
-                // stats: this[i].stats,
-                value: test[i].hz
-            });
-        }
-
-        _sendResult(results);
+    function addResult (result) {
+        result.taskID = YUI_BENCH_TASKID;
+        result.ref = YUI_BENCH_REF;
+        results.push(result);
     }
 
-    function _sendResult (results) {
+    function _sendResult () {
         // TODO: Figure out a way to not have this be delayed
         Y.later(1000, Y.config.win.YUIBench, function () {
             this.fire('complete', {results: results});
