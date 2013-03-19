@@ -1,5 +1,5 @@
 {
-    "name": "yui-bench",
+    "name": "yui-benchmark",
     "version": "0.0.5",
     "engines": { "node": ">=0.4.0" },
     "dependencies": {
@@ -9,15 +9,13 @@
         "microtime": "*",
         "win-spawn": "*",
         "mime": "*",
-        "yeti": "*",
         "useragent": "*",
         "osenv": "*",
-        "async": "*",
         "async": "*",
         "ansi-color": "*",
         "cli-table": "*"
     },
     "bin": {
-        "yui-bench": "./bin/yui-bench.js"
+        "yui-benchmark": "./bin/yui-benchmark.js"
     }
 }
