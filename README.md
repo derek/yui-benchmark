@@ -7,12 +7,8 @@ How
 ---
 Installing `yui-benchmark` is pretty simple, you just need a patched version of Yeti for the time being.  Here are instructions for installing it on an OSX machine.
 
-	git clone git@git.corp.yahoo.com:drg/yui-benchmark.git;
-	git clone git://github.com/derek/yeti.git;
-
-	cd yeti
-	git checkout benchmark
-	cd ..
+	git clone git@git.corp.yahoo.com:drg/yui-benchmark.git
+	git clone -b benchmark git://github.com/derek/yeti.git
 	cd yui-benchmark
 	sudo npm link
 	sudo npm link ../yeti
