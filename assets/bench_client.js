@@ -33,7 +33,8 @@ YUI.add('benchmark', function (Y, NAME) {
                     for(var i = 0; i < test.length; i++) {
                         addResult({
                             name: this[i].name,
-                            value: this[i].hz
+                            value: this[i].hz,
+                            stats: this[i].stats
                         });
                     }
 
