@@ -1,20 +1,65 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="{{seedBase}}/build/yui/yui-min.js"></script>
-		<script src="/assets/bench_client.js"></script>
 		<script src="/benchmark.js"></script>
 		<script>
-			YUI_BENCH_TASKID = "{{taskID}}";
-			YUI_BENCH_REF = "{{ref}}";
+
+		var seedCount = 3;
+	    var instanceCount = 0;
+	    var suite = new Benchmark.Suite();
+	    
+		function registerInstance(YUI, obj) {
+			console.log(YUI.sha + ': registerInstance');
+			var Y = YUI({
+				base: "http://localhost:3000/yui3/" + obj.replace('YUI', '') + "/" + YUI.ref + "/build/",
+				filter: 'raw',
+	    		modules: {'app-benchmark-test' : { fullpath : '/test/' + obj + '/test.js' }}
+	    	});
+
+			Y.Benchmark = {
+				suite: suite,
+				sha: YUI.sha,
+    			ref: YUI.ref
+			}
+
+	    	Y.use('app-benchmark-test', function (Y) {
+	    		console.log(Y.Benchmark.sha + ': use');
+				instanceCount++;
+
+				if (instanceCount === seedCount) {
+					ready();
+				}
+	    	});
+		}
+
+		function ready() {
+			console.log('ready');
+			console.log(suite);
+			suite.on('cycle', function(event) {
+				console.log('cycle');
+			})
+			suite.on('complete', function() {
+				console.log(this);
+				console.log('Fastest is ' + this.filter('fastest').pluck('name'));
+			});
+
+			suite.on('error', function () {
+				console.log(arguments);
+			})
+			suite.on('abort', function () {
+				console.log('onAbort');
+			})
+			suite.on('reset', function () {
+				console.log('onReset');
+			})
+			suite.run();
+		}
+
 		</script>
-		<style>
-			{{css}}
-		</style>
-		{{head}}
+		<script src="/yui3/3/HEAD~1/build/yui/yui.js"></script>
+		<script src="/yui3/1/HEAD/build/yui/yui.js"></script>
+		<script src="/yui3/2/WIP/build/yui/yui.js"></script>
 	</head>
 
-	<body class="yui3-skin-sam">
-		{{body}}
-	</body>
+	<body class="yui3-skin-sam"></body>
 </html>
