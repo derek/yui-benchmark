@@ -4,32 +4,32 @@
 		<script src="/benchmark.js"></script>
 		<script>
 
-		var seedCount = 3;
+		var seedCount = {{seedCount}};
 	    var instanceCount = 0;
 	    var suite = new Benchmark.Suite();
 	    
-		function registerInstance(YUI, obj) {
-			console.log(YUI.sha + ': registerInstance');
+		function registerInstance(YUI, modulePath) {
+			console.log(YUI.seedBase + ': registerInstance');
 			var Y = YUI({
-				base: "http://localhost:3000/yui3/" + obj.replace('YUI', '') + "/" + YUI.ref + "/build/",
+				base: YUI.seedBase + "/build/",
 				filter: 'raw',
-	    		modules: {'app-benchmark-test' : { fullpath : '/test/' + obj + '/test.js' }}
+	    		modules: {'app-benchmark-test' : { fullpath : modulePath }}
 	    	});
 
 			Y.Benchmark = {
 				suite: suite,
 				sha: YUI.sha,
-    			ref: YUI.ref
+				ref: YUI.ref
 			}
 
-	    	Y.use('app-benchmark-test', function (Y) {
-	    		console.log(Y.Benchmark.sha + ': use');
+			Y.use('app-benchmark-test', function (Y) {
+				console.log(Y.Benchmark.sha + ': use');
 				instanceCount++;
 
 				if (instanceCount === seedCount) {
 					ready();
 				}
-	    	});
+			});
 		}
 
 		function ready() {
@@ -56,9 +56,7 @@
 		}
 
 		</script>
-		<script src="/yui3/3/HEAD~1/build/yui/yui.js"></script>
-		<script src="/yui3/1/HEAD/build/yui/yui.js"></script>
-		<script src="/yui3/2/WIP/build/yui/yui.js"></script>
+		{{head}}
 	</head>
 
 	<body class="yui3-skin-sam"></body>
