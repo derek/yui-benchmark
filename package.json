@@ -13,7 +13,8 @@
         "osenv": "0.0.3",
         "async": "0.2.6",
         "ansi-color": "0.2.1",
-        "cli-table": "0.2.0"
+        "cli-table": "0.2.0",
+        "yeti": "https://github.com/derek/yeti/tarball/benchmark"
     },
     "bin": {
         "yui-benchmark": "./bin/yui-benchmark.js"
