@@ -9,10 +9,13 @@
 		var seedCount = {{seedCount}},
 			instanceCount = 0,
 			suite = new Benchmark.Suite(),
-			results = [];
+			results = [],
+			testsAdded = 0,
+			testsCompleted = 0;
 
 		suite._add = suite.add;
 		suite.add = function (config) {
+			testsAdded++;
 			var benchmark = config.Y.Benchmark;
 			// config.name = config.name + ' (' + config.Y.Benchmark.sha + ')';
 			config.ref = benchmark.ref;
@@ -24,6 +27,7 @@
 		}
 
         suite.on('complete', function () {
+			console.log('complete');
 			// console.log('Fastest is ' + this.filter('fastest').pluck('name'));
             for(var i = 0; i < this.length; i++) {
                 addResult({
@@ -38,8 +42,11 @@
             }
             _sendResult();
         });
+		suite.on('start', function(event) {
+			console.log('start');
+		});
 		suite.on('cycle', function(event) {
-			console.log('cycle');
+			console.log('Cycle');
 		});
 		suite.on('error', function () {
 			// console.log('error');
@@ -92,7 +99,9 @@
 				instanceCount++;
 
 				if (instanceCount === seedCount) {
-					ready();
+					document.getElementById('testCount').innerHTML = testsAdded;
+					document.getElementById('seconds').innerHTML = testsAdded * 10;
+					setTimeout(ready, 500);
 				}
 			});
 		}
@@ -119,5 +128,8 @@
 		{{head}}
 	</head>
 
-	<body class="yui3-skin-sam"></body>
+	<body class="yui3-skin-sam">
+		<h1>YUI Benchmark</h1>
+		<p><span id="testCount"></span> test(s) found, so I estimate this should take about <span id="seconds"></span> second(s).  Patience!</p>
+	</body>
 </html>
