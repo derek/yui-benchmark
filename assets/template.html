@@ -86,7 +86,7 @@
 			}
 
 			YUI_instance.use(name, function (Y) {
-				if (Y.Benchmark.sha == 'WIP') {
+				if (!window.Y) {
 					// Todo: Find a better wayleak a Y
 					window.Y = Y;
 				    function YUIBench () { /* Nothing, for now */}
