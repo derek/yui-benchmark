@@ -3,89 +3,52 @@
 	<head>
 		<script src="/benchmark.js"></script>
 		<script>
-		
-		YUI_BENCH_TASKID = "{{taskID}}";
 
 		var seedCount = {{seedCount}},
 			instanceCount = 0,
 			suite = new Benchmark.Suite(),
-			results = [],
-			testsAdded = 0,
-			testsCompleted = 0;
-
-		suite._add = suite.add;
-		suite.add = function (config) {
-			testsAdded++;
-			var benchmark = config.Y.Benchmark;
-			// config.name = config.name + ' (' + config.Y.Benchmark.sha + ')';
-			config.ref = benchmark.ref;
-			config.sha = benchmark.sha;
-			config.testID = benchmark.testID;
-			config.taskID = benchmark.taskID;
-			delete config.Y;
-			suite._add(config);
-		}
-
-        suite.on('complete', function () {
-			console.log('complete');
-			// console.log('Fastest is ' + this.filter('fastest').pluck('name'));
-            for(var i = 0; i < this.length; i++) {
-                addResult({
-                    name: this[i].name,
-                    value: this[i].hz,
-                    stats: this[i].stats,
-                    ref: this[i].ref,
-                    sha: this[i].sha,
-                    testID: this[i].testID,
-                    taskID: this[i].taskID,
-                });
-            }
-            _sendResult();
-        });
-		suite.on('start', function(event) {
-			console.log('start');
-		});
-		suite.on('cycle', function(event) {
-			console.log('Cycle');
-		});
-		suite.on('error', function () {
-			// console.log('error');
-		});
-		suite.on('abort', function () {
-			// console.log('abort');
-		});
-		suite.on('reset', function () {
-			// console.log('reset');
-		});
+			results = [];
 
 		function registerInstance(YUI, data) {
 				
 			console.log(YUI.seedBase + ': registerInstance');
 
-			var modulePath = data.modulePath,
-				name = data.name,
-				taskID = data.taskID,
-				testID = data.testID,
-				YUI_instance,
+			var testModulePath = data.modulePath,
+				testModuleName = data.name,
 				config = {
 					base: YUI.seedBase + "/build/",
 					filter: 'raw',
 					modules: {}
-				};
+				},
+				YUIinstance;
 
-			config.modules[name] = { fullpath : modulePath };
-			
-			YUI_instance = new YUI(config);
+			YUI.add('benchmark', function YBenchmark (Y, NAME) {
+		    	Y.BenchmarkSuite = {
+	    			add: function () {
+	    				suite.add.apply(suite, arguments);
+	    				var test = suite.shift();
+	    				test.sha = Y.BenchmarkData.sha;
+	    				test.ref = Y.BenchmarkData.ref;
+	    				test.taskID = Y.BenchmarkData.taskID;
+	    				test.testID = Y.BenchmarkData.testID;
+	    			}
+				}
+		    });
 
-			YUI_instance.Benchmark = {
-				suite: suite,
-				sha: YUI.sha,
-				ref: YUI.ref,
-				taskID: taskID,
-				testID: testID
-			}
+			config.modules[testModuleName] = { 
+				fullpath : testModulePath, 
+				requires: ['benchmark']
+			};
 
-			YUI_instance.use(name, function (Y) {
+			YUIinstance = new YUI(config);
+			YUIinstance.BenchmarkData = {
+	    		sha: YUI.sha,
+	    		ref: YUI.ref,
+	    		taskID: data.taskID,
+	    		testID: data.testID,
+			};
+
+			YUIinstance.use(testModuleName, function (Y) {
 				if (!window.Y) {
 					// Todo: Find a better wayleak a Y
 					window.Y = Y;
@@ -94,31 +57,52 @@
 				    // Set a global for Yeti detection
 				    Y.config.win.YUIBench = new YUIBench();
 				}
-
-				console.log(Y.Benchmark.sha + ': use');
+				console.log(Y.BenchmarkData.sha + ': use');
 				instanceCount++;
 
 				if (instanceCount === seedCount) {
-					document.getElementById('testCount').innerHTML = testsAdded;
-					document.getElementById('seconds').innerHTML = testsAdded * 10;
-					setTimeout(ready, 500);
+					document.getElementById('testCount').innerHTML = suite.length;
+					document.getElementById('seconds').innerHTML = suite.length * 10;
+					setTimeout(ready, 1);
 				}
 			});
 		}
 
 		function ready() {
 			console.log('ready');
+	        suite.on('complete', function () {
+				console.log('complete');
+	            for(var i = 0; i < this.length; i++) {
+	                addResult({
+	                    name: this[i].name,
+	                    value: this[i].hz,
+	                    stats: this[i].stats,
+	                    ref: this[i].ref,
+	                    sha: this[i].sha,
+	                    testID: this[i].testID,
+	                    taskID: this[i].taskID,
+	                });
+	            }
+	            _sendResults();
+	        });
+			suite.on('start', function(event) {
+				console.log('start');
+			});
+			suite.on('cycle', function(event) {
+				console.log('Cycle');
+			});
+
 			console.log(suite);
 			suite.run();
 		}
 
 	    function addResult (result) {
-	        result.taskID = YUI_BENCH_TASKID;
-	        console.log(result);
+	    	console.log("Added result");
+	    	console.log(result);
 	        results.push(result);
 	    }
 
-	    function _sendResult () {
+	    function _sendResults () {
 	        // TODO: Figure out a way to not have this be delayed
 	        Y.later(1000, Y.config.win.YUIBench, function () {
 	            this.fire('complete', {results: results});
