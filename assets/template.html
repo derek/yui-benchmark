@@ -10,49 +10,49 @@
             YUIBenchmark = null;
 
         // Register a YUI object 
-        function registerInstance(YUI, data) {
+        function registerYUI(YUI, data) {
 
             console.log(YUI.seedBase + ': registerInstance');
 
             var testModulePath = data.modulePath,
                 testModuleName = data.name,
-                pathToSeedBuild = YUI.seedBase + '/build/',
+                pathToSeedBuild = data.seedBase + '/build/',
                 config = {
                     filter: 'raw',
                     base: pathToSeedBuild,
                     modules: {} // Populated later
                 },
-                YUIinstance; // aka: Y
+                sha = data.sha,
+                ref = data.ref,
+                taskID = data.taskID,
+                testID = data.testID;
 
             // Adds Y.Benchmark and Y.BenchmarkSuite
             YUI.add('benchmark', moduleBenchmark);
 
             // Require the test module
             config.modules[testModuleName] = {
-                fullpath: testModulePath,
-                requires: ['benchmark']
-            };
-
-            // Create an instance of YUI
-            YUIinstance = new YUI(config);
-
-            // Store some benchmarking data on the instance
-            YUIinstance.BenchmarkData = {
-                sha: YUI.sha,
-                ref: YUI.ref,
-                taskID: data.taskID,
-                testID: data.testID
+                fullpath: testModulePath
             };
 
             // use()
-            YUIinstance.use(testModuleName, function (Y) {
+            YUI(config).use('benchmark', testModuleName, function (Y) {
+                var test;
 
                 // Set a global for Yeti detection
                 if (!Y.config.win.YUIBenchmark) {
                     Y.config.win.YUIBenchmark = new Y.Benchmark();
                 }
 
-                console.log(Y.BenchmarkData.sha + ': use');
+                while (test = Y.BenchmarkSuite.shift()) {
+                    test.sha = sha;
+                    test.ref = ref;
+                    test.testID = testID;
+                    test.taskID = taskID;
+                    suite.push(test);
+                }
+
+                console.log(sha + ': use');
                 instanceCount++;
 
                 if (instanceCount === seedCount) {
@@ -60,7 +60,7 @@
                     document.getElementById('seconds').innerHTML = suite.length * 10;
 
                     // Go to the next tick to allow the DOM updates on the last few lines
-                    setTimeout(executeTests, 1);
+                    setTimeout(executeTests, 100);
                 }
             });
         }
@@ -81,7 +81,7 @@
 
         // onComplete listener to coallate the results and fire an event that Yeti picks up
         function testsComplete() {
-            var benchmark = YUIBenchmark,
+            var benchmark = window.YUIBenchmark,
                 test;
 
             while (test = this.shift()) {
@@ -113,34 +113,14 @@
             }
             
             YBenchmark.prototype.broadcastResults = function () {
-                console.log('fire');
+                console.log('fire results');
+                console.log(this.results);
                 this.fire('results', {results: this.results});
             }
 
             Y.augment(YBenchmark, Y.EventTarget);
 
-
-            function YBenchmarkSuite() {
-                YBenchmarkSuite.superclass.constructor.apply(this, arguments);
-            }
-
-            Y.extend(YBenchmarkSuite, Benchmark.Suite, {
-                // Override Benchmark's `run` method so it doesn't execute the test suite, 
-                // but instead removes all tests and pushes them on to a global suite
-                run: function () {
-                    var test;
-                    while (test = this.shift()) {
-                        test.sha = Y.BenchmarkData.sha;
-                        test.ref = Y.BenchmarkData.ref;
-                        test.testID = Y.BenchmarkData.testID;
-                        test.taskID = Y.BenchmarkData.taskID;
-                        suite.push(test);
-                    }
-                }
-            });
-
             Y.Benchmark = YBenchmark;
-            Y.BenchmarkSuite = YBenchmarkSuite;
         }
 		</script>
 		{{head}}
