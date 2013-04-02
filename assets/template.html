@@ -3,21 +3,21 @@
 	<head>
 		<script src="/benchmark.js"></script>
 		<script>
-        var seedCount = {{seedCount}},
-            instanceCount = 0,
-            testResults = [],
+
+        var seedCount = {{seedCount}}, // How many seeds are we loading on the page?
+            instanceCount = 0, // How many seeds have been loaded on the page?
             suite = new Benchmark.Suite,
             YUIBenchmark = null;
 
         // Register a YUI object 
         function registerYUI(YUI, data) {
 
-            console.log(YUI.seedBase + ': registerInstance');
+            console.log(data.ref + ': registerInstance');
 
             var testModulePath = data.modulePath,
                 testModuleName = data.name,
                 pathToSeedBuild = data.seedBase + '/build/',
-                config = {
+                YUIConfig = {
                     filter: 'raw',
                     base: pathToSeedBuild,
                     modules: {} // Populated later
@@ -28,21 +28,15 @@
                 testID = data.testID;
 
             // Adds Y.Benchmark and Y.BenchmarkSuite
-            YUI.add('benchmark', moduleBenchmark);
+            YUI.add('benchmark', moduleBenchmark, null, {requires:['oop', 'event']});
 
             // Require the test module
-            config.modules[testModuleName] = {
+            YUIConfig.modules[testModuleName] = {
                 fullpath: testModulePath
             };
 
-            // use()
-            YUI(config).use('benchmark', testModuleName, function (Y) {
+            YUI(YUIConfig).use(testModuleName, function (Y) {
                 var test;
-
-                // Set a global for Yeti detection
-                if (!Y.config.win.YUIBenchmark) {
-                    Y.config.win.YUIBenchmark = new Y.Benchmark();
-                }
 
                 while (test = Y.BenchmarkSuite.shift()) {
                     test.sha = sha;
@@ -63,6 +57,14 @@
                     setTimeout(executeTests, 100);
                 }
             });
+
+            // Set a global for Yeti detection
+            if (!window.YUIBenchmark) {
+                window.YUIBenchmark = true; // Next line is async, so set this to something now
+                YUI().use('benchmark', function (Y) {
+                    window.YUIBenchmark = new Y.Benchmark();
+                });
+            }
         }
 
         // Assigns listeners to test suite and kicks off the run()
@@ -123,11 +125,18 @@
             Y.Benchmark = YBenchmark;
         }
 		</script>
+
+        <!-- Head -->
 		{{head}}
+        <!-- Head -->
 	</head>
 
 	<body class="yui3-skin-sam">
 		<h1>YUI Benchmark</h1>
 		<p><span id="testCount"></span> test(s) found, so I estimate this should take about <span id="seconds"></span> second(s).  Patience!</p>
+
+        <!-- Body -->
+        {{body}}
+        <!-- /Body -->
 	</body>
 </html>

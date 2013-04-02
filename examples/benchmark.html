@@ -16,9 +16,13 @@
             'benchmarkjs-suite': {
                 fullpath: 'benchmarkjs-suite.js',
                 requires: ['scrollview-base']
+            },
+            'benchmarkjs-app-suite': {
+                fullpath: 'benchmarkjs-app-suite.js',
+                requires: ['app']
             }
         }
-    }).use('benchmarkjs-suite', 'node', function (Y) {
+    }).use('benchmarkjs-app-suite', 'node', function (Y) {
 
         var suite = Y.BenchmarkSuite,
             start = Y.one('#start');
