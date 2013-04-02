@@ -1,6 +1,6 @@
 YUI.add('benchmarkjs-suite', function (Y, NAME) {
-console.log(NAME);
-    var suite = Y.BenchmarkSuite,
+    
+    var suite = new Y.BenchmarkSuite,
         container,
         scrollview;
     
@@ -23,5 +23,7 @@ console.log(NAME);
     //         scrollview.destroy();
     //     }
     // });
+
+    suite.run();
 
 }, '@VERSION@', {requires: ['scrollview-base']});
