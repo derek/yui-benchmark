@@ -16,6 +16,6 @@
         "yeti": "https://github.com/derek/yeti/tarball/benchmark"
     },
     "bin": {
-        "yui-benchmark": "./bin/yui-benchmark.js"
+        "yb": "./bin/yui-benchmark.js"
     }
 }
