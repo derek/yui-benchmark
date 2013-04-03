@@ -19,14 +19,18 @@ For starters, execute this command from your `yui-benchmark` root directory, the
 
 	yb --yuipath=../yui3/ --source=examples/benchmarkjs-suite.js
 
+Or from inside your yui repository
+
+	yb src/path/to/test.js
+
 Additionally, you can use via [Yogi](https://github.com/yui/yogi) by simply typing `yogi benchmark` from within your component's directory, and it will execute any tests found in your local `tests/benchmark/` directory.  For this functionality, you will also need a patched version of Yogi, which you can find [this repo](https://github.com/derek/yogi/).  Clone, and execute `sudo npm install -g`.
 
 
 Options
 ---
 
-* ``--yuipath=[path]`` - Path to your local YUI repository. **(required)**
-* ``--source=[path]`` - The benchmark test. **(required)**
+* ``--source=[path]`` - The benchmark test. By default, this is pulled off as the first argv argument.
+* ``--yuipath=[path]`` - Path to your local YUI repository.
 * ``--ref=[string]`` - Which ref(s) of the YUI repository you'd like to execute the performance test against. **(required)**
 * ``--iterations=[integer]`` - How many times each test should be executed. Default `1`.
 * ``--phantomjs=[boolean]`` - Use Phantom.js as your test browser. Default `false`.
