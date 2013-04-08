@@ -1,3 +1,8 @@
+/**
+Copyright (c) 2013, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://yuilibrary.com/license/
+*/
 YUI().use('node', 'scrollview', 'node-event-simulate', 'benchmark', function(Y) {
 
     var timeStart = 0,

@@ -22,7 +22,7 @@
                 requires: ['app']
             }
         }
-    }).use('benchmarkjs-app-suite', 'node', function (Y) {
+    }).use('benchmarkjs-suite', 'node', function (Y) {
 
         var suite = Y.BenchmarkSuite,
             start = Y.one('#start');
@@ -49,7 +49,7 @@
         });
 
         start.on('click', function () {
-            suite.run(true);
+            suite.run({async:false, queued:false});
         });
 
     });

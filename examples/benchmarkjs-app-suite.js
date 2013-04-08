@@ -1,3 +1,8 @@
+/**
+Copyright (c) 2013, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://yuilibrary.com/license/
+*/
 YUI.add('benchmarkjs-app-suite', function (Y, NAME) {
 
     var suite = Y.BenchmarkSuite = new Benchmark.Suite;
