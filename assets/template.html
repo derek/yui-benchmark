@@ -28,23 +28,23 @@
                 testModuleName = data.name,
                 pathToSeedBuild = data.seedBase + '/build/',
                 instanceName = data.instanceName,
-                YUIConfig = {
-                    filter: 'raw',
-                    base: pathToSeedBuild,
-                    modules: {} // Populated later
-                },
                 sha = data.sha,
                 ref = data.ref,
                 taskID = data.taskID,
-                testID = data.testID;
+                testID = data.testID,
+                YUIConfig = {
+                    filter: 'raw',
+                    base: pathToSeedBuild,
+                    modules: { /** Populated later **/ } 
+                };
 
-            // Require a wrapped version of Y.Benchmark
+            /** Require a wrapped version of Y.Benchmark */
             YUIConfig.modules['yui-benchmark'] = {
-                fullpath: '/task/' + data.taskID + '/test/' + data.testID + '/module/yui-benchmark.js',
+                fullpath: '/task/' + taskID + '/test/' + testID + '/module/yui-benchmark.js',
                 requires: ['oop', 'event']
             };
 
-            // Require the test module
+            /** Require the test module */
             YUIConfig.modules[testModuleName] = {
                 fullpath: testModulePath,
                 requires: ['yui-benchmark']
@@ -53,15 +53,15 @@
             YUI(YUIConfig).use(testModuleName, function (Y) {
                 var test;
 
-                Y.Benchmark.sha = data.sha;
-                Y.Benchmark.ref = data.ref;
-                Y.Benchmark.taskID = data.taskID;
-                Y.Benchmark.testID = data.testID;
+                Y.Benchmark.sha = sha;
+                Y.Benchmark.ref = ref;
+                Y.Benchmark.taskID = taskID;
+                Y.Benchmark.testID = testID;
 
                 if (Y.BenchmarkSuite) {
 
                     /** Pull off each test in the suite and add it to
-                     *  the global, shared Benchmark.js suite **/
+                     *  the globally shared Benchmark.js suite **/
                     while (test = Y.BenchmarkSuite.shift()) {
                         /** Add some additional data on to the test for tracking the source */
                         test.sha = sha;
@@ -74,6 +74,7 @@
                     console.log(sha + ': use');
 
                     if (++instanceCount === seedCount) {
+                        /** All the seeds are loaded so we're good to go! */
                         updateUI();
                         executeBenchmarkJSTests();
                     }
@@ -111,11 +112,10 @@
          * 
          */
         function executeBenchmarkJSTests() {
-            console.log('-----');
             console.log('ready');
             suite.on('complete', testsComplete);
             suite.on('start', function (event) {
-                console.log(suite.length + " tests");
+                console.log(suite.length + ' tests');
             });
             suite.on('cycle', function (event) {
                 var bench = event.target;
@@ -127,7 +127,7 @@
 
         /**
          * Gets the body of a function by stripping off the first and last lines
-         * 
+         * Todo: should probably be a regex
          */
         function getFunctionBody (fn) {
             var fnLines = String(fn).split('\n');
@@ -171,7 +171,7 @@
 
         <script>
             /**
-             * This instance is used to create an globalize an instance of Y.Benchmark
+             * This is used to create and globalize an instance of Y.Benchmark
              * using the WIP seed.  Yeti will use this object for driver detection.
              */
             YUI({

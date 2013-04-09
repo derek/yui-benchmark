@@ -3,6 +3,13 @@ Copyright (c) 2013, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
+
+/**
+ * YUI Benchmark is a module that exports Y.Benchmark, which is used to coallate
+ * and broadcast results to Yeti.
+ * 
+ * @module yui-benchmark
+ */
 YUI.add('yui-benchmark', function (Y, NAME) {
 
     /** 
@@ -36,21 +43,10 @@ YUI.add('yui-benchmark', function (Y, NAME) {
             this.fire('results', {results: this.results});
         }
     }, {
-
-        // Static properties
-
-        /**
-         * 
-         *
-         * @property sha
-         * @type String
-         * @default null
-         * @static
-         */
-        sha: null,
+        /** Static properties */
 
         /**
-         * 
+         * The seed's Git ref this test is benchmarking 
          *
          * @property ref
          * @type String
@@ -60,7 +56,17 @@ YUI.add('yui-benchmark', function (Y, NAME) {
         ref: null,
 
         /**
-         * 
+         * SHA-1 hash of the seed's Git ref this test is benchmarking 
+         *
+         * @property sha
+         * @type String
+         * @default null
+         * @static
+         */
+        sha: null,
+
+        /**
+         * The Task ID this test is benchmarking 
          *
          * @property taskID
          * @type Number
@@ -70,7 +76,7 @@ YUI.add('yui-benchmark', function (Y, NAME) {
         taskID: null,
 
         /**
-         * 
+         * The Test ID this test is benchmarking
          *
          * @property testID
          * @type Number
@@ -80,7 +86,7 @@ YUI.add('yui-benchmark', function (Y, NAME) {
         testID: null,
 
         /**
-         * 
+         * A function used to broadcast results to Yeti (or anything else listening)
          *
          * @type Function
          * @static
@@ -100,7 +106,7 @@ YUI.add('yui-benchmark', function (Y, NAME) {
             if (unit === undefined) {
                 unit = '';
             }
-            
+
             var benchmark = window.YUIBenchmark;
 
             benchmark.addResult({
