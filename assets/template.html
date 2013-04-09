@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <script src="http://jsbeautifier.org/beautify.js"></script>
+        <!-- <script src="http://jsbeautifier.org/beautify.js"></script> -->
 		<script src="/benchmark.js"></script>
 		<script>
 
@@ -24,10 +24,10 @@
          * @param {Object} Data about this benchmark task/test.
          */
         function registerYUI(YUI, data) {
-
             var testModulePath = data.modulePath,
                 testModuleName = data.name,
                 pathToSeedBuild = data.seedBase + '/build/',
+                instanceName = data.instanceName,
                 YUIConfig = {
                     filter: 'raw',
                     base: pathToSeedBuild,
@@ -38,16 +38,6 @@
                 taskID = data.taskID,
                 testID = data.testID;
 
-            if (!window.YUIBenchmark) {
-                window.YUIBenchmark = true; // Next line is async, so set this to something for now.
-                
-                // Adds Y.Benchmark
-                YUI.add('benchmark', moduleBenchmark, null, {requires:['oop', 'event']});
-                YUI().use('benchmark', function (Y) {
-                    window.YUIBenchmark = new Y.Benchmark();
-                });
-            }
-
             // Require the test module
             YUIConfig.modules[testModuleName] = {
                 fullpath: testModulePath
@@ -57,6 +47,7 @@
                 var test;
 
                 while (test = Y.BenchmarkSuite.shift()) {
+                    // Add some additional data on to the test to 
                     test.sha = sha;
                     test.ref = ref;
                     test.testID = testID;
@@ -65,29 +56,43 @@
                 }
 
                 console.log(sha + ': use');
-                instanceCount++;
 
-                if (instanceCount === seedCount) {
-                    /*
-                    console.log(suite);
-                    var html = '';
-
-                    html += '<table border=1>';
-                    html += '<tr><td>Name</td><td>Seed</td><td>Ops / Sec</td><td>Error Margin</td><td>% slower</td></tr>'
-                    
-                    for(i=0; i < suite.length; i++) {
-                        html += '<tr><td>' + suite[i].name + '</td><td>' + suite[i].ref + '</td><td></td><td></td><td></td></tr>'
-                    }
-                    html += '</table>';
-                    console.log(html);
-                    // document.getElementById('testCount').innerHTML = suite.length;
-                    // document.getElementById('seconds').innerHTML = suite.length * 10;
-                    // document.getElementById('output').innerHTML = suite[0].compiled * 10;
-                    Y.one('#dashboard').append(html);
-                    */
+                if (++instanceCount === seedCount) {
+                    updateUI();
                     executeTests();
                 }
             });
+        }
+
+        /**
+         * Updates the UI before test execution begins
+         * 
+         */
+        function updateUI () {
+
+            // Adds Y.Benchmark
+            YUI.add('benchmark', moduleBenchmark, null, {requires:['oop', 'event']});
+            YUI().use('benchmark', function (Y) {
+                window.YUIBenchmark = new Y.Benchmark();
+            });
+
+            /*
+            console.log(suite);
+            var html = '';
+
+            html += '<table border=1>';
+            html += '<tr><td>Name</td><td>Seed</td><td>Ops / Sec</td><td>Error Margin</td><td>% slower</td></tr>'
+            
+            for(i=0; i < suite.length; i++) {
+                html += '<tr><td>' + suite[i].name + '</td><td>' + suite[i].ref + '</td><td></td><td></td><td></td></tr>'
+            }
+            html += '</table>';
+            console.log(html);
+            // document.getElementById('testCount').innerHTML = suite.length;
+            // document.getElementById('seconds').innerHTML = suite.length * 10;
+            // document.getElementById('output').innerHTML = suite[0].compiled * 10;
+            Y.one('#dashboard').append(html);
+            */
         }
 
         /**
