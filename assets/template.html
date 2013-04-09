@@ -38,28 +38,45 @@
                 taskID = data.taskID,
                 testID = data.testID;
 
+            // Require a wrapped version of Y.Benchmark
+            YUIConfig.modules['yui-benchmark'] = {
+                fullpath: '/task/' + data.taskID + '/test/' + data.testID + '/module/yui-benchmark.js',
+                requires: ['oop', 'event']
+            };
+
             // Require the test module
             YUIConfig.modules[testModuleName] = {
-                fullpath: testModulePath
+                fullpath: testModulePath,
+                requires: ['yui-benchmark']
             };
 
             YUI(YUIConfig).use(testModuleName, function (Y) {
                 var test;
 
-                while (test = Y.BenchmarkSuite.shift()) {
-                    // Add some additional data on to the test to 
-                    test.sha = sha;
-                    test.ref = ref;
-                    test.testID = testID;
-                    test.taskID = taskID;
-                    suite.push(test);
-                }
+                Y.Benchmark.sha = data.sha;
+                Y.Benchmark.ref = data.ref;
+                Y.Benchmark.taskID = data.taskID;
+                Y.Benchmark.testID = data.testID;
 
-                console.log(sha + ': use');
+                if (Y.BenchmarkSuite) {
 
-                if (++instanceCount === seedCount) {
-                    updateUI();
-                    executeTests();
+                    /** Pull off each test in the suite and add it to
+                     *  the global, shared Benchmark.js suite **/
+                    while (test = Y.BenchmarkSuite.shift()) {
+                        /** Add some additional data on to the test for tracking the source */
+                        test.sha = sha;
+                        test.ref = ref;
+                        test.testID = testID;
+                        test.taskID = taskID;
+                        suite.push(test);
+                    }
+
+                    console.log(sha + ': use');
+
+                    if (++instanceCount === seedCount) {
+                        updateUI();
+                        executeBenchmarkJSTests();
+                    }
                 }
             });
         }
@@ -69,12 +86,6 @@
          * 
          */
         function updateUI () {
-
-            // Adds Y.Benchmark
-            YUI.add('benchmark', moduleBenchmark, null, {requires:['oop', 'event']});
-            YUI().use('benchmark', function (Y) {
-                window.YUIBenchmark = new Y.Benchmark();
-            });
 
             /*
             console.log(suite);
@@ -99,7 +110,7 @@
          * Kicks off the test execution cycle
          * 
          */
-        function executeTests() {
+        function executeBenchmarkJSTests() {
             console.log('-----');
             console.log('ready');
             suite.on('complete', testsComplete);
@@ -114,6 +125,10 @@
             suite.run({async:true});
         }
 
+        /**
+         * Gets the body of a function by stripping off the first and last lines
+         * 
+         */
         function getFunctionBody (fn) {
             var fnLines = String(fn).split('\n');
             fnLines.reverse().splice(0,1);
@@ -132,6 +147,7 @@
 
             while (test = this.shift()) {
                 benchmark.addResult({
+                    unit: 'hz',
                     name: test.name,
                     value: test.hz,
                     ref: test.ref,
@@ -147,54 +163,28 @@
                 benchmark.broadcastResults();
             }, 1000);
         }
-
-        /**
-         * A YUI module that exports Y.Benchmark
-         *
-         * @param {Object} A Y instance
-         * @param {Object} The name of this module
-         */
-        function moduleBenchmark(Y, NAME) {
-
-            /** 
-             * Y.Benchmark constructor
-             *
-             */
-            function YBenchmark() { }
-
-            /** An array of results */
-            YBenchmark.prototype.results = [];
-
-            /** 
-             * Adds a result onto this instance's results set
-             * 
-             * @param {Object} An object of test results 
-             */
-            YBenchmark.prototype.addResult = function (result) {
-                this.results.push(result);
-            }
-            
-            /** 
-             * Broadcasts the `results` event to anyone listening (aka: Yeti)
-             *
-             */
-            YBenchmark.prototype.broadcastResults = function () {
-                Y.log('Results\n---');
-                Y.log(this.results);
-                this.fire('results', {results: this.results});
-            }
-
-            /** Add EventTarget into Y.Benchmark */
-            Y.augment(YBenchmark, Y.EventTarget);
-
-            /** Export it */
-            Y.Benchmark = YBenchmark;
-        }
 		</script>
 
         <!-- Head -->
 		{{head}}
         <!-- Head -->
+
+        <script>
+            /**
+             * This instance is used to create an globalize an instance of Y.Benchmark
+             * using the WIP seed.  Yeti will use this object for driver detection.
+             */
+            YUI({
+                modules: {
+                    'yui-benchmark' : {
+                        fullpath: '/yui-benchmark.js',
+                        requires: ['oop', 'event']
+                    }
+                }
+            }).use('yui-benchmark', function (Y) {
+                window.YUIBenchmark = new Y.Benchmark();
+            });
+        </script>
 	</head>
 
 	<body class="yui3-skin-sam">
