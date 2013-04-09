@@ -18,8 +18,7 @@ YUI.add('value', function (Y, NAME) {
         frameDuration: 15,
         render: true
     });
-
-console.log(YUIBenchmark);
+    
     cb = scrollview.get('contentBox');
 
     function nextFrame () {
@@ -33,10 +32,6 @@ console.log(YUIBenchmark);
     function onScrollEnd () {
         var fps = frameCount / ((Y.Lang.now() - timeStart) / 1000),
             fps = fps.toFixed(2);
-            console.log(Y._benchmark);
-            console.log(Y.Benchmark);
-
-        console.log(Y.Benchmark);
 
         Y.Benchmark.submitValue('ScrollView FPS', fps, 'fps');
     }
