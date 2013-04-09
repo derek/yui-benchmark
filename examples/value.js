@@ -3,7 +3,7 @@ Copyright (c) 2013, Yahoo! Inc. All rights reserved.
 Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
-YUI().use('node', 'scrollview', 'node-event-simulate', 'benchmark', function(Y) {
+YUI.add('value', function (Y, NAME) {
 
     var timeStart = 0,
         frameCount = 0,
@@ -19,6 +19,7 @@ YUI().use('node', 'scrollview', 'node-event-simulate', 'benchmark', function(Y) 
         render: true
     });
 
+console.log(YUIBenchmark);
     cb = scrollview.get('contentBox');
 
     function nextFrame () {
@@ -32,8 +33,12 @@ YUI().use('node', 'scrollview', 'node-event-simulate', 'benchmark', function(Y) 
     function onScrollEnd () {
         var fps = frameCount / ((Y.Lang.now() - timeStart) / 1000),
             fps = fps.toFixed(2);
+            console.log(Y._benchmark);
+            console.log(Y.Benchmark);
 
-        Y.Benchmark.submitValue('ScrollView FPS', fps);
+        console.log(Y.Benchmark);
+
+        Y.Benchmark.submitValue('ScrollView FPS', fps, 'fps');
     }
 
     scrollview.after('scrollEnd', onScrollEnd);
@@ -48,4 +53,4 @@ YUI().use('node', 'scrollview', 'node-event-simulate', 'benchmark', function(Y) 
 
     // Globalize
     s = scrollview;
-});
+}, '@VERSION@', {requires: ['node', 'scrollview', 'node-event-simulate']});
