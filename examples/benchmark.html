@@ -8,10 +8,10 @@
     <p>This file demostrates a Benchmark.js test suite running outside of yui-benchmark.</p>
     <p>Click the button below and see the results logged in your console.</p>
     <p><button id="start">Start Benchmarks</button></p>
-    <script src="../node_modules/benchmark/benchmark.js"></script>
+    <script src="./node_modules/benchmark/benchmark.js"></script>
     <script src="../../yui3/build/yui/yui.js"></script>
     <script>
-    var Y = YUI({
+    YUI({
         modules: {
             'benchmarkjs-suite': {
                 fullpath: 'benchmarkjs-suite.js',
