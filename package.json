@@ -15,6 +15,13 @@
         "cli-table": "0.2.0",
         "yeti": "https://github.com/derek/yeti/tarball/benchmark"
     },
+    "devDependencies": {
+        "selleck": "*",
+        "vows": "*"
+    },    
+    "scripts": {
+        "test": "istanbul cover --print both vows -- --spec ./tests/*.js"
+    },
     "bin": {
         "yb": "./bin/yui-benchmark.js"
     }
