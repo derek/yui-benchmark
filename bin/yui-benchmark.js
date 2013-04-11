@@ -6,4 +6,4 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-require('../lib/app.js')();
+require('../lib/app.js').main();
