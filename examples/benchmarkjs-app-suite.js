@@ -12,10 +12,10 @@ YUI.add('benchmarkjs-app-suite', function (Y, NAME) {
 	    var model = new Y.Model();
 	});
 
-	suite.add('Y.Model: Subclass and instantiate a bare model', function () {
-	    var MyModel = Y.Base.create('myModel', Y.Model, []),
-	        model   = new MyModel();
-	});
+	// suite.add('Y.Model: Subclass and instantiate a bare model', function () {
+	//     var MyModel = Y.Base.create('myModel', Y.Model, []),
+	//         model   = new MyModel();
+	// });
 
 	// -- Y.View -------------------------------------------------------------------
 	suite.add('Y.View: Instantiate a bare view', function () {
