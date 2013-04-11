@@ -1,1 +1,98 @@
-dump.json
+[
+    {
+        "unit": "hz",
+        "name": "ScrollView: Create",
+        "value": 242.20489977728283,
+        "ref": "v3.9.0",
+        "sha": "b7d710018c74a268ce8a333a3e7b77c6db349062",
+        "testID": "0",
+        "taskID": "0",
+        "stats": {
+            "moe": 0.0006047076750939894,
+            "rme": 14.646316184069342,
+            "sem": 0.000295267419479487,
+            "deviation": 0.0015900637160743542,
+            "mean": 0.004128735632183908,
+            "variance": 0.0000025283026211761846
+        },
+        "UA": "PhantomJS (1.7.0) / Mac OS",
+        "date": 1365642473479,
+        "task": {
+            "id": "0",
+            "name": "benchmarkjs-suite",
+            "testURL": "/task/0/index.html"
+        }
+    },
+    {
+        "unit": "hz",
+        "name": "ScrollView: Create & Destroy",
+        "value": 123.192832417023,
+        "ref": "v3.9.0",
+        "sha": "b7d710018c74a268ce8a333a3e7b77c6db349062",
+        "testID": "0",
+        "taskID": "0",
+        "stats": {
+            "moe": 0.00033479312664647906,
+            "rme": 4.124411354533085,
+            "sem": 0.00017081281971759136,
+            "deviation": 0.0012667817751661453,
+            "mean": 0.008117355371900828,
+            "variance": 0.0000016047360658930905
+        },
+        "UA": "PhantomJS (1.7.0) / Mac OS",
+        "date": 1365642473479,
+        "task": {
+            "id": "0",
+            "name": "benchmarkjs-suite",
+            "testURL": "/task/0/index.html"
+        }
+    },
+    {
+        "unit": "hz",
+        "name": "ScrollView: Create",
+        "value": 239.75178638585928,
+        "ref": "WIP",
+        "sha": "WIP",
+        "testID": "0",
+        "taskID": "1",
+        "stats": {
+            "moe": 0.0006367852118862744,
+            "rme": 15.26703920938322,
+            "sem": 0.00030851996699916395,
+            "deviation": 0.0015425998349958196,
+            "mean": 0.004170980392156864,
+            "variance": 0.00000237961425092913
+        },
+        "UA": "PhantomJS (1.7.0) / Mac OS",
+        "date": 1365642486937,
+        "task": {
+            "id": "1",
+            "name": "benchmarkjs-suite",
+            "testURL": "/task/1/index.html"
+        }
+    },
+    {
+        "unit": "hz",
+        "name": "ScrollView: Create & Destroy",
+        "value": 128.36864842624976,
+        "ref": "WIP",
+        "sha": "WIP",
+        "testID": "0",
+        "taskID": "1",
+        "stats": {
+            "moe": 0.0003182906995878488,
+            "rme": 4.085854691273765,
+            "sem": 0.00016239321407543307,
+            "deviation": 0.0011710341202727486,
+            "mean": 0.007790064102564101,
+            "variance": 0.00000137132091084297
+        },
+        "UA": "PhantomJS (1.7.0) / Mac OS",
+        "date": 1365642486937,
+        "task": {
+            "id": "1",
+            "name": "benchmarkjs-suite",
+            "testURL": "/task/1/index.html"
+        }
+    }
+]
