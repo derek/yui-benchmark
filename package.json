@@ -15,6 +15,7 @@
         "yeti": "https://github.com/derek/yeti/tarball/benchmark"
     },
     "devDependencies": {
+        "istanbul": "*",
         "selleck": "*",
         "vows": "*"
     },
