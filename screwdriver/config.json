@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "shared": {
+        "owner": "drg",
+        "notification_email": "drg@yahoo-inc.com",
+        "build_container": "node",
+        "build": {
+            "test": {
+                "task": "npm-test"
+            }
+        }
+    }
+}
