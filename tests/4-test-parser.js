@@ -7,7 +7,7 @@ var vows = require('vows'),
     prettyContents = fs.readFileSync(path.join(__dirname, 'assets/pretty.txt'), 'utf8'),
     raw = JSON.stringify(results);
 
-vows.describe('pretty').addBatch({
+var tests = {
     'raw': {
         topic: parser.getRaw(results),
         'should process correctly': function (parsed) {
@@ -22,4 +22,6 @@ vows.describe('pretty').addBatch({
             assert.equal(parsed, prettyContents);
         }
     }
-}).export(module);
+};
+
+vows.describe('parser').addBatch(tests).export(module);

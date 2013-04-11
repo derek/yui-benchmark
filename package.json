@@ -20,7 +20,7 @@
         "vows": "*"
     },    
     "scripts": {
-        "test": "istanbul cover --print both vows -- --spec ./tests/*.js"
+        "test": "istanbul cover --print both vows -- --spec `ls ./tests/*.js | sort -n`"
     },
     "bin": {
         "yb": "./bin/yui-benchmark.js"
