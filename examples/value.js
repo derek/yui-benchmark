@@ -18,7 +18,7 @@ YUI.add('value', function (Y, NAME) {
         frameDuration: 15,
         render: true
     });
-    
+
     cb = scrollview.get('contentBox');
 
     function nextFrame () {
@@ -33,7 +33,9 @@ YUI.add('value', function (Y, NAME) {
         var fps = frameCount / ((Y.Lang.now() - timeStart) / 1000),
             fps = fps.toFixed(2);
 
-        Y.Benchmark.submitValue('ScrollView FPS', fps, 'fps');
+        if (Y.Benchmark) {
+            Y.Benchmark.submitValue('ScrollView FPS', fps, 'fps');
+        }
     }
 
     scrollview.after('scrollEnd', onScrollEnd);
