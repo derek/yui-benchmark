@@ -12,6 +12,7 @@
         "async": "0.2.6",
         "ansi-color": "0.2.1",
         "cli-table": "0.2.0",
+        "eventemitter2": "*",
         "yeti": "https://github.com/derek/yeti/tarball/benchmark"
     },
     "devDependencies": {
