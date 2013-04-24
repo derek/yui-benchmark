@@ -1,6 +1,6 @@
 var vows = require('vows'),
     assert = require('assert'),
-    parse = require('../lib/options').parse;
+    parse = require('../lib/cli/options-parser').parse;
 
 var tests = {
     '--wip' : {
