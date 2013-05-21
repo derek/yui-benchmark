@@ -24,6 +24,7 @@
         "test": "istanbul cover --print both vows -- --spec `ls ./tests/*.js | sort -n`"
     },
     "bin": {
-        "yb": "./bin/yui-benchmark.js"
+        "yb": "./bin/yb.js",
+        "yb-parser" : "./bin/parser.js"
     }
 }
