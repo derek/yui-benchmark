@@ -1,4 +1,4 @@
-#!/usr/bin/env node --harmony
+#!/usr/bin/env node
 
 /**
 Copyright (c) 2013, Yahoo! Inc. All rights reserved.
