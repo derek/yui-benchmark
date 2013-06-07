@@ -6,4 +6,4 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-require('../lib/parser/parser.js');
+require('../lib/cli/parse.js');

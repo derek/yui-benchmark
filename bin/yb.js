@@ -6,4 +6,4 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-require('../lib/cli/index.js');
+require('../lib/cli/benchmark.js');

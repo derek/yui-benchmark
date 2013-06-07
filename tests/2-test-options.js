@@ -1,6 +1,6 @@
 var vows = require('vows'),
     assert = require('assert'),
-    parse = require('../lib/cli/options-parser').parse;
+    parse = require('../lib/util/options-parser').parse;
 
 var tests = {
     '--wip' : {
@@ -142,6 +142,7 @@ var tests = {
         'specified': {
             topic: parse(['--port', '3001']).port,
             'should resolve to the given value': function (port) {
+                // console.log(parse(['--port', '3001']));
                 assert.equal(port, 3001);
             }
         }
