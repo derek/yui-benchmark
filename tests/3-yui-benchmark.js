@@ -9,32 +9,30 @@ http://yuilibrary.com/license/
 
 var argv = ['--yuipath=../yui3', '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
 
-var vows = require('vows'),
-    assert = require('assert');
+var fs = require("fs"),
+    vows = require('vows'),
+    assert = require('assert'),
+    site = require('../lib/app/server'),
+    YUIBenchmark = require('../lib/app/yui-benchmark'),
+    parseOptions = require('../lib/util/misc').parseOptions;
 
-var path = require("path"),
-    nopt = require("nopt"),
-    fs = require("fs"),
-    op = require('../lib/util/options-parser'),
-    log = require('../lib/util/log'),
-    Configurator = require('../lib/util/configurator'),
-    YUIBenchmark = require('../lib/app/yui-benchmark').YUIBenchmark,
-    options = op.parse(argv, 0),
-    procTimeStart = (+new Date()),
-    config, configs, yb, phantomProcess, timerTimeout;
+function execute (test, vow) {
+    var topic = vow.context.topics[0];
+    test = test.bind(topic);
 
-config = new Configurator();
-config.import(options);
-configs = config.export();
+    test(function () {
+        vow.callback(null, topic);
+    });
+}
 
-yb = new YUIBenchmark(configs);
-
-var tests = {
-    'teardown': function () {
-        yb.server.close();
-    },
+vows.describe('YUI Benchmark').addBatch({
     'yui-benchmark': {
-        'topic': yb,
+        'topic': function () {
+            return new YUIBenchmark(parseOptions(argv));
+        },
+        'teardown': function (topic) {
+            topic.server.close();
+        },
         'should initialize values correctly' : function (topic) {
             assert.deepEqual([], topic.results);
             assert.deepEqual([], topic.tasks);
@@ -60,73 +58,73 @@ var tests = {
                 iterations: 1,
                 tmproot: '/var/folders/fk/ygyb947s6mv5lhv4pm321h880000gn/T/' }, topic.config);
         },
-        'then findYUI' : {
-            topic: function () {
-                yb.findYUI(this.callback);
+        '> findYUI' : {
+            topic: function (topic) {
+                execute(topic.findYUI, this);
             },
-            'should find the seed file': function () {
-                assert.equal(yb.yuipath, '/Users/derek/src/yui/yui3');
+            'should find the seed file': function (topic) {
+                assert.equal(topic.yuipath, '/Users/derek/src/yui/yui3');
             },
-            'then prepSHAs' : {
-                topic: function () {
-                    yb.prepSHAs(this.callback);
+            '> prepSHAs' : {
+                topic: function (topic) {
+                    execute(topic.prepSHAs, this);
                 },
-                'should populate refTable': function () {
-                    assert.equal(yb.refTable['v3.8.0'], 'd89374d7213ad8260e5004200e8f99efd54e705b');
-                    assert.equal(yb.refTable['WIP'], 'WIP');
+                'should populate refTable': function (topic) {
+                    assert.equal(topic.refTable['v3.8.0'], 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                    assert.equal(topic.refTable['WIP'], 'WIP');
                 },
-                'and shaTable': function () {
-                    assert.equal(yb.shaTable['d89374d7213ad8260e5004200e8f99efd54e705b'], 'v3.8.0');
-                    assert.equal(yb.shaTable['WIP'], 'WIP');
+                'and shaTable': function (topic) {
+                    assert.equal(topic.shaTable['d89374d7213ad8260e5004200e8f99efd54e705b'], 'v3.8.0');
+                    assert.equal(topic.shaTable['WIP'], 'WIP');
                 },
-                'then prepRepos' : {
-                    topic: function () {
-                        yb.prepRepos(this.callback);
+                '> prepRepos' : {
+                    topic: function (topic) {
+                        execute(topic.prepRepos, this);
                     },
-                    'should foo': function () {
+                    'should foo': function (topic) {
                         // Anything?
                     },
-                    'then createTasks' : {
-                        topic: function () {
-                            yb.createTasks(this.callback);
+                    '> createTasks' : {
+                        topic: function (topic) {
+                            execute(topic.createTasks, this);
                         },
-                        'should create 2 tasks': function () {
-                            assert.equal(yb.tasks.length, 2);
+                        'should create 2 tasks': function (topic) {
+                            assert.equal(topic.tasks.length, 2);
                         },
-                        'with 1 test each': function () {
-                            yb.tasks.forEach(function (task) {
+                        'with 1 test each': function (topic) {
+                            topic.tasks.forEach(function (task) {
                                 assert.equal(task.tests.length, 1);
                             });
                         },
-                        'and the build files should exist': function () {
-                            yb.tasks.forEach(function (task) {
+                        'and the build files should exist': function (topic) {
+                            topic.tasks.forEach(function (task) {
                                 task.tests.forEach(function (test) {
                                     var seedPath = test.repository + '/build/yui/yui.js';
                                     assert.isTrue(fs.existsSync(seedPath));
                                 });
                             });
                         },
-                        'then gatherTestURLs' : {
-                            topic: function () {
-                                yb.gatherTestURLs(this.callback);
+                        '> gatherTestURLs' : {
+                            topic: function (topic) {
+                                execute(topic.gatherTestURLs, this);
                             },
-                            'should gather two URLs': function () {
-                                assert.equal(yb.testURLs.length, 2);
+                            'should gather two URLs': function (topic) {
+                                assert.equal(topic.testURLs.length, 2);
                             },
-                            'then start express' : {
-                                topic: function () {
-                                    yb.startExpress(this.callback);
+                            '> startExpress' : {
+                                topic: function (topic) {
+                                    execute(topic.startExpress, this);
                                 },
-                                'should fire up express': function () {
-                                    assert.isNotEmpty(yb.server);
+                                'should fire up express': function (topic) {
+                                    assert.isNotEmpty(topic.server);
                                 },
-                                'then start yeti' : {
-                                    topic: function () {
-                                        yb.startYeti(this.callback);
+                                '> startYeti' : {
+                                    topic: function (topic) {
+                                        execute(topic.startYeti, this);
                                     },
-                                    'should fire up yeti': function () {
-                                        assert.isNotEmpty(yb.yetiHub);
-                                        assert.isNotEmpty(yb.yetiClient);
+                                    'should fire up yeti': function (topic) {
+                                        assert.isNotEmpty(topic.yetiHub);
+                                        assert.isNotEmpty(topic.yetiClient);
                                     }
                                 }
                             }
@@ -136,6 +134,4 @@ var tests = {
             }
         }
     }
-};
-
-vows.describe('args').addBatch(tests).export(module);
+}).export(module);

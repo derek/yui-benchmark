@@ -1,6 +1,12 @@
 var vows = require('vows'),
     assert = require('assert'),
-    parse = require('../lib/util/options-parser').parse;
+    YUIBenchmark = require('../lib/app/yui-benchmark'),
+    normalizeConfig = YUIBenchmark.prototype.normalizeConfig,
+    parseOptions = require('../lib/util/misc').parseOptions;
+
+function parse (options) {
+    return normalizeConfig(parseOptions(options));
+}
 
 var tests = {
     '--wip' : {
