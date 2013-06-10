@@ -4,21 +4,9 @@ var vows = require('vows'),
     assert = require('assert'),
     site = require('../lib/app/server');
 
-var nopt = require("nopt"),
-    fs = require("fs"),
-    op = require('../lib/util/options-parser'),
-    log = require('../lib/util/log'),
-    Configurator = require('../lib/util/configurator'),
-    YUIBenchmark = require('../lib/app/yui-benchmark').YUIBenchmark,
-    options = op.parse(argv, 0),
-    procTimeStart = (+new Date()),
-    config, configs, yb, phantomProcess, timerTimeout;
-
-config = new Configurator();
-config.import(options);
-configs = config.export();
-
-yb = new YUIBenchmark(configs);
+var YUIBenchmark = require('../lib/app/yui-benchmark'),
+    parseOptions = require('../lib/util/misc').parseOptions,
+    yb = new YUIBenchmark(parseOptions(argv));
 
 function getMockResponse (route, request) {
     var vow = this;
