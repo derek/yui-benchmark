@@ -3,6 +3,7 @@
     "version": "0.0.7",
     "engines": { "node": ">=0.4.0" },
     "dependencies": {
+        "benchmark": "1.0.0",
         "express": "3.1.0",
         "nopt": "2.1.1",
         "win-spawn": "1.1.1",
