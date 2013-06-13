@@ -7,16 +7,16 @@ http://yuilibrary.com/license/
 /**
  * YUI Benchmark is a module that exports Y.Benchmark, which is used to coallate
  * and broadcast results to Yeti.
- * 
+ *
  * @module yui-benchmark
  */
 YUI.add('yui-benchmark', function (Y, NAME) {
 
-    /** 
+    /**
      * Y.Benchmark constructor
      *
      */
-    function YBenchmark() { 
+    function YBenchmark() {
         YBenchmark.superclass.constructor.apply(this, arguments);
     }
 
@@ -25,16 +25,16 @@ YUI.add('yui-benchmark', function (Y, NAME) {
         /** An array of results */
         results: [],
 
-        /** 
+        /**
          * Adds a result onto this instance's results set
-         * 
-         * @param {Object} An object of test results 
+         *
+         * @param {Object} An object of test results
          */
         addResult: function (result) {
             this.results.push(result);
         },
 
-        /** 
+        /**
          * Broadcasts the `results` event to anyone listening (aka: Yeti)
          *
          */
@@ -46,7 +46,7 @@ YUI.add('yui-benchmark', function (Y, NAME) {
         /** Static properties */
 
         /**
-         * The seed's Git ref this test is benchmarking 
+         * The seed's Git ref this test is benchmarking
          *
          * @property ref
          * @type String
@@ -56,7 +56,7 @@ YUI.add('yui-benchmark', function (Y, NAME) {
         ref: null,
 
         /**
-         * SHA-1 hash of the seed's Git ref this test is benchmarking 
+         * SHA-1 hash of the seed's Git ref this test is benchmarking
          *
          * @property sha
          * @type String
@@ -66,7 +66,7 @@ YUI.add('yui-benchmark', function (Y, NAME) {
         sha: null,
 
         /**
-         * The Task ID this test is benchmarking 
+         * The Task ID this test is benchmarking
          *
          * @property taskID
          * @type Number
