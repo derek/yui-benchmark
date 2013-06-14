@@ -41,6 +41,16 @@ YUI.add('yui-benchmark', function (Y, NAME) {
         broadcastResults: function () {
             Y.log('Sending results');
             this.fire('results', {results: this.results});
+        },
+
+        /**
+         *
+         */
+        serverLog: function (message) {
+            Y.io('/log/', {
+                method: 'POST',
+                data: 'message=' + message
+            });
         }
     }, {
         /** Static properties */
@@ -130,5 +140,5 @@ YUI.add('yui-benchmark', function (Y, NAME) {
     Y.Benchmark = YBenchmark;
 
 }, '@VERSION', {
-	requires: ['event', 'oop']
+	requires: ['event', 'oop', 'io-base']
 });
