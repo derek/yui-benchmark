@@ -1,3 +1,12 @@
+/**
+Copyright (c) 2013, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://yuilibrary.com/license/
+*/
+
+/*jslint node: true */
+"use strict";
+
 var argv = ['--yuipath=../yui3', '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
 
 var vows = require('vows'),
