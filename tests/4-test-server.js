@@ -5,7 +5,7 @@ var vows = require('vows'),
     site = require('../lib/app/server');
 
 var YUIBenchmark = require('../lib/app/yui-benchmark'),
-    parseOptions = require('../lib/util/misc').parseOptions,
+    parseOptions = require('../lib/utilities').parseOptions,
     yb = new YUIBenchmark(parseOptions(argv));
 
 function getMockResponse (route, request) {
