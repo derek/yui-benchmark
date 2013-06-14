@@ -14,7 +14,7 @@ var fs = require("fs"),
     assert = require('assert'),
     site = require('../lib/app/server'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
-    parseOptions = require('../lib/util/misc').parseOptions;
+    parseOptions = require('../lib/utilities').parseOptions;
 
 function execute (test, vow) {
     var topic = vow.context.topics[0];

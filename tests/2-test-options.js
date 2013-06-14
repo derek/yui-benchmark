@@ -2,7 +2,7 @@ var vows = require('vows'),
     assert = require('assert'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     normalizeConfig = YUIBenchmark.prototype.normalizeConfig,
-    parseOptions = require('../lib/util/misc').parseOptions;
+    parseOptions = require('../lib/utilities').parseOptions;
 
 function parse (options) {
     return normalizeConfig(parseOptions(options));

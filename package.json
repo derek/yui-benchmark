@@ -15,6 +15,7 @@
         "cli-table": "0.2.0",
         "eventemitter2": "*",
         "rimraf": "*",
+        "little-logger" : "*",
         "yeti": "https://github.com/derek/yeti/tarball/benchmark"
     },
     "devDependencies": {
