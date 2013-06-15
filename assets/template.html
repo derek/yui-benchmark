@@ -119,7 +119,7 @@
             });
             suite.on('cycle', function (event) {
                 var bench = event.target,
-                    msg = 'Test #' + bench.id + ' of ' + suite.length + ' took ' + bench.times.elapsed.toFixed(2) + ' and estimates ' + bench.hz.toFixed(2) + 'hz ±' + bench.stats.rme.toFixed(2) + '% on ' + bench.count + ' samples';
+                    msg = 'Test #' + bench.id + ' of ' + suite.length + ' took ' + bench.times.elapsed.toFixed(2) + 's and estimates ' + bench.hz.toFixed(2) + 'hz ±' + bench.stats.rme.toFixed(2) + '% on ' + bench.count + ' samples';
 
                 YUIBenchmark.serverLog(msg);
                 console.log(msg);
