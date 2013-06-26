@@ -13,15 +13,15 @@
         "async": "0.2.6",
         "ansi-color": "0.2.1",
         "cli-table": "0.2.0",
-        "eventemitter2": "*",
-        "rimraf": "*",
-        "little-logger" : "*",
+        "eventemitter2": "0.4.11",
+        "rimraf": "2.1.4",
+        "little-logger" : "0.1.4",
         "yeti": "https://github.com/derek/yeti/tarball/benchmark"
     },
     "devDependencies": {
-        "istanbul": "*",
-        "selleck": "*",
-        "vows": "*"
+        "istanbul": "0.1.36",
+        "selleck": "0.1.18",
+        "vows": "0.7.0"
     },
     "scripts": {
         "test": "istanbul cover --print both vows -- --spec `ls ./tests/*.js | sort -n`"
