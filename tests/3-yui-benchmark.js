@@ -15,7 +15,7 @@ var fs = require("fs"),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions;
 
-var argv = ['--yuipath=' + path.resolve(__dirname, '../../yui3'), '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
+var argv = ['--yuipath=' + path.resolve(__dirname, '../../yui3'), '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0', '--loglevel=debug'];
 
 function execute (test, vow) {
     var topic = vow.context.topics[0];
@@ -30,8 +30,7 @@ vows.describe('YUI Benchmark').addBatch({
     'yui-benchmark': {
         'topic': function () {
             var options = parseOptions(argv);
-            console.log(require('fs').readdirSync(options.yuipath));
-            return new YUIBenchmark(parseOptions(argv));
+            return new YUIBenchmark(options);
         },
         'teardown': function (topic) {
             topic.server.close();
@@ -59,6 +58,7 @@ vows.describe('YUI Benchmark').addBatch({
                 timeout: 300000,
                 multiseed: false,
                 iterations: 1,
+                loglevel: 'debug',
                 tmproot: '/var/folders/fk/ygyb947s6mv5lhv4pm321h880000gn/T/' }, topic.config);
         },
         '> findYUI' : {
