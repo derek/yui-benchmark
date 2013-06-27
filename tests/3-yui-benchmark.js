@@ -29,6 +29,8 @@ function execute (test, vow) {
 vows.describe('YUI Benchmark').addBatch({
     'yui-benchmark': {
         'topic': function () {
+            var options = parseOptions(argv);
+            console.log(require('fs').readdirSync(options.yuipath));
             return new YUIBenchmark(parseOptions(argv));
         },
         'teardown': function (topic) {
