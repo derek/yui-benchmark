@@ -9,9 +9,9 @@ http://yuilibrary.com/license/
 
 var vows = require('vows'),
     assert = require('assert'),
-    YUIBenchmark = require('../lib/app/yui-benchmark'),
+    YUIBenchmark = require('yui-benchmark/lib/app/yui-benchmark'),
     normalizeConfig = YUIBenchmark.prototype.normalizeConfig,
-    parseOptions = require('../lib/utilities').parseOptions;
+    parseOptions = require('yui-benchmark/lib/utilities').parseOptions;
 
 function parse (options) {
     return normalizeConfig(parseOptions(options));

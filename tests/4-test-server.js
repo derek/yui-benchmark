@@ -11,10 +11,10 @@ var argv = ['--yuipath=../yui3', '--source=./examples/benchmarkjs-suite.js', '--
 
 var vows = require('vows'),
     assert = require('assert'),
-    site = require('../lib/app/server');
+    site = require('yui-benchmark/lib/app/server');
 
-var YUIBenchmark = require('../lib/app/yui-benchmark'),
-    parseOptions = require('../lib/utilities').parseOptions,
+var YUIBenchmark = require('yui-benchmark/lib/app/yui-benchmark'),
+    parseOptions = require('yui-benchmark/lib/utilities').parseOptions,
     yb = new YUIBenchmark(parseOptions(argv));
 
 function getMockResponse (route, request) {

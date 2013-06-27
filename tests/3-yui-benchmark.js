@@ -12,9 +12,9 @@ var argv = ['--yuipath=../yui3', '--source=./examples/benchmarkjs-suite.js', '--
 var fs = require("fs"),
     vows = require('vows'),
     assert = require('assert'),
-    site = require('../lib/app/server'),
-    YUIBenchmark = require('../lib/app/yui-benchmark'),
-    parseOptions = require('../lib/utilities').parseOptions;
+    site = require('yui-benchmark/lib/app/server'),
+    YUIBenchmark = require('yui-benchmark/lib/app/yui-benchmark'),
+    parseOptions = require('yui-benchmark/lib/utilities').parseOptions;
 
 function execute (test, vow) {
     var topic = vow.context.topics[0];
