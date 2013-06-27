@@ -11,11 +11,13 @@ var fs = require("fs"),
     path = require("path"),
     vows = require('vows'),
     assert = require('assert'),
+    osenv = require("osenv"),
     site = require('../lib/app/server'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
     yuipath = path.resolve(__dirname, '../../yui3'),
-    yuiBenchPath = path.resolve(__dirname, '../');
+    yuiBenchPath = path.resolve(__dirname, '../'),
+    tmproot = osenv.tmpdir();
 
 var argv = ['--yuipath=' + yuipath, '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0', '--loglevel=debug'];
 
@@ -49,8 +51,9 @@ vows.describe('YUI Benchmark').addBatch({
             assert.equal(null, topic.yetiClient);
             assert.equal(0, topic.batchCount);
             assert.equal(0, topic.batchesComplete);
-            assert.equal(path.join(yuiBenchPath, 'lib'), topic.yuiBenchPath);
-            assert.deepEqual({ refs: [ 'v3.8.0', 'WIP' ],
+            assert.equal(path.join(yuiBenchPath, 'lib/'), topic.yuiBenchPath);
+            assert.deepEqual({
+                refs: [ 'v3.8.0', 'WIP' ],
                 yuipath: yuipath,
                 source: path.join(yuiBenchPath, '/examples/benchmarkjs-suite.js'),
                 raw: false,
@@ -61,7 +64,8 @@ vows.describe('YUI Benchmark').addBatch({
                 multiseed: false,
                 iterations: 1,
                 loglevel: 'debug',
-                tmproot: '/var/folders/fk/ygyb947s6mv5lhv4pm321h880000gn/T/' }, topic.config);
+                tmproot: tmproot
+            }, topic.config);
         },
         '> findYUI' : {
             topic: function (topic) {
