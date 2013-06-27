@@ -19,9 +19,17 @@ var fs = require("fs"),
     yuiBenchPath = path.resolve(__dirname, '../'),
     tmproot = path.join(yuipath, 'legacyBuilds');
 
-fs.mkdirSync(tmproot);
+if (!fs.existsSync(tmproot)) {
+    fs.mkdirSync(tmproot);
+}
 
-var argv = ['--yuipath=' + yuipath, '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0', '--loglevel=debug', '--tmproot=' + tmproot];
+var argv = [
+    '--yuipath=' + yuipath,
+    '--source=./examples/benchmarkjs-suite.js',
+    '--ref=v3.8.0',
+    '--loglevel=debug',
+    '--tmproot=' + tmproot
+];
 
 function execute (test, vow) {
     var topic = vow.context.topics[0];

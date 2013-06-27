@@ -7,18 +7,30 @@ http://yuilibrary.com/license/
 /*jslint node: true */
 "use strict";
 
-var vows = require('vows'),
+var fs = require('fs'),
+    vows = require('vows'),
     path = require('path'),
     assert = require('assert'),
     site = require('../lib/app/server'),
-    yuipath = path.resolve(__dirname, '../../yui3'),
-    yuiBenchPath = path.resolve(__dirname, '../');
-
-var argv = ['--yuipath=' + yuipath, '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
-
-var YUIBenchmark = require('../lib/app/yui-benchmark'),
+    YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
-    yb = new YUIBenchmark(parseOptions(argv));
+    yuipath = path.resolve(__dirname, '../../yui3'),
+    yuiBenchPath = path.resolve(__dirname, '../'),
+    tmproot = path.join(yuipath, 'legacyBuilds');
+
+if (!fs.existsSync(tmproot)) {
+    fs.mkdirSync(tmproot);
+}
+
+var argv = [
+    '--yuipath=' + yuipath,
+    '--source=./examples/benchmarkjs-suite.js',
+    '--ref=v3.8.0',
+    '--loglevel=debug',
+    '--tmproot=' + tmproot
+];
+
+var yb = new YUIBenchmark(parseOptions(argv));
 
 function getMockResponse (route, request) {
     var vow = this;
