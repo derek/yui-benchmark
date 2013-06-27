@@ -13,9 +13,11 @@ var fs = require("fs"),
     assert = require('assert'),
     site = require('../lib/app/server'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
-    parseOptions = require('../lib/utilities').parseOptions;
+    parseOptions = require('../lib/utilities').parseOptions,
+    yuipath = path.resolve(__dirname, '../../yui3'),
+    yuiBenchPath = path.resolve(__dirname, '../');
 
-var argv = ['--yuipath=' + path.resolve(__dirname, '../../yui3'), '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0', '--loglevel=debug'];
+var argv = ['--yuipath=' + yuipath, '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0', '--loglevel=debug'];
 
 function execute (test, vow) {
     var topic = vow.context.topics[0];
@@ -47,10 +49,10 @@ vows.describe('YUI Benchmark').addBatch({
             assert.equal(null, topic.yetiClient);
             assert.equal(0, topic.batchCount);
             assert.equal(0, topic.batchesComplete);
-            assert.equal('/Users/derek/src/yui/yui-benchmark/lib/', topic.yuiBenchPath);
+            assert.equal(path.join(yuiBenchPath, 'lib'), topic.yuiBenchPath);
             assert.deepEqual({ refs: [ 'v3.8.0', 'WIP' ],
-                yuipath: '/Users/derek/src/yui/yui3',
-                source: '/Users/derek/src/yui/yui-benchmark/examples/benchmarkjs-suite.js',
+                yuipath: yuipath,
+                source: path.join(yuiBenchPath, '/examples/benchmarkjs-suite.js'),
                 raw: false,
                 wip: true,
                 port: 3000,
@@ -66,7 +68,7 @@ vows.describe('YUI Benchmark').addBatch({
                 execute(topic.findYUI, this);
             },
             'should find the seed file': function (topic) {
-                assert.equal(topic.yuipath, '/Users/derek/src/yui/yui3');
+                assert.equal(topic.yuipath, yuipath);
             },
             '> prepSHAs' : {
                 topic: function (topic) {
