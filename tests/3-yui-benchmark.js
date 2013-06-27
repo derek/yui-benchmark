@@ -7,14 +7,15 @@ http://yuilibrary.com/license/
 /*jslint node: true */
 "use strict";
 
-var argv = ['--yuipath=../yui3', '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
-
 var fs = require("fs"),
+    path = require("path"),
     vows = require('vows'),
     assert = require('assert'),
     site = require('yui-benchmark/lib/app/server'),
     YUIBenchmark = require('yui-benchmark/lib/app/yui-benchmark'),
     parseOptions = require('yui-benchmark/lib/utilities').parseOptions;
+
+var argv = ['--yuipath=' + path.resolve(__dirname, '../../yui3'), '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
 
 function execute (test, vow) {
     var topic = vow.context.topics[0];
