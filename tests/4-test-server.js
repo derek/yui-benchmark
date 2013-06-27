@@ -10,9 +10,11 @@ http://yuilibrary.com/license/
 var vows = require('vows'),
     path = require('path'),
     assert = require('assert'),
-    site = require('../lib/app/server');
+    site = require('../lib/app/server'),
+    yuipath = path.resolve(__dirname, '../../yui3'),
+    yuiBenchPath = path.resolve(__dirname, '../');
 
-var argv = ['--yuipath=' + path.resolve(__dirname, '../../yui3'), '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
+var argv = ['--yuipath=' + yuipath, '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
 
 var YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
@@ -90,7 +92,7 @@ var tests = {
                     app: {
                         get: function (val) {
                             if (val === 'yuipath') {
-                                return '/Users/derek/src/yui/yui3';
+                                return yuipath;
                             }
                         }
                     }
