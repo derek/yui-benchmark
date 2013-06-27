@@ -14,8 +14,8 @@ var vows = require('vows'),
 
 var argv = ['--yuipath=' + path.resolve(__dirname, '../../yui3'), '--source=./examples/benchmarkjs-suite.js', '--ref=v3.8.0'];
 
-var YUIBenchmark = require('yui-benchmark/lib/app/yui-benchmark'),
-    parseOptions = require('yui-benchmark/lib/utilities').parseOptions,
+var YUIBenchmark = require('../lib/app/yui-benchmark'),
+    parseOptions = require('../lib/utilities').parseOptions,
     yb = new YUIBenchmark(parseOptions(argv));
 
 function getMockResponse (route, request) {
