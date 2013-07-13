@@ -39,8 +39,15 @@ YUI.add('yui-benchmark', function (Y, NAME) {
          *
          */
         broadcastResults: function () {
+            var complete = Y.config.win.yetiComplete;
+
             Y.log('Sending results');
-            this.fire('results', {results: this.results});
+
+            if (complete) {
+                complete({
+                    results: this.results
+                });
+            }
         },
 
         /**
