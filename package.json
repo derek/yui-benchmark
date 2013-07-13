@@ -16,6 +16,7 @@
         "eventemitter2": "0.4.11",
         "rimraf": "2.1.4",
         "little-logger" : "0.1.4",
+        "mkdirp": "0.3.x",
         "yeti": "https://github.com/derek/yeti/tarball/benchmark"
     },
     "devDependencies": {
