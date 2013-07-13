@@ -14,8 +14,11 @@
         /** A global Benchmark.js suite the YUI modules (unknowingly) pass their tests into */
         var suite = new Benchmark.Suite;
 
-        /** A Y.Benchmark global, for Yeti detection/interaction */
+        /** A Y.Benchmark global */
         var YUIBenchmark = null;
+
+        /** For Yeti detection */
+        var genericYetiDriver = true;
 
         /**
          * Registers a YUI instance with YUI Benchmark
