@@ -16,7 +16,7 @@ var fs = require('fs'),
     parseOptions = require('../lib/utilities').parseOptions,
     yuipath = path.resolve(__dirname, '../../yui3'),
     yuiBenchPath = path.resolve(__dirname, '../'),
-    tmproot = path.join(yuipath, 'legacyBuilds');
+    tmproot = path.join(yuipath, '.builds');
 
 if (!fs.existsSync(tmproot)) {
     fs.mkdirSync(tmproot);
@@ -70,8 +70,22 @@ var tests = {
         'asset': {
             topic: function () {
                 var request = getMockResponse.bind(this);
-                return request(site.asset, {
-                    url: 'tests/assets/ok.txt'
+                return request(site.assets, {
+                    params: {
+                        taskID: 0,
+                        file: 'ok.txt'
+                    },
+                    url: 'tests/assets/ok.txt',
+                    app: {
+                        get: function (val) {
+                            if (val === 'yuipath') {
+                                return yuipath;
+                            }
+                            else if (val === 'tasks') {
+                                return yb.tasks;
+                            }
+                        }
+                    }
                 });
             },
             'should process correctly': function (response) {
@@ -87,72 +101,20 @@ var tests = {
                 assert.match(response, /Benchmark.js v1\.0\.0/);
             }
         },
-        'yuibenchmarkjs': {
+        'yui': {
             topic: function () {
                 var request = getMockResponse.bind(this);
-                return request(site.yuibenchmarkjs);
-            },
-            'should process correctly': function (response) {
-                assert.match(response, /\@module yui\-benchmark/);
-            }
-        },
-        'bareYUI': {
-            topic: function () {
-                var request = getMockResponse.bind(this);
-                return request(site.bareYUI, {
-                    params: ['yui/yui.js'],
+                return request(site.yui, {
+                    params: {
+                        0: '/yui/yui.js',
+                        taskID: 0
+                    },
                     app: {
                         get: function (val) {
                             if (val === 'yuipath') {
                                 return yuipath;
                             }
-                        }
-                    }
-                });
-            },
-            'should process correctly': function (response) {
-                assert.match(response, /\@module yui/);
-            }
-        },
-        'wrappedTest': {
-            topic: function () {
-                var request = getMockResponse.bind(this),
-                    taskID = yb.tasks[0].meta.id,
-                    testID = yb.tasks[0].tests[0].id;
-
-                return request(site.wrappedTest, {
-                    params: {
-                        taskID: taskID,
-                        testID: testID
-                    },
-                    app: {
-                        get: function (val) {
-                            if (val === 'tasks') {
-                                return yb.tasks;
-                            }
-                        }
-                    }
-                });
-            },
-            'should process correctly': function (response) {
-                assert.match(response, /YUI\.add/);
-            }
-        },
-        'wrappedYUI': {
-            topic: function () {
-                var request = getMockResponse.bind(this),
-                    taskID = yb.tasks[0].meta.id,
-                    testID = yb.tasks[0].tests[0].id;
-
-                return request(site.wrappedYUI, {
-                    params: {
-                        0: 'build/yui/yui.js',
-                        taskID: taskID,
-                        testID: testID
-                    },
-                    app: {
-                        get: function (val) {
-                            if (val === 'tasks') {
+                            else if (val === 'tasks') {
                                 return yb.tasks;
                             }
                         }
@@ -166,9 +128,9 @@ var tests = {
         'task': {
             topic: function () {
                 var request = getMockResponse.bind(this),
-                    taskID = yb.tasks[0].meta.id;
+                    taskID = yb.tasks[0].taskID;
 
-                return request(site.task, {
+                return request(site.test, {
                     params: {
                         taskID: taskID
                     },

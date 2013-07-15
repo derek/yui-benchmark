@@ -1,18 +1,33 @@
-YUI.add('benchmarkjs-suite', function (Y) {
-
-    var suite = Y.BenchmarkSuite = new Benchmark.Suite();
-    var bar = 'bar';
-    suite.add('foo', {
-        fn: function () {
-            // fn
-            console.log(bar, 1);
-            // /fn
-        },
-        setup: function () {
-            // setup
-            console.log(bar, 2);
-            // /setup
-        }
-    });
-
-}, '@VERSION@', {requires: ['datatable']});
+module.exports = [
+    {
+        title: 'Smallest timeout value',
+        snippets: [
+            {
+                title: 'timeout = 0',
+                async: true,
+                fn: function (deferred) {
+                    // async test
+                    setTimeout(function() {
+                        deferred.resolve();
+                    }, 0);
+                }
+            }
+        ],
+        assets: ['tests/assets/ok.txt']
+    },
+    {
+        title: 'Smallest timeout value',
+        snippets: [
+            {
+                title: 'timeout = 0',
+                async: true,
+                fn: function (deferred) {
+                    // async test
+                    setTimeout(function() {
+                        deferred.resolve();
+                    }, 0);
+                }
+            }
+        ]
+    }
+];
