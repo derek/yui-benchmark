@@ -17,7 +17,7 @@ var fs = require("fs"),
     parseOptions = require('../lib/utilities').parseOptions,
     yuipath = path.resolve(__dirname, '../../yui3'),
     yuiBenchPath = path.resolve(__dirname, '../'),
-    tmproot = path.join(yuipath, 'legacyBuilds');
+    tmproot = path.join(yuipath, '.builds');
 
 if (!fs.existsSync(tmproot)) {
     fs.mkdirSync(tmproot);
@@ -47,7 +47,9 @@ vows.describe('YUI Benchmark').addBatch({
             return new YUIBenchmark(options);
         },
         'teardown': function (topic) {
-            topic.server.close();
+            if (topic.server) {
+                topic.server.close();
+            }
         },
         'should initialize values correctly' : function (topic) {
             assert.deepEqual([], topic.results);
@@ -108,19 +110,12 @@ vows.describe('YUI Benchmark').addBatch({
                             execute(topic.createTasks, this);
                         },
                         'should create 2 tasks': function (topic) {
-                            assert.equal(topic.tasks.length, 2);
-                        },
-                        'with 1 test each': function (topic) {
-                            topic.tasks.forEach(function (task) {
-                                assert.equal(task.tests.length, 1);
-                            });
+                            assert.equal(topic.tasks.length, 4);
                         },
                         'and the build files should exist': function (topic) {
                             topic.tasks.forEach(function (task) {
-                                task.tests.forEach(function (test) {
-                                    var seedPath = test.repository + '/build/yui/yui.js';
-                                    assert.isTrue(fs.existsSync(seedPath));
-                                });
+                                var seedPath = task.buildPath + '/yui/yui.js';
+                                assert.isTrue(fs.existsSync(seedPath));
                             });
                         },
                         '> gatherTestURLs' : {
@@ -128,7 +123,7 @@ vows.describe('YUI Benchmark').addBatch({
                                 execute(topic.gatherTestURLs, this);
                             },
                             'should gather two URLs': function (topic) {
-                                assert.equal(topic.testURLs.length, 2);
+                                assert.equal(topic.testURLs.length, 4);
                             },
                             '> startExpress' : {
                                 topic: function (topic) {
