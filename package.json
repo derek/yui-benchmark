@@ -8,7 +8,6 @@
         "nopt": "2.1.1",
         "win-spawn": "1.1.1",
         "mime": "1.2.9",
-        "useragent": "2.0.3",
         "osenv": "0.0.3",
         "async": "0.2.6",
         "ansi-color": "0.2.1",

@@ -1,0 +1,19 @@
+<script src="/yeti/public/inject.js"></script>
+<script>
+    var genericYetiDriver = true;
+    var results=[];
+
+    suite.on("cycle", function (event) {
+        var bench = event.target;
+        results.push({
+            unit: "hz",
+            name: bench.name,
+            value: bench.hz,
+            stats: bench.stats
+        });
+    });
+
+    suite.on("complete", function (e) {
+        window.yetiComplete({results: results});
+    });
+</script>
