@@ -13,7 +13,7 @@
                 }
             }
         ],
-        assets: ['tests/assets/ok.txt']
+        assets: ['assets/ok.txt']
     },
     {
         title: 'Smallest timeout value',

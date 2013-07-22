@@ -24,7 +24,7 @@ if (!fs.existsSync(tmproot)) {
 
 var argv = [
     '--yuipath=' + yuipath,
-    '--source=./examples/benchmarkjs-suite.js',
+    '--source=./tests/assets/3/config.js',
     '--ref=v3.8.0',
     '--loglevel=debug',
     '--tmproot=' + tmproot

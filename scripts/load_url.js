@@ -7,7 +7,8 @@ http://yuilibrary.com/license/
 */
 
 var page = require('webpage').create(),
-    system = require('system');
+    system = require('system'),
+    path;
 
 if (system.args.length === 1) {
     console.log('No input path specified');
@@ -23,5 +24,5 @@ page.open(path, function (status) {
 });
 
 page.onConsoleMessage = function(msg) {
-	console.log('phantom.js: ' + msg);
+	console.log(msg);
 };
