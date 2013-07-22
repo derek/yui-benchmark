@@ -3,25 +3,26 @@
     "version": "0.0.9pre",
     "engines": { "node": ">=0.4.0" },
     "dependencies": {
-        "benchmark": "1.0.0",
-        "express": "3.1.0",
-        "nopt": "2.1.1",
-        "win-spawn": "1.1.1",
-        "mime": "1.2.9",
-        "osenv": "0.0.3",
-        "async": "0.2.6",
-        "ansi-color": "0.2.1",
-        "cli-table": "0.2.0",
-        "eventemitter2": "0.4.11",
-        "rimraf": "2.1.4",
-        "little-logger" : "0.1.4",
+        "benchmark": "1.0.x",
+        "express": "3.1.x",
+        "nopt": "2.1.x",
+        "win-spawn": "1.1.x",
+        "mime": "1.2.x",
+        "osenv": "0.0.x",
+        "async": "0.2.x",
+        "ansi-color": "0.2.x",
+        "cli-table": "0.2.x",
+        "eventemitter2": "0.4.x",
+        "rimraf": "2.1.x",
+        "little-logger" : "0.1.x",
         "mkdirp": "0.3.x",
-        "yeti": "https://github.com/derek/yeti/tarball/benchmark"
+        "yeti": "0.2.24",
+        "handlebars": "1.0.x"
     },
     "devDependencies": {
-        "istanbul": "0.1.36",
-        "selleck": "0.1.18",
-        "vows": "0.7.0"
+        "istanbul": "0.1.x",
+        "selleck": "0.1.x",
+        "vows": "0.7.x"
     },
     "scripts": {
         "test": "istanbul cover --print both vows -- --spec `ls ./tests/*.js | sort -n`"

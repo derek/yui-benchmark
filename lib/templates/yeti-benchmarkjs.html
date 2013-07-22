@@ -1,6 +1,6 @@
 <script src="/yeti/public/inject.js"></script>
 <script>
-    var genericYetiDriver = true;
+    var stopYetiScan = true;
     var results=[];
 
     suite.on("cycle", function (event) {
@@ -14,6 +14,6 @@
     });
 
     suite.on("complete", function (e) {
-        window.yetiComplete({results: results});
+        window.sendYetiResults({results: results});
     });
 </script>

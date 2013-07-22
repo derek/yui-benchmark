@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>Test suite 03</title>
+        <script src='http://rawgithub.com/bestiejs/benchmark.js/a421927f4075716355e5eb45b4bd905bb8011b80/benchmark.js'></script>
+        <script>
+        var title = (document.getElementsByTagName('title')[0].innerHTML),
+            autoExecute = (!Boolean(window.location.search.match(/auto=false/g))),
+            readyCount = 1,
+            suite;
+
+        function ready () {
+            // Have all the loaders finished?
+            if (--readyCount === 0) {
+
+                // First, populate <body>
+                resetBody();
+
+                // Next, add the tests
+                addTests();
+
+                // and now execute the tests
+                executeTests();
+            }
+        }
+
+        // Create the Benchmark.js test suite
+        suite = new Benchmark.Suite({
+
+            // The name of the suite
+            name: title,
+
+            // called when the suite starts running
+            onStart: function (e) {
+                console.log('Executing ' + suite.options.name + ' (' + suite.length + ' tests)...');
+            },
+
+            // called between running benchmarks
+            onCycle: function (e) {
+                console.log(e.target.toString());
+            },
+
+            // called when aborted
+            onAbort: function (e) {
+                console.log('Abort');
+            },
+
+            // called when a test errors
+            onError: function (e) {
+                throw new Error(e.target.error.message)
+            },
+
+            // called when reset
+            onReset: function (e) {
+                console.log('Reset');
+            },
+
+            // called when the suite completes running
+            onComplete: function (e) {
+                var tests = [], test;
+
+                while (test = suite.shift()) {
+                    tests.push(test);
+                }
+
+                console.log('-BEGIN RESULTS-', JSON.stringify(tests), '-END RESULTS-');
+                console.log('-COMPLETE-');
+            }
+        });
+
+        function resetBody() {
+            document.body.innerHTML = document.getElementById('test-html').innerHTML;
+        }
+
+        function addTests () {
+            // Test
+            suite.add({
+                name: 'test 4',
+                defer: false,
+                setup: null,
+                onCycle: null,
+                teardown: null,
+                fn: function () {
+                    var foo = 'foo';
+                }
+            });
+        }
+
+        function executeTests () {
+            suite.run({ async: true });
+        }
+
+        ready();
+        </script>
+
+        <!-- bottomHTML -->
+        <script type="text/javascript" src="http://yui.yahooapis.com/3.9.0/build/yui/yui-min.js"></script>
+<script>
+    var Y = YUI({}).use('node', ready);
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dojo/dojo.js" data-dojo-config="async: false"></script>
+<script>
+    require(["dojo/query","dojo/dom-construct"], function (query, domConst) {
+    window.query = query;
+    window.domConst = domConst;
+
+    ready();
+});
+</script><!-- End bottomHTML -->
+
+        <script type="text/x-handlebars-template" id="test-html">
+
+        </script>
+    </head>
+
+    <body><!-- Intentionally blank --></body>
+</html>

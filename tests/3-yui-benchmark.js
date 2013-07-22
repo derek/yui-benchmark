@@ -25,7 +25,7 @@ if (!fs.existsSync(tmproot)) {
 
 var argv = [
     '--yuipath=' + yuipath,
-    '--source=./examples/benchmarkjs-suite.js',
+    '--source=./tests/assets/3/config.js',
     '--ref=v3.8.0',
     '--loglevel=debug',
     '--tmproot=' + tmproot
@@ -67,7 +67,7 @@ vows.describe('YUI Benchmark').addBatch({
             assert.deepEqual({
                 refs: [ 'v3.8.0', 'WIP' ],
                 yuipath: yuipath,
-                source: path.join(yuiBenchPath, '/examples/benchmarkjs-suite.js'),
+                source: path.join(yuiBenchPath, '/tests/assets/3/config.js'),
                 raw: false,
                 wip: true,
                 port: 3000,
@@ -98,32 +98,32 @@ vows.describe('YUI Benchmark').addBatch({
                     assert.equal(topic.shaTable['d89374d7213ad8260e5004200e8f99efd54e705b'], 'v3.8.0');
                     assert.equal(topic.shaTable['WIP'], 'WIP');
                 },
-                '> prepRepos' : {
+                '> createTasks' : {
                     topic: function (topic) {
-                        execute(topic.prepRepos, this);
+                        execute(topic.createTasks, this);
                     },
-                    'should foo': function (topic) {
-                        // Anything?
+                    'should create 2 tasks': function (topic) {
+                        assert.equal(topic.tasks.length, 4);
                     },
-                    '> createTasks' : {
+                    'and the build files should exist': function (topic) {
+                        topic.tasks.forEach(function (task) {
+                            var seedPath = task.buildPath + '/yui/yui.js';
+                            assert.isTrue(fs.existsSync(seedPath));
+                        });
+                    },
+                    '> gatherTestURLs' : {
                         topic: function (topic) {
-                            execute(topic.createTasks, this);
+                            execute(topic.gatherTestURLs, this);
                         },
-                        'should create 2 tasks': function (topic) {
-                            assert.equal(topic.tasks.length, 4);
+                        'should gather two URLs': function (topic) {
+                            assert.equal(topic.testURLs.length, 4);
                         },
-                        'and the build files should exist': function (topic) {
-                            topic.tasks.forEach(function (task) {
-                                var seedPath = task.buildPath + '/yui/yui.js';
-                                assert.isTrue(fs.existsSync(seedPath));
-                            });
-                        },
-                        '> gatherTestURLs' : {
+                        '> prepRepos' : {
                             topic: function (topic) {
-                                execute(topic.gatherTestURLs, this);
+                                execute(topic.prepRepos, this);
                             },
-                            'should gather two URLs': function (topic) {
-                                assert.equal(topic.testURLs.length, 4);
+                            'should foo': function (topic) {
+                                // Anything?
                             },
                             '> startExpress' : {
                                 topic: function (topic) {
