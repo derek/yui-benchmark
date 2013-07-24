@@ -13,7 +13,6 @@
         "ansi-color": "0.2.x",
         "cli-table": "0.2.x",
         "eventemitter2": "0.4.x",
-        "rimraf": "2.1.x",
         "little-logger" : "0.1.x",
         "mkdirp": "0.3.x",
         "yeti": "0.2.24",
