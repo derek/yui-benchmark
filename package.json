@@ -19,7 +19,9 @@
         "yeti": "0.2.24",
         "handlebars": "1.0.x",
         "numeral": "1.4.x",
-        "cpr": "0.1.x"
+        "cpr": "0.1.x",
+        "rimraf": "2.1.x",
+        "glob": "3.2.x"
     },
     "devDependencies": {
         "istanbul": "0.1.x",
