@@ -77,6 +77,7 @@ To get a better idea, check out some examples in the YUI source tree
 ## Additional Tools
 YUI Benchmark also installs a few additional tools that may be helpful.
 
+ * `yb-compile` - Compiles a config file to an executable performance test (e.g. `yb-compile path/to/config.js`).
  * `yb-clean` - Removes `yui3/.builds` and any `yui3-*` repo directories in your OS's temp directory. This is where `yb` clones repositories for builds.
  * `yb-parse` - Converts a raw JSON results file to pretty tables (e.g. `cat myResults.json | yb-parse`). Also, a nice startin point if you want to make your own parser.
 
