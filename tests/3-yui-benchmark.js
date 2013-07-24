@@ -56,7 +56,6 @@ vows.describe('YUI Benchmark').addBatch({
             assert.deepEqual([], topic.tasks);
             assert.deepEqual([], topic.testURLs);
             assert.deepEqual({}, topic.refTable);
-            assert.deepEqual({}, topic.shaTable);
             assert.equal(null, topic.server);
             assert.equal(null, topic.yuipath);
             assert.equal(null, topic.yetiHub);
@@ -91,12 +90,8 @@ vows.describe('YUI Benchmark').addBatch({
                     execute(topic.prepSHAs, this);
                 },
                 'should populate refTable': function (topic) {
-                    assert.equal(topic.refTable['v3.8.0'], 'd89374d7213ad8260e5004200e8f99efd54e705b');
-                    assert.equal(topic.refTable['WIP'], 'WIP');
-                },
-                'and shaTable': function (topic) {
-                    assert.equal(topic.shaTable['d89374d7213ad8260e5004200e8f99efd54e705b'], 'v3.8.0');
-                    assert.equal(topic.shaTable['WIP'], 'WIP');
+                    assert.equal(topic.refTable['v3.8.0'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                    assert.equal(topic.refTable['WIP'].ref, 'WIP');
                 },
                 '> createTasks' : {
                     topic: function (topic) {
@@ -104,12 +99,6 @@ vows.describe('YUI Benchmark').addBatch({
                     },
                     'should create 2 tasks': function (topic) {
                         assert.equal(topic.tasks.length, 4);
-                    },
-                    'and the build files should exist': function (topic) {
-                        topic.tasks.forEach(function (task) {
-                            var seedPath = task.buildPath + '/yui/yui.js';
-                            assert.isTrue(fs.existsSync(seedPath));
-                        });
                     },
                     '> gatherTestURLs' : {
                         topic: function (topic) {
@@ -122,8 +111,11 @@ vows.describe('YUI Benchmark').addBatch({
                             topic: function (topic) {
                                 execute(topic.prepRepos, this);
                             },
-                            'should foo': function (topic) {
-                                // Anything?
+                            'so the build files exist': function (topic) {
+                                topic.tasks.forEach(function (task) {
+                                    var seedPath = task.buildPath + '/yui/yui.js';
+                                    assert.isTrue(fs.existsSync(seedPath));
+                                });
                             },
                             '> startExpress' : {
                                 topic: function (topic) {
