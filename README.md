@@ -26,7 +26,8 @@ From within the `yui3` repository
 
 	$ yb path/to/config.js
 
-Now point your browser to the URL displayed and let us take care of the rest.  Or, execute with the `--phantomjs` option for completely hands-free testing!
+Now point your browser to the URL displayed and let us take care of the rest.
+Or, execute with the `--phantomjs` option for completely automated testing.
 
 ### CLI Options
 
@@ -58,27 +59,39 @@ To get a better idea, check out some examples in the YUI source tree
  * [promise](https://github.com/derek/yui3/blob/new-perf/src/promise/tests/performance/promise.js)
 
 ### Suites
- * `title` - **Required**. The name of this suite.
- * `tests` - **Required**. An array of "test" objects.
+Suites are objects that contain the following properties:
+
+**Required**
+ * `title` - The name of this suite.
+ * `tests` - An array of "test" objects.
+
+**Optional**
  * `global` - An object containing `setup` and/or `teardown` functions to be run before/after any tests in the suite.
- * `slug` - A short-name for this suite. [A-Za-z-].
- * `html` - A string or relative path on your filesystem to some HTM to be placed inside the `body` tag.
+ * `slug` - A short-name for this suite. Used for URLs and filenames.
+ * `html` - A string or relative path on your filesystem to some HTML to be placed inside the `body` tag.
  * `yui`
     * `config` - A YUI config object
     * `use` - An array of modules to include in your suite
 
 ### Tests
- * `title` - **Required**. The name of this test.
- * `fn` - **Required**. The function to test.
+Tests are objects that contain the following properties:
+
+**Required**
+ * `title` - The name of this test.
+ * `fn` - The function to test.
+
+**Optional**
  * `async` - If this test should be considered an async test. If `true`, your `fn` will recieve a function as the first argument. Execute that when your test is complete.
- * `setup` - A function to execute before the test cycle. Shares scope with `fn`.  This will override anything specified in `global.setup`.
- * `teardown` - A function to execute after the test cycle. Shares scope with `fn`.  This will override anything specified in `global.teardown`.
+ * `setup` - A function to execute before the test cycle. This will override anything specified in `global.setup`.
+ * `teardown` - A function to execute after the test cycle. This will override anything specified in `global.teardown`.
+
+Note: Both `setup` and `teardown` shares scope with `fn`.  These are useful to instantiate any new variables/objects/classes, and clean them up outside of the measured test loop.
 
 ## Additional Tools
 YUI Benchmark also installs a few additional tools that may be helpful.
 
+ * `yb-clean` - Removes `.builds` from your CWD and any `yui3-*` repo directories in your OS's temp directory.
  * `yb-compile` - Compiles a config file to an executable performance test (e.g. `yb-compile path/to/config.js`).
- * `yb-clean` - Removes `yui3/.builds` and any `yui3-*` repo directories in your OS's temp directory. This is where `yb` clones repositories for builds.
  * `yb-parse` - Converts a raw JSON results file to pretty tables (e.g. `cat myResults.json | yb-parse`). Also, a nice startin point if you want to make your own parser.
 
 ## Yogi
@@ -90,9 +103,9 @@ Yogi, which you can find [this repo](https://github.com/derek/yogi/).
 Clone, and execute `sudo npm install -g`.
 
 ### Options
-* ``--loglevel=[string]`` - 'info' (default) or 'debug'
-* ``--last3=[boolean]`` - Runs tests against the last 3 "minor" versions of YUI (e.g. `v3.9.0` + `v3.10.3` + `v3.11.0`)
-* ``--last5=[boolean]`` - Runs tests against the last 5 versions
+* ``--loglevel=[string]`` - 'info' (default) or 'debug'.
+* ``--last3=[boolean]`` - Runs tests against the last 3 "minor" versions of YUI (e.g. `v3.9.0` + `v3.10.3` + `v3.11.0`).
+* ``--last5=[boolean]`` - Runs tests against the last 5 "minor" versions versions of YUI.
 
 ## License
-`yui-benchmark` is open-sourced with a BSD license.  See [LICENSE.md].
+YUI Benchmark is open-sourced with a BSD license.  See [LICENSE.md](LICENSE.md).
