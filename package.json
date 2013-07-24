@@ -18,7 +18,8 @@
         "mkdirp": "0.3.x",
         "yeti": "0.2.24",
         "handlebars": "1.0.x",
-        "numeral": "1.4.x"
+        "numeral": "1.4.x",
+        "cpr": "0.1.x"
     },
     "devDependencies": {
         "istanbul": "0.1.x",
