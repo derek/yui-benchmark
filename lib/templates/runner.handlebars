@@ -2,10 +2,10 @@
 <html>
     <head>
         <meta charset='utf-8'>
-        <title>{{title}}</title>
+        <title>{{name}}</title>
         <script src='{{benchmarkjsURL}}'></script>
         <script>
-        var title = (document.getElementsByTagName('title')[0].innerHTML),
+        var name = (document.getElementsByTagName('title')[0].innerHTML),
             autoExecute = (!Boolean(window.location.search.match(/auto=false/g))),
             readyCount = {{readyCount}},
             suite;
@@ -29,7 +29,7 @@
         suite = new Benchmark.Suite({
 
             // The name of the suite
-            name: title,
+            name: name,
 
             // called when the suite starts running
             onStart: function (e) {
@@ -77,7 +77,7 @@
             {{#each tests}}
             // Test {{@index}}
             suite.add({
-                name: '{{this.title}}',
+                name: '{{this.name}}',
                 defer: {{this.defer}},
                 setup: {{{this.setup}}},
                 teardown: {{{this.teardown}}},
