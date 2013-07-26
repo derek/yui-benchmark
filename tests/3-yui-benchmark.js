@@ -98,14 +98,14 @@ vows.describe('YUI Benchmark').addBatch({
                         execute(topic.createTasks, this);
                     },
                     'should create 2 tasks': function (topic) {
-                        assert.equal(topic.tasks.length, 4);
+                        assert.equal(topic.tasks.length, 2);
                     },
                     '> gatherTestURLs' : {
                         topic: function (topic) {
                             execute(topic.gatherTestURLs, this);
                         },
                         'should gather two URLs': function (topic) {
-                            assert.equal(topic.testURLs.length, 4);
+                            assert.equal(topic.testURLs.length, 2);
                         },
                         '> prepRepos' : {
                             topic: function (topic) {
