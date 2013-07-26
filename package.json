@@ -20,13 +20,15 @@
         "osenv": "~0.0.3",
         "rimraf": "~2.1.4",
         "win-spawn": "~1.1.1",
-        "yeti": "~0.2.24"
+        "yeti": "~0.2.24",
+        "yui-lint": "~0.1.1"
     },
     "devDependencies": {
         "istanbul": "~0.1.36",
         "vows": "~0.7.0"
     },
     "scripts": {
+        "pretest": "jshint --config ./node_modules/yui-lint/jshint.json ./lib/app/*.js ./lib/cli/*.js",
         "test": "istanbul cover --print both vows -- --spec `ls ./tests/*.js | sort -n`"
     },
     "bin": {
