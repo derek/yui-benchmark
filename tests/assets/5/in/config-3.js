@@ -1,4 +1,4 @@
-var suite = new Suite({
+var suite = new PerfSuite({
     name: 'Test suite 03',
     description: 'Tests advanced library inclusion',
     jquery: {
@@ -15,7 +15,7 @@ var suite = new Suite({
     },
     tests: [
         {
-            title: 'test 4',
+            name: 'test 4',
             fn: function () {
                 var foo = 'foo';
             }

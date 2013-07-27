@@ -1,4 +1,4 @@
-var suite = new Suite({
+var suite = new PerfSuite({
     name: 'Smallest timeout value',
     assets: ['assets/ok.txt'],
     tests: [
