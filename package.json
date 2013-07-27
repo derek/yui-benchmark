@@ -28,7 +28,7 @@
         "vows": "~0.7.0"
     },
     "scripts": {
-        "pretest": "jshint --config ./node_modules/yui-lint/jshint.json ./lib/app/*.js ./lib/cli/*.js",
+        "pretest": "./scripts/ci/lint.sh",
         "test": "istanbul cover --print both vows -- --spec `ls ./tests/*.js | sort -n`"
     },
     "bin": {
