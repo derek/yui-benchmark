@@ -42,35 +42,32 @@ function writeSuite (suite, targetDir) {
     }
 }
 
-function processConfig (srcConfig, targetDir) {
+function processConfig (srcConfigPath, targetDir) {
     var srcDir = path.dirname(srcConfig),
         context = {suite: null},
-        suites;
-    // Turn the config string into an object
-    vm.runInNewContext(fs.readFileSync('../templates/perf-suite.js') + fs.readFileSync(srcConfig), context);
-    suites = context.module.exports;
+        perfSuiteSource = fs.readFileSync(path.join(__dirname, '../lib/assets/perf-suite.js'), 'utf-8'),
+        configSource = fs.readFileSync(srcConfigPath, 'utf-8'),
+        suite;
 
-    // If it's just a single suite, turn it into an array of suites
-    if (typeof suites.push !== 'function') {
-        suites = [suites];
-    }
+    // Turn the config string into an object
+    vm.runInNewContext(perfSuiteSource + configSource, context);
+    suite = context.suite.exportConfig();
 
     // Create the target directory if it doesn't exist
     if (!fs.existsSync(targetDir)) {
         mkdirp.sync(targetDir);
     }
 
-    // Write out each suite to it's own file
-    suites.forEach(function (suite) {
-        if (suite.html) {
-            if (fs.existsSync(path.join(srcDir, suite.html))) {
-                suite.html = fs.readFileSync(path.join(srcDir, suite.html), 'utf-8');
-            }
+    // Import the suite's HTML
+    if (suite.html) {
+        if (fs.existsSync(path.join(srcDir, suite.html))) {
+            suite.html = fs.readFileSync(path.join(srcDir, suite.html), 'utf-8');
         }
+    }
 
-        suite = compile(suite, srcDir);
-        writeSuite(suite, targetDir);
-    });
+    // Compile and write it to the file system
+    suite = compile(suite, srcDir);
+    writeSuite(suite, targetDir);
 }
 
 if (options.watch) {
