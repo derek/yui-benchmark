@@ -3,4 +3,7 @@
 # LINT_OUTPUT_DIR=${LINT_OUTPUT_DIR:-tmp}
 # cd ${SRC_DIR}
 
-jshint --config ./node_modules/yui-lint/jshint.json ./lib/app/*.js ./lib/cli/*.js
+jshint --config ./node_modules/yui-lint/jshint.json \
+	./lib/app/*.js \
+	./bin/*.js \
+	./lib/assets/*.js
