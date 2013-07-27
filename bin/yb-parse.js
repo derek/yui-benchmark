@@ -6,7 +6,7 @@ http://yuilibrary.com/license/
 
 'use strict';
 
-var parser = require('../app/parser'),
+var parser = require('../lib/app/parser'),
     fs = require('fs'),
     input = fs.readFileSync('/dev/stdin', 'utf-8'),
     results = JSON.parse(input),
