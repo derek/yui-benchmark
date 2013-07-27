@@ -10,7 +10,7 @@ var nopt = require("nopt"),
     path = require("path"),
     fs = require("fs"),
     mkdirp = require('mkdirp'),
-    compile = require('../app/compiler'),
+    compile = require('../lib/app/compiler'),
     vm = require('vm'),
     options = nopt({
         "template" : path,

@@ -12,9 +12,9 @@ var path = require('path'),
     spawn = require('win-spawn'),
     mkdirp = require('mkdirp'),
     fs = require('fs'),
-    parser = require('../app/parser'),
-    YUIBenchmark = require('../app/yui-benchmark'),
-    utilities = require('../utilities'),
+    parser = require('../lib/app/parser'),
+    YUIBenchmark = require('../lib/app/yui-benchmark'),
+    utilities = require('../lib/utilities'),
     parseOptions = utilities.parseOptions,
     getLogger = utilities.getLogger,
     options = parseOptions(process.argv),
@@ -87,7 +87,7 @@ function handleError (err) {
  * @private
  */
 function spawnPhantom() {
-    var scriptPath = path.join(__dirname, '../../scripts/load_url.js'),
+    var scriptPath = path.join(__dirname, '../lib/assets/phantom-load-url.js'),
         port = app.config.port;
 
     log.info('Executing with PhantomJS');
