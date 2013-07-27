@@ -4,7 +4,7 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-/*jslint node: true */
+/*jslint es5: true*/ // complains about Vows' 'export' method
 "use strict";
 
 var fs = require('fs'),
@@ -15,7 +15,6 @@ var fs = require('fs'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
     yuipath = path.resolve(__dirname, '../../yui3'),
-    yuiBenchPath = path.resolve(__dirname, '../'),
     tmproot = path.join(yuipath, '.builds');
 
 if (!fs.existsSync(tmproot)) {
@@ -33,6 +32,7 @@ var argv = [
 var yb = new YUIBenchmark(parseOptions(argv));
 
 function getMockResponse (route, request) {
+    /*jshint validthis:true */
     var vow = this;
 
 	return route(request, {

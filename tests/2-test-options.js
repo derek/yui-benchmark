@@ -4,7 +4,7 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-/*jslint node: true */
+/*jslint es5: true*/ // complains about Vows' 'export' method
 "use strict";
 
 var vows = require('vows'),

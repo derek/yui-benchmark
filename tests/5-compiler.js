@@ -4,7 +4,7 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-/*jslint node: true */
+/*jslint es5: true*/ // complains about Vows' 'export' method
 "use strict";
 
 var vows = require('vows'),
@@ -20,11 +20,11 @@ var vows = require('vows'),
 
     // Useful to hash long strings (HTML docs) because if they fail, Vows' diff of expected/actual takes forevs to generate
     function md5(str) {
-        return crypto.createHash('md5').update(str).digest("hex")
+        return crypto.createHash('md5').update(str).digest("hex");
     }
 
     // Turn the config string into an object
-    vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../lib/templates/perf-suite.js')) + fs.readFileSync(srcConfig), context);
+    vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../lib/assets/perf-suite.js')) + fs.readFileSync(srcConfig), context);
     suite = context.suite.exportConfig();
 
 vows.describe('compiler').addBatch({

@@ -4,15 +4,13 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-/*jslint node: true */
+/*jslint es5: true*/ // complains about Vows' 'export' method
 "use strict";
 
 var fs = require("fs"),
     path = require("path"),
     vows = require('vows'),
     assert = require('assert'),
-    osenv = require("osenv"),
-    site = require('../lib/app/server'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
     yuipath = path.resolve(__dirname, '../../yui3'),
@@ -91,7 +89,7 @@ vows.describe('YUI Benchmark').addBatch({
                 },
                 'should populate refTable': function (topic) {
                     assert.equal(topic.refTable['v3.8.0'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
-                    assert.equal(topic.refTable['WIP'].ref, 'WIP');
+                    assert.equal(topic.refTable.WIP.ref, 'WIP');
                 },
                 '> createTasks' : {
                     topic: function (topic) {

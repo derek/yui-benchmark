@@ -4,7 +4,6 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-/*jslint node: true */
 "use strict";
 
 // process.argv = [
