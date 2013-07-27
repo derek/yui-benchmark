@@ -33,7 +33,7 @@
     },
     "bin": {
         "yb": "./bin/yb.js",
-        "yb-parse" : "./bin/yb-parser.js",
+        "yb-parse" : "./bin/yb-parse.js",
         "yb-compile" : "./bin/yb-compile.js",
         "yb-clean" : "./bin/yb-clean.js"
     }
