@@ -5,9 +5,9 @@
         <title>Test suite 03</title>
         <script src='http://rawgithub.com/bestiejs/benchmark.js/a421927f4075716355e5eb45b4bd905bb8011b80/benchmark.js'></script>
         <script>
-        var title = (document.getElementsByTagName('title')[0].innerHTML),
+        var name = (document.getElementsByTagName('title')[0].innerHTML),
             autoExecute = (!Boolean(window.location.search.match(/auto=false/g))),
-            readyCount = 1,
+            readyCount = 3,
             suite;
 
         function ready () {
@@ -29,7 +29,7 @@
         suite = new Benchmark.Suite({
 
             // The name of the suite
-            name: title,
+            name: name,
 
             // called when the suite starts running
             onStart: function (e) {
@@ -74,17 +74,18 @@
         }
 
         function addTests () {
-            // Test
+            
+            // Test 
             suite.add({
                 name: 'test 4',
                 defer: false,
                 setup: null,
-                onCycle: null,
                 teardown: null,
                 fn: function () {
-                    var foo = 'foo';
-                }
+                var foo = 'foo';
+            }
             });
+            
         }
 
         function executeTests () {
@@ -94,24 +95,24 @@
         ready();
         </script>
 
-        <!-- bottomHTML -->
-        <script type="text/javascript" src="http://yui.yahooapis.com/3.9.0/build/yui/yui-min.js"></script>
-<script>
-    var Y = YUI({}).use('node', ready);
-</script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dojo/dojo.js" data-dojo-config="async: false"></script>
-<script>
-    require(["dojo/query","dojo/dom-construct"], function (query, domConst) {
-    window.query = query;
-    window.domConst = domConst;
+        <!-- bottomHTML -->        <script type="text/javascript" src="http://yui.yahooapis.com/3.9.0/build/yui/yui-min.js"></script>
+        <script>
+            var Y = YUI({}).use('node', ready);
+        </script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dojo/dojo.js" data-dojo-config="async: false"></script>
+        <script>
+        require(["dojo/query","dojo/dom-construct"], function (query, domConst) {
+            window.query = query;
+window.domConst = domConst;
 
-    ready();
-});
-</script><!-- End bottomHTML -->
+            ready();
+        });
+        </script>
+<!-- End bottomHTML -->
 
         <script type="text/x-handlebars-template" id="test-html">
-
+            
         </script>
     </head>
 

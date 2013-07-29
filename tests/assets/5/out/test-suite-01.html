@@ -5,7 +5,7 @@
         <title>Test suite 01</title>
         <script src='http://rawgithub.com/bestiejs/benchmark.js/a421927f4075716355e5eb45b4bd905bb8011b80/benchmark.js'></script>
         <script>
-        var title = (document.getElementsByTagName('title')[0].innerHTML),
+        var name = (document.getElementsByTagName('title')[0].innerHTML),
             autoExecute = (!Boolean(window.location.search.match(/auto=false/g))),
             readyCount = 1,
             suite;
@@ -29,7 +29,7 @@
         suite = new Benchmark.Suite({
 
             // The name of the suite
-            name: title,
+            name: name,
 
             // called when the suite starts running
             onStart: function (e) {
@@ -74,7 +74,8 @@
         }
 
         function addTests () {
-            // Test
+            
+            // Test 
             suite.add({
                 name: 'timeout = 0',
                 defer: true,
@@ -86,6 +87,7 @@
                 }, 0);
             }
             });
+            
         }
 
         function executeTests () {
@@ -98,7 +100,7 @@
         <!-- bottomHTML --><!-- End bottomHTML -->
 
         <script type="text/x-handlebars-template" id="test-html">
-
+            
         </script>
     </head>
 

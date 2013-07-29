@@ -1,0 +1,146 @@
+[
+    {
+        "unit": "Hz",
+        "name": "Y.Model: Instantiate a bare model",
+        "value": 22067.447751205273,
+        "stats": {
+            "moe": 0.0000012328140126482897,
+            "rme": 2.720505881106985,
+            "sem": 6.289867411470865e-7,
+            "deviation": 0.000004912543491193615,
+            "mean": 0.00004531561652594747,
+            "variance": 2.4133083552868752e-11
+        },
+        "UA": "PhantomJS (1.9.1) / Mac OS",
+        "date": 1375078059190,
+        "ref": "v3.10.0",
+        "sha": "a03ce0ebc9aadda2ac98b65e7823f53b9a80113d",
+        "samples": 61
+    },
+    {
+        "unit": "Hz",
+        "name": "Y.Model: Subclass and instantiate a bare model",
+        "value": 10995.067370971166,
+        "stats": {
+            "moe": 0.000007957136227589829,
+            "rme": 8.748924890234552,
+            "sem": 0.000004059763381423382,
+            "deviation": 0.000030380487289314304,
+            "mean": 0.00009094987472656774,
+            "variance": 9.229740079361879e-10
+        },
+        "UA": "PhantomJS (1.9.1) / Mac OS",
+        "date": 1375078059190,
+        "ref": "v3.10.0",
+        "sha": "a03ce0ebc9aadda2ac98b65e7823f53b9a80113d",
+        "samples": 56
+    },
+    {
+        "unit": "Hz",
+        "name": "Y.Model: Instantiate a bare model",
+        "value": 5851.074324187953,
+        "stats": {
+            "moe": 0.000018023484235803938,
+            "rme": 10.545674584451875,
+            "sem": 0.000009195655222348948,
+            "deviation": 0.0000806915470948484,
+            "mean": 0.00017090878436906302,
+            "variance": 6.511125772560138e-9
+        },
+        "UA": "Firefox (22.0) / Mac OS",
+        "date": 1375078069594,
+        "ref": "v3.10.0",
+        "sha": "a03ce0ebc9aadda2ac98b65e7823f53b9a80113d",
+        "samples": 77
+    },
+    {
+        "unit": "Hz",
+        "name": "Y.Model: Subclass and instantiate a bare model",
+        "value": 987.0169104845786,
+        "stats": {
+            "moe": 0.00008515558723942452,
+            "rme": 8.40500046275568,
+            "sem": 0.00004344672818337986,
+            "deviation": 0.00037875979515766654,
+            "mean": 0.001013153867352736,
+            "variance": 1.434589824278775e-7
+        },
+        "UA": "Firefox (22.0) / Mac OS",
+        "date": 1375078069594,
+        "ref": "v3.10.0",
+        "sha": "a03ce0ebc9aadda2ac98b65e7823f53b9a80113d",
+        "samples": 76
+    },
+    {
+        "unit": "Hz",
+        "name": "Y.Model: Instantiate a bare model",
+        "value": 28061.063369297368,
+        "stats": {
+            "moe": 0.0000022416586307019935,
+            "rme": 6.290332488846101,
+            "sem": 0.0000011437033830112211,
+            "deviation": 0.000008932608976496734,
+            "mean": 0.000035636568252582205,
+            "variance": 7.979150312699002e-11
+        },
+        "UA": "PhantomJS (1.9.1) / Mac OS",
+        "date": 1375078071983,
+        "ref": "WIP",
+        "sha": null,
+        "samples": 61
+    },
+    {
+        "unit": "Hz",
+        "name": "Y.Model: Subclass and instantiate a bare model",
+        "value": 13559.795160014186,
+        "stats": {
+            "moe": 0.000004619307574948707,
+            "rme": 6.263686449740636,
+            "sem": 0.000002356789579055463,
+            "deviation": 0.000018407115045998107,
+            "mean": 0.00007374742672727467,
+            "variance": 3.3882188431660995e-10
+        },
+        "UA": "PhantomJS (1.9.1) / Mac OS",
+        "date": 1375078071983,
+        "ref": "WIP",
+        "sha": null,
+        "samples": 61
+    },
+    {
+        "unit": "Hz",
+        "name": "Y.Model: Instantiate a bare model",
+        "value": 847.233608807246,
+        "stats": {
+            "moe": 0.000020279514584695296,
+            "rme": 13.885857383462236,
+            "sem": 0.000010346691114640457,
+            "deviation": 0.00008532100068260467,
+            "mean": 0.00014604438188201309,
+            "variance": 7.279673157481026e-9
+        },
+        "UA": "Firefox (22.0) / Mac OS",
+        "date": 1375078084835,
+        "ref": "WIP",
+        "sha": null,
+        "samples": 68
+    },
+    {
+        "unit": "Hz",
+        "name": "Y.Model: Subclass and instantiate a bare model",
+        "value": 1035.6384664198629,
+        "stats": {
+            "moe": 0.0001112330785777514,
+            "rme": 11.519725491342257,
+            "sem": 0.000056751570702934386,
+            "deviation": 0.0004815530458443924,
+            "mean": 0.0009655879270851508,
+            "variance": 2.318933359620115e-7
+        },
+        "UA": "Firefox (22.0) / Mac OS",
+        "date": 1375078084835,
+        "ref": "WIP",
+        "sha": null,
+        "samples": 72
+    }
+]
