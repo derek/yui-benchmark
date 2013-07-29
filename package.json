@@ -24,12 +24,12 @@
     "devDependencies": {
         "istanbul": "~0.1.36",
         "vows": "~0.7.0",
-        "jshint": ">=2.0.0",
+        "jshint": "~2.0.0",
         "yui-lint": "~0.1.1"
     },
     "scripts": {
-        "pretest": "./scripts/ci/lint.sh",
-        "test": "istanbul cover --print both vows -- --spec `ls ./tests/*.js | sort -n`"
+        "pretest": "./scripts/npm/pretest.sh",
+        "test": "./scripts/npm/test.sh"
     },
     "bin": {
         "yb": "./bin/yb.js",
