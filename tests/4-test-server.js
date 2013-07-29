@@ -33,16 +33,18 @@ var yb = new YUIBenchmark(parseOptions(argv));
 
 function getMockResponse (route, request) {
     /*jshint validthis:true */
-    var vow = this;
+    var vow = this,
+        head = '';
 
 	return route(request, {
-		writeHead: function () { },
+		writeHead: function (code, headers) { },
 		end: function () {
 			var args = Array.prototype.slice.call(arguments, 0);
 			if (args.length > 0) {
 				args.unshift(false);
 			}
-			return vow.callback.apply(this, args);
+
+			return vow.callback.apply(this, args, head);
 		}
 	});
 }
@@ -90,6 +92,28 @@ var tests = {
             },
             'should process correctly': function (response) {
                 assert.equal(response, 'ok');
+            }
+        },
+        'invalid asset': {
+            topic: function () {
+                var request = getMockResponse.bind(this);
+                return request(site.assets, {
+                    params: {
+                        taskID: 0,
+                        file: 'foobar'
+                    },
+                    url: 'tests/assets/ok.txt',
+                    app: {
+                        get: function (val) {
+                            if (val === 'tasks') {
+                                return yb.tasks;
+                            }
+                        }
+                    }
+                });
+            },
+            'should process correctly': function (response) {
+                assert.equal(response, undefined);
             }
         },
         'benchmarkjs': {

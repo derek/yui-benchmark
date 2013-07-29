@@ -30,12 +30,14 @@ var argv = [
 ];
 
 function execute (test, vow) {
-    var topic = vow.context.topics[0];
-    test = test.bind(topic);
+    var topic = vow.context.topics[0],
+        args = [];
 
-    test(function () {
+    args.push(function () {
         vow.callback(null, topic);
     });
+
+    test.apply(topic, args);
 }
 
 vows.describe('YUI Benchmark').addBatch({
@@ -88,7 +90,9 @@ vows.describe('YUI Benchmark').addBatch({
                     execute(topic.prepSHAs, this);
                 },
                 'should populate refTable': function (topic) {
+                    assert.equal(topic.refTable['v3.8.0'].ref, 'v3.8.0');
                     assert.equal(topic.refTable['v3.8.0'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                    assert.equal(topic.refTable.WIP.sha, null);
                     assert.equal(topic.refTable.WIP.ref, 'WIP');
                 },
                 '> createTasks' : {
