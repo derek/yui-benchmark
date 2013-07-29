@@ -3,7 +3,6 @@
     "version": "0.0.9pre",
     "engines": { "node": ">=0.4.0" },
     "dependencies": {
-        "ansi-color": "~0.2.1",
         "async": "~0.2.6",
         "benchmark": "~1.0.0",
         "cli-table": "~0.2.0",
@@ -12,7 +11,6 @@
         "express": "~3.1.0",
         "glob": "~3.2.6",
         "handlebars": "~1.0.12",
-        "little-logger" : "~0.1.4",
         "mime": "~1.2.9",
         "mkdirp": "~0.3.5",
         "nopt": "~2.1.1",
@@ -20,6 +18,7 @@
         "osenv": "~0.0.3",
         "rimraf": "~2.1.4",
         "win-spawn": "~1.1.1",
+        "winston": "~0.7.2",
         "yeti": "~0.2.24",
         "yui-lint": "~0.1.1"
     },
