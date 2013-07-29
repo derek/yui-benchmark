@@ -77,7 +77,7 @@ function handleComplete (results) {
  * @private
  */
 function handleError (err) {
-    log.error(err);
+    log.error(err.message || err);
     exit(false);
 }
 
