@@ -14,15 +14,18 @@ Performance testing made easy
 	cd yui-benchmark
 	sudo npm install -g
 
+*NPM packages coming soon*
+
 ## Using YUI Benchmark
 
-From within the `yui3` repository
+Here's an example from  within the `yui3` repository:
 
+	$ cd ./yui3/src/app/tests/performance
 	$ yb app-view.js
 	info: Compiling "Y.View performance tests" (contains 2 tests) for 1 refs (Working)
 	info: Listening at http://127.0.0.1:3000
 
-Now point your browser to `http://127.0.0.1:3000` and we'll take care of the rest.
+Now point your browser to `http://127.0.0.1:3000` and we'll take care of the rest!
 
 Or, execute with the `--phantom` option for completely automated testing.
 
@@ -49,7 +52,7 @@ Or, execute with the `--phantom` option for completely automated testing.
 
 ### CLI Options
 
-* `--loglevel=[string]` - 'info', 'debug', or 'silly'. *Default: `info`*
+* `--loglevel=[string]` - `info` or `debug`. *Default: `info`*
 * `--phantom=[boolean]` - Use Phantom.js as your test browser. *Default: `false`*
 * `--port=[integer]` - The HTTP port to listen on. *Default: `3000`*
 * `--raw=[path]` - A path to dump the raw JSON
@@ -61,14 +64,28 @@ Or, execute with the `--phantom` option for completely automated testing.
 
 ## Performance Tests
 
-In order to construct the most ideal and efficient performance test, your
-source needs to be easily parsable.  The best way to do this is by constructing
-a simple configuration object that contains all the ingredients in a
-performance test suite, and nothing more.
+Test files contain all the ingredients for a performance test suite, and little more.
 
-To get a better idea, check out some examples in the YUI source tree
+For example, here's the source file we were using in the above examples:
 
- * [app](https://github.com/derek/yui3/blob/new-perf/src/app/tests/performance/app.js)
+	var suite = new PerfSuite('Y.View performance tests', {
+	    yui: {
+	        use: ['app']
+	    }
+	});
+
+	suite.add({
+	    'Y.View: Instantiate a bare view': function () {
+	        var view = new Y.View();
+	    },
+	    'Y.View: Instantiate and subclass a bare view': function () {
+	        var MyView = Y.Base.create('myView', Y.View, []),
+	            view = new MyView();
+	    }
+	});
+
+To get a better idea, check out some more examples in the YUI source tree
+
  * [base](https://github.com/derek/yui3/blob/new-perf/src/base/tests/performance/)
  * [node](https://github.com/derek/yui3/blob/new-perf/src/node/tests/performance/)
  * [promise](https://github.com/derek/yui3/blob/new-perf/src/promise/tests/performance/promise.js)
@@ -104,13 +121,13 @@ Tests are objects that contain the following properties:
  * `setup` - A function to execute before the test cycle. This will override anything specified in `global.setup`.
  * `teardown` - A function to execute after the test cycle. This will override anything specified in `global.teardown`.
 
-Note: Both `setup` and `teardown` shares scope with `fn`.  These are useful to instantiate any new variables/objects/classes, and clean them up outside of the measured test loop.
+Note: Both `setup` and `teardown` share a scope with `fn`.  These are useful to instantiate any new variables/objects/classes for each cycle, and clean them up outside of the measured test loop.
 
 ## Additional Tools
-YUI Benchmark also installs a few additional tools that may be helpful.
+In addition to `yb`, you'll have a few extra tools that may be helpful:
 
  * `yb-clean` - Removes `.builds` from your CWD and any `yui3-*` repo directories in your OS's temp directory.
- * `yb-compile` - Compiles a config file to an executable performance test (e.g. `yb-compile path/to/source.js`).
+ * `yb-compile` - Compiles a config file to an executable performance test (e.g. `yb-compile path/to/source.js`).  After execution, open the generated HTML file in a browser and take a look at the console for results.
  * `yb-parse` - Converts a raw JSON results file to pretty tables (e.g. `cat myResults.json | yb-parse`). Also, this provides a nice starting point if you want to make your own parser.
 
 ## Yogi
@@ -118,14 +135,14 @@ Additionally, you can performance test via [Yogi](https://github.com/yui/yogi) b
 simply typing `yogi benchmark` from within your component's directory,
 and it will execute any tests found in your component's `tests/performance/`
 directory. If executed from the root level of the `yui3` repository, all performance
-tests will be executed.
+tests in the library will be executed.
 
 For the time being, you will need a patched version of
 Yogi, which you can find [this repo](https://github.com/derek/yogi/).
-Clone, and execute `sudo npm install -g`.
+Clone, and execute `sudo npm install -g` to install.
 
 ### Options
-The following options are passed through to `yb` and take identical input to `yb`'s options above.
+The following options are passed from `yogi benchmark` to `yb`:
 
 * `--loglevel`
 * `--ref`
@@ -133,7 +150,7 @@ The following options are passed through to `yb` and take identical input to `yb
 * `--tmp`
 * `--working`
 
-The following options are also supported by `yogi benchmark`
+The following options are also supported:
 
 * `outdir` - Where `--raw` files can be dumped.
 * `component` - A specific component to test.
