@@ -6,6 +6,7 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
+/*jslint latedef:false */
 'use strict';
 
 var path = require('path'),
@@ -19,7 +20,37 @@ var path = require('path'),
     getLogger = utilities.getLogger,
     options = parseOptions(process.argv),
     procTimeStart = (+new Date()),
-    app, phantomProcess, timerTimeout, log;
+    log = getLogger(options.loglevel),
+    argPath = (options.argv.remain[2] && path.join(process.cwd(), options.argv.remain[2])),
+    app,
+    phantomProcess,
+    timerTimeout;
+
+if (options.help || (argPath && argPath.match(/help$/))) {
+    console.log('Please see README.md for help.');
+    return;
+}
+
+process.on('uncaughtException', handleError);
+
+options.source = (options.source || argPath || false);
+
+if (!options.source) {
+    return log.error('Please specify a source file.');
+}
+
+app = new YUIBenchmark(options);
+
+app.on('error', handleError);
+app.on('ready', resetTimeout);
+app.on('result', resetTimeout);
+app.on('complete', handleComplete);
+
+if (options.phantom) {
+    app.on('ready', spawnPhantom);
+}
+
+app.boot();
 
 /**
  * Cleans up and exits this process
@@ -49,25 +80,18 @@ function exit (successful) {
  * @private
  */
 function handleComplete (results) {
-    var output,
-        raw = JSON.stringify(results, null, 4);
+    var rawData = JSON.stringify(results, null, 4),
+        pretty = parser.prettify(results);
 
-    if (options.out) {
+    if (options.raw) {
         mkdirp.sync(path.dirname(options.out));
-        fs.writeFileSync(options.out, raw);
+        fs.writeFileSync(options.out, rawData);
         log.info('Wrote to %s', options.out);
     }
 
-    if (options.pretty) {
-        output = parser.prettify(results);
-    }
-    else {
-        output = raw;
-    }
+    process.stdout.write(pretty);
 
-    process.stdout.write(output);
-
-    /* Delay termination to allow the browser to return to Yeti's wait page */
+    // Delay termination to allow the browser to return to Yeti's wait page
     setTimeout(exit, 500, true);
 }
 
@@ -77,7 +101,7 @@ function handleComplete (results) {
  * @private
  */
 function handleError (err) {
-    log.error(err.message || err);
+    log.error(err.stack || err.message || err);
     exit(false);
 }
 
@@ -94,10 +118,15 @@ function spawnPhantom() {
 
     phantomProcess = spawn(scriptPath, ['http://127.0.0.1:' + port]);
     phantomProcess.stdout.on('data', function (data) {
-        data = data.toString();
-        if (options.tempest || !data.match(/Tempest/)) {
-            log.debug(data.trim());
-        }
+        data = data.toString().trim();
+        data.split('\n').forEach(function (line) {
+            if (data.match(/Tempest/)) {
+                log.silly(line);
+            }
+            else {
+                log.debug(line);
+            }
+        });
     });
 }
 
@@ -125,26 +154,3 @@ function resetTimeout () {
 
     timerTimeout = setTimeout(timeoutElapsed, app.config.timeout);
 }
-
-options.source = (options.source || path.join(process.cwd(), options.argv.remain[2]));
-
-if (!options.source) {
-    throw new Error('No source file found. Please specify --source.');
-}
-
-log = getLogger(options.loglevel);
-
-process.on('uncaughtException', handleError);
-
-app = new YUIBenchmark(options);
-
-app.on('error', handleError);
-app.on('ready', resetTimeout);
-app.on('result', resetTimeout);
-app.on('complete', handleComplete);
-
-if (options.phantom) {
-    app.on('ready', spawnPhantom);
-}
-
-app.boot();

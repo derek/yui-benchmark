@@ -13,20 +13,21 @@ var fs = require("fs"),
     assert = require('assert'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
-    yuipath = path.resolve(__dirname, '../../yui3'),
+    repo = path.resolve(__dirname, '../../yui3'),
     yuiBenchPath = path.resolve(__dirname, '../'),
-    tmproot = path.join(yuipath, '.builds');
+    tmp = path.join(repo, '.builds'),
+    WIP = 'Working';
 
-if (!fs.existsSync(tmproot)) {
-    fs.mkdirSync(tmproot);
+if (!fs.existsSync(tmp)) {
+    fs.mkdirSync(tmp);
 }
 
 var argv = [
-    '--yuipath=' + yuipath,
+    '--repo=' + repo,
     '--source=./tests/assets/3/config.js',
     '--ref=v3.8.0',
     '--loglevel=debug',
-    '--tmproot=' + tmproot
+    '--tmp=' + tmp
 ];
 
 vows.describe('YUI Benchmark').addBatch({
@@ -46,44 +47,40 @@ vows.describe('YUI Benchmark').addBatch({
             assert.deepEqual([], topic.testURLs);
             assert.deepEqual({}, topic.refTable);
             assert.equal(null, topic.server);
-            assert.equal(null, topic.yuipath);
+            assert.equal(null, topic.repo);
             assert.equal(null, topic.yetiHub);
             assert.equal(null, topic.yetiClient);
             assert.equal(0, topic.batchCount);
             assert.equal(0, topic.batchesComplete);
             assert.equal(path.join(yuiBenchPath, 'lib/'), topic.yuiBenchPath);
             assert.deepEqual({
-                refs: [ 'v3.8.0', 'WIP' ],
-                yuipath: yuipath,
+                refs: [ 'v3.8.0', 'Working' ],
+                repo: repo,
                 source: path.join(yuiBenchPath, '/tests/assets/3/config.js'),
-                raw: false,
-                wip: true,
+                working: true,
                 port: 3000,
-                pretty: true,
                 timeout: 300000,
-                multiseed: false,
-                iterations: 1,
                 loglevel: 'debug',
-                tmproot: tmproot
+                tmp: tmp
             }, topic.config);
         },
-        '> findYUI' : {
+        '> findYUISeed' : {
             topic: function (topic) {
                 this.yb = topic;
-                topic.findYUI(this.callback);
+                topic.findYUISeed(this.callback);
             },
             'should find the seed file': function (topic) {
-                assert.equal(this.yb.yuipath, yuipath);
+                assert.equal(this.yb.repo, repo);
             },
-            '> prepSHAs' : {
+            '> prepRefs' : {
                 topic: function (topic) {
-                    this.yb.prepSHAs(this.callback);
+                    this.yb.prepRefs(this.callback);
                 },
                 'should populate refTable': function (topic) {
                     assert.equal(this.yb.refTable['v3.8.0'].ref, 'v3.8.0');
                     assert.equal(this.yb.refTable['v3.8.0'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
-                    assert.equal(this.yb.refTable.WIP.sha, null);
-                    assert.equal(this.yb.refTable.WIP.ref, 'WIP');
+                    assert.equal(this.yb.refTable[WIP].sha, null);
+                    assert.equal(this.yb.refTable[WIP].ref, WIP);
                 },
                 '> createTasks' : {
                     topic: function (topic) {
