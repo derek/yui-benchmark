@@ -18,29 +18,29 @@ function parse (options) {
 }
 
 var tests = {
-    '--wip' : {
+    '--working' : {
         'unspecified': {
-            topic: parse([]).wip,
-            'should resolve to true': function (wip) {
-                assert.isTrue(wip);
+            topic: parse([]).working,
+            'should resolve to true': function (working) {
+                assert.isTrue(working);
             }
         },
         'as false': {
-            topic: parse(['--wip', 'false']).wip,
-            'should resolve to false': function (wip) {
-                assert.isFalse(wip);
+            topic: parse(['--working', 'false']).working,
+            'should resolve to false': function (working) {
+                assert.isFalse(working);
             }
         },
         'as true': {
-            topic: parse(['--wip', 'true']).wip,
-            'should resolve to true': function (wip) {
-                assert.isTrue(wip);
+            topic: parse(['--working', 'true']).working,
+            'should resolve to true': function (working) {
+                assert.isTrue(working);
             }
         },
         'as foo': {
-            topic: parse(['--wip', 'foo']).wip,
-            'should resolve to true': function (wip) {
-                assert.isTrue(wip);
+            topic: parse(['--working', 'foo']).working,
+            'should resolve to true': function (working) {
+                assert.isTrue(working);
             }
         }
     },
@@ -48,24 +48,24 @@ var tests = {
     '--ref' : {
         'unspecified': {
             topic: parse([]).refs,
-            'should resolve to WIP': function (refs) {
-                assert.deepEqual(refs, ['WIP']);
+            'should resolve to working': function (refs) {
+                assert.deepEqual(refs, ['Working']);
             }
         },
         'specified with version': {
             topic: parse(['--ref', 'v3.9.0']).refs,
-            'should resolve to v3.9.0 and WIP': function (refs) {
-                assert.deepEqual(refs, ['v3.9.0', 'WIP']);
+            'should resolve to v3.9.0 and working': function (refs) {
+                assert.deepEqual(refs, ['v3.9.0', 'Working']);
             }
         },
-        'specified with version and no wip': {
-            topic: parse(['--ref', 'v3.9.0', '--wip', 'false']).refs,
+        'specified with version and no working': {
+            topic: parse(['--ref', 'v3.9.0', '--working', 'false']).refs,
             'should resolve to v3.9.0': function (refs) {
                 assert.deepEqual(refs, ['v3.9.0']);
             }
         },
-        'specified without version and wip': {
-            topic: parse(['--wip', 'false']).refs,
+        'specified without version and working': {
+            topic: parse(['--working', 'false']).refs,
             'should resolve to nothing': function (refs) {
                 assert.deepEqual(refs, []);
             }
@@ -87,17 +87,17 @@ var tests = {
         }
     },
 
-    '--yuipath' : {
+    '--repo' : {
         'unspecified': {
-            topic: parse([]).yuipath,
-            'should resolve to null': function (yuipath) {
-                assert.isNull(yuipath);
+            topic: parse([]).repo,
+            'should resolve to null': function (repo) {
+                assert.isNull(repo);
             }
         },
         'specified': {
-            topic: parse(['--yuipath', '/path/to/yui']).yuipath,
-            'should resolve to the given value': function (yuipath) {
-                assert.deepEqual(yuipath, '/path/to/yui');
+            topic: parse(['--repo', '/path/to/yui']).repo,
+            'should resolve to the given value': function (repo) {
+                assert.deepEqual(repo, '/path/to/yui');
             }
         }
     },
@@ -106,43 +106,13 @@ var tests = {
         'unspecified': {
             topic: parse([]).raw,
             'should resolve to false': function (raw) {
-                assert.isFalse(raw);
+                assert.isUndefined(raw);
             }
         },
         'specified': {
-            topic: parse(['--raw', 'true']).raw,
+            topic: parse(['--raw', '/path/to/out.json']).raw,
             'should resolve to true': function (raw) {
-                assert.isTrue(raw);
-            }
-        }
-    },
-
-    '--pretty' : {
-        'unspecified': {
-            topic: parse([]).pretty,
-            'should resolve to true': function (pretty) {
-                assert.isTrue(pretty);
-            }
-        },
-        'specified': {
-            topic: parse(['--pretty', 'true']).pretty,
-            'should resolve to true': function (pretty) {
-                assert.isTrue(pretty);
-            }
-        }
-    },
-
-    '--multiseed' : {
-        'unspecified': {
-            topic: parse([]).multiseed,
-            'should resolve to false': function (multiseed) {
-                assert.isFalse(multiseed);
-            }
-        },
-        'specified': {
-            topic: parse(['--multiseed', 'true']).multiseed,
-            'should resolve to true': function (multiseed) {
-                assert.isTrue(multiseed);
+                assert.equal(raw, '/path/to/out.json');
             }
         }
     },
@@ -174,21 +144,6 @@ var tests = {
             topic: parse(['--timeout', '500']).timeout,
             'should resolve to the given value x 1000': function (timeout) {
                 assert.equal(timeout, 500000);
-            }
-        }
-    },
-
-    '--iterations' : {
-        'unspecified': {
-            topic: parse([]).iterations,
-            'should resolve to 1': function (iterations) {
-                assert.equal(iterations, 1);
-            }
-        },
-        'specified': {
-            topic: parse(['--iterations', '2']).iterations,
-            'should resolve to the given value': function (iterations) {
-                assert.equal(iterations, 2);
             }
         }
     }

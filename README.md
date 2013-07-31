@@ -1,24 +1,18 @@
 # YUI Benchmark
 
-`yui-benchmark` is a command-line tool to help simplify the process of
-performance testing JavaScript.
+Performance testing made easy
 
 ## Features
  * Automated cross-browser testing (via [Yeti](http://yeti.cx/)).
- * Easily run performance tests against any version, tag, local branch, or commit of YUI, and compare results.
+ * Easily run performance tests against any version, tag, branch, or commit of YUI.
  * Don't worry about writing any boiler-plate code for performance testing. We'll take care of that for you.
  * Thanks to [PhantomJS](http://phantomjs.org/), it runs great hands-free and in CI environments.
 
 ## Installing
 
-### OSX/Linux
-
 	git clone git@git.corp.yahoo.com:drg/yui-benchmark.git
 	cd yui-benchmark
 	sudo npm install -g
-
-### Windows
-Coming soon.
 
 ## Using YUI Benchmark
 
@@ -27,21 +21,18 @@ From within the `yui3` repository
 	$ yb path/to/config.js
 
 Now point your browser to the URL displayed and let us take care of the rest.
-Or, execute with the `--phantomjs` option for completely automated testing.
+Or, execute with the `--phantom` option for completely automated testing.
 
 ### CLI Options
 
-* ``--loglevel=[string]`` - 'info' (default) or 'debug'
-* ``--out=[path]`` - A path to dump the raw JSON
-* ``--phantomjs=[boolean]`` - Use Phantom.js as your test browser. Default `false`.
+* ``--loglevel=[string]`` - 'info' (default), 'debug', or 'silly'
+* ``--phantom=[boolean]`` - Use Phantom.js as your test browser. Default `false`.
 * ``--port=[integer]`` - The HTTP port to listen on. Default `3000`.
-* ``--pretty=[boolean]`` - Displays the results as pretty tables. Default `true`.
-* ``--raw=[boolean]`` - Dumps the data as raw JSON . Default `false`.
+* ``--raw=[path]`` - A path to dump the raw JSON
 * ``--ref=[string]`` - Which ref(s) of the YUI repository you'd like to execute the performance test against.
-* ``--tempest=[boolean]`` - Logs the (noisy) Tempest output from Yeti on PhantomJS executed tests.  Useful for debugging.
-* ``--timeout=[path]`` - How long to wait before aborting this process.
-* ``--wip=[boolean]`` - Whether or not to include your working tree as a test ref. Defaults to `true`
-* ``--yuipath=[path]`` - Path to your local YUI repository. If unspecified, `yb` assumes you are inside the repository.
+* ``--repo=[path]`` - Path to your local YUI repository. If unspecified, it assumes you are inside the repository.
+* ``--timeout=[number]`` - How long to wait (in seconds) before aborting this process.
+* ``--working=[boolean]`` - Whether or not to include your working tree as a test ref. Defaults to `true`
 
 ## Performance Tests
 

@@ -14,19 +14,19 @@ var fs = require('fs'),
     site = require('../lib/app/server'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
-    yuipath = path.resolve(__dirname, '../../yui3'),
-    tmproot = path.join(yuipath, '.builds');
+    repo = path.resolve(__dirname, '../../yui3'),
+    tmp = path.join(repo, '.builds');
 
-if (!fs.existsSync(tmproot)) {
-    fs.mkdirSync(tmproot);
+if (!fs.existsSync(tmp)) {
+    fs.mkdirSync(tmp);
 }
 
 var argv = [
-    '--yuipath=' + yuipath,
+    '--repo=' + repo,
     '--source=./tests/assets/3/config.js',
     '--ref=v3.8.0',
     '--loglevel=debug',
-    '--tmproot=' + tmproot
+    '--tmp=' + tmp
 ];
 
 var yb = new YUIBenchmark(parseOptions(argv));
@@ -80,8 +80,8 @@ var tests = {
                     url: 'tests/assets/ok.txt',
                     app: {
                         get: function (val) {
-                            if (val === 'yuipath') {
-                                return yuipath;
+                            if (val === 'repo') {
+                                return repo;
                             }
                             else if (val === 'tasks') {
                                 return yb.tasks;
@@ -135,8 +135,8 @@ var tests = {
                     },
                     app: {
                         get: function (val) {
-                            if (val === 'yuipath') {
-                                return yuipath;
+                            if (val === 'repo') {
+                                return repo;
                             }
                             else if (val === 'tasks') {
                                 return yb.tasks;

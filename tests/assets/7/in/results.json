@@ -85,7 +85,7 @@
         },
         "UA": "PhantomJS (1.9.1) / Mac OS",
         "date": 1375078071983,
-        "ref": "WIP",
+        "ref": "Working",
         "sha": null,
         "samples": 61
     },
@@ -103,7 +103,7 @@
         },
         "UA": "PhantomJS (1.9.1) / Mac OS",
         "date": 1375078071983,
-        "ref": "WIP",
+        "ref": "Working",
         "sha": null,
         "samples": 61
     },
@@ -121,7 +121,7 @@
         },
         "UA": "Firefox (22.0) / Mac OS",
         "date": 1375078084835,
-        "ref": "WIP",
+        "ref": "Working",
         "sha": null,
         "samples": 68
     },
@@ -139,7 +139,7 @@
         },
         "UA": "Firefox (22.0) / Mac OS",
         "date": 1375078084835,
-        "ref": "WIP",
+        "ref": "Working",
         "sha": null,
         "samples": 72
     }
