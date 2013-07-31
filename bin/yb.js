@@ -101,7 +101,7 @@ function handleComplete (results) {
  * @private
  */
 function handleError (err) {
-    log.error(err.stack || err.message || err);
+    log.error((err && err.stack) || (err && err.message) || err);
     exit(false);
 }
 
