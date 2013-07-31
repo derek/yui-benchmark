@@ -6,7 +6,7 @@ Performance testing made easy
  * Automated cross-browser testing (via [Yeti](http://yeti.cx/)).
  * Easily run performance tests against any version, tag, branch, or commit of YUI.
  * Don't worry about writing any boiler-plate code for performance testing. We'll take care of that for you.
- * Thanks to [PhantomJS](http://phantomjs.org/), it runs great hands-free and in CI environments.
+ * Thanks to [PhantomJS](http://phantomjs.org/), it runs great as an automated task and in CI environments.
 
 ## Installing
 
@@ -18,21 +18,21 @@ Performance testing made easy
 
 From within the `yui3` repository
 
-	$ yb path/to/config.js
+	$ yb path/to/test.js
 
-Now point your browser to the URL displayed and let us take care of the rest.
+Now point your browser to the URL displayed in your terminal and we'll take care of the rest.
 Or, execute with the `--phantom` option for completely automated testing.
 
 ### CLI Options
 
-* ``--loglevel=[string]`` - 'info' (default), 'debug', or 'silly'
-* ``--phantom=[boolean]`` - Use Phantom.js as your test browser. Default `false`.
-* ``--port=[integer]`` - The HTTP port to listen on. Default `3000`.
+* ``--loglevel=[string]`` - 'info', 'debug', or 'silly'. *Default: `info`*
+* ``--phantom=[boolean]`` - Use Phantom.js as your test browser. *Default: `false`*
+* ``--port=[integer]`` - The HTTP port to listen on. *Default: `3000`*
 * ``--raw=[path]`` - A path to dump the raw JSON
-* ``--ref=[string]`` - Which ref(s) of the YUI repository you'd like to execute the performance test against.
+* ``--ref=[string]`` - Which ref(s) of the YUI repository you'd like to execute the performance test against. Specify as many as you'd like (each with its own `--ref`).
 * ``--repo=[path]`` - Path to your local YUI repository. If unspecified, it assumes you are inside the repository.
 * ``--timeout=[number]`` - How long to wait (in seconds) before aborting this process.
-* ``--working=[boolean]`` - Whether or not to include your working tree as a test ref. Defaults to `true`
+* ``--working=[boolean]`` - Whether or not to include your working tree as a test ref. *Default: `true`*
 
 ## Performance Tests
 
