@@ -84,7 +84,7 @@ function handleComplete (results) {
         pretty = parser.prettify(results);
 
     if (options.raw) {
-        mkdirp.sync(path.dirname(options.out));
+        mkdirp.sync(path.dirname(options.raw));
         fs.writeFileSync(options.out, rawData);
         log.info('Wrote to %s', options.out);
     }
