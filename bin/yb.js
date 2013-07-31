@@ -143,7 +143,7 @@ app.on('ready', resetTimeout);
 app.on('result', resetTimeout);
 app.on('complete', handleComplete);
 
-if (options.phantomjs) {
+if (options.phantom) {
     app.on('ready', spawnPhantom);
 }
 
