@@ -85,8 +85,8 @@ function handleComplete (results) {
 
     if (options.raw) {
         mkdirp.sync(path.dirname(options.raw));
-        fs.writeFileSync(options.out, rawData);
-        log.info('Wrote to %s', options.out);
+        fs.writeFileSync(options.raw, rawData);
+        log.info('Wrote to %s', options.raw);
     }
 
     process.stdout.write(pretty);
