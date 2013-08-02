@@ -121,7 +121,7 @@ function spawnPhantom() {
         data = data.toString().trim();
         data.split('\n').forEach(function (line) {
             if (data.match(/Tempest/)) {
-                log.silly(line);
+                log.verbose(line);
             }
             else {
                 log.debug(line);
