@@ -27,7 +27,7 @@ var path = require('path'),
     timerTimeout;
 
 if (options.help || (argPath && argPath.match(/help$/))) {
-    console.log('Please see README.md for help.');
+    console.log(fs.readFileSync(path.resolve(__dirname, '../lib/assets/help.txt'), 'utf-8'));
     return;
 }
 
@@ -36,7 +36,7 @@ process.on('uncaughtException', handleError);
 options.source = (options.source || argPath || false);
 
 if (!options.source) {
-    return log.error('Please specify a source file.');
+    return log.error('Please specify a source file.  Try --help for more info');
 }
 
 app = new YUIBenchmark(options);
