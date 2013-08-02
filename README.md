@@ -52,15 +52,15 @@ Or, execute with the `--phantom` option for completely automated testing.
 
 ### CLI Options
 
-* `--loglevel=[string]` - `info` or `debug`. *Default: `info`*
-* `--phantom=[boolean]` - Use Phantom.js as your test browser. *Default: `false`*
-* `--port=[integer]` - The HTTP port to listen on. *Default: `3000`*
-* `--raw=[path]` - A path to dump the raw JSON
-* `--ref=[string]` - Which ref(s) of the YUI repository you'd like to execute the performance test against. Specify as many as you'd like (each with its own `--ref`).
-* `--repo=[path]` - Path to your local YUI repository. If unspecified, it assumes you are inside the repository.
-* `--tmp=[path]` - A path where temporary files can be stored. *Default: OS assigned*
-* `--timeout=[number]` - How long to wait (in seconds) before aborting this process. *Default: `300`*
-* `--working=[boolean]` - Whether or not to include your working tree as a test ref. *Default: `true`*
+* `--loglevel=<string>` - `info`, `debug`, `verbose`, or `silent`.  *Default: `info`* Shorthands: `--debug`, `--verbose`, `--silent`.
+* `--phantom=<boolean>` - Use Phantom.js as your test browser. *Default: `false`*
+* `--port=<integer>` - The HTTP port to listen on. *Default: `3000`*
+* `--raw=<path>` - A path to dump the raw JSON
+* `--ref=<string>` - Which ref(s) of the YUI repository you'd like to execute the performance test against. Specify as many as you'd like (each with its own `--ref`).
+* `--repo=<path>` - Path to your local YUI repository. If unspecified, it assumes you are inside the repository.
+* `--tmp=<path>` - A path where temporary files can be stored. *Default: OS assigned*
+* `--timeout=<integer>` - How long to wait (in seconds) before aborting this process. *Default: `300`*
+* `--working=<boolean>` - Whether or not to include your working tree as a test ref. *Default: `true`* Shorthands: `--no-working`.
 
 ## Performance Tests
 
