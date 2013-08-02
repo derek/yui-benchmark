@@ -4,21 +4,29 @@
         <meta charset='utf-8'>
         <title>Test suite 03</title>
         <script src='http://rawgithub.com/bestiejs/benchmark.js/a421927f4075716355e5eb45b4bd905bb8011b80/benchmark.js'></script>
+    </head>
+
+    <body>
+        <h1>Performance Test: Test suite 03</h1>
+
+        <script type="text/x-handlebars-template" id="test-html-template">
+            
+        </script>
+
         <script>
         var name = document.getElementsByTagName('title')[0].innerHTML,
-            autoExecute = (!Boolean(window.location.search.match(/auto=false/g))),
             readyCount = 3,
             suite;
 
-        try { console.log(); }
-        catch (e) { window.console = { log: function() {} }; }
+        // Populate console.log to prevent errors in non-console browsers
+        try { console.log(); } catch (e) { window.console = { log: function() {} }; }
 
         function ready () {
             // Have all the loaders finished?
             if (--readyCount === 0) {
 
-                // First, populate <body>
-                resetBody();
+                // First, populate the test HTML
+                resetHTML();
 
                 // Next, add the tests
                 addTests();
@@ -67,13 +75,15 @@
                     tests.push(test);
                 }
 
-                console.log('-COMPLETE-');
+                console.log(tests.length + ' TESTS COMPLETE');
             }
         });
 
-        function resetBody() {
-            var body = document.getElementsByTagName('body')[0];
-            body.innerHTML = document.getElementById('test-html').innerHTML;
+        function resetHTML() {
+            var srcNode = document.getElementById('test-html-template'),
+                targetNode = document.getElementById('test-html');
+
+            targetNode.innerHTML = srcNode.innerHTML;
         }
 
         function addTests () {
@@ -114,10 +124,6 @@ window.domConst = domConst;
         </script>
 <!-- End bottomHTML -->
 
-        <script type="text/x-handlebars-template" id="test-html">
-            
-        </script>
-    </head>
-
-    <body><!-- Intentionally blank --></body>
+        <div id='test-html'></div>
+    </body>
 </html>
