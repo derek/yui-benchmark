@@ -8,8 +8,9 @@
 
     <body>
         <h1>Performance Test: {{name}}</h1>
+        <p>Test results available in console.</p>
 
-        <script type="text/x-handlebars-template" id="test-html-template">
+        <script type="text/x-handlebars-template" id="perftest-test-html-template">
             {{{html}}}
         </script>
 
@@ -21,6 +22,7 @@
         // Populate console.log to prevent errors in non-console browsers
         try { console.log(); } catch (e) { window.console = { log: function() {} }; }
 
+        // Executed anytime a loader has completed and is ready
         function ready () {
             // Have all the loaders finished?
             if (--readyCount === 0) {
@@ -80,8 +82,8 @@
         });
 
         function resetHTML() {
-            var srcNode = document.getElementById('test-html-template'),
-                targetNode = document.getElementById('test-html');
+            var srcNode = document.getElementById('perftest-test-html-template'),
+                targetNode = document.getElementById('perftest-test-html');
 
             targetNode.innerHTML = srcNode.innerHTML;
         }
@@ -108,6 +110,6 @@
 
         {{{bottomHTML}}}
 
-        <div id='test-html'></div>
+        <div id='perftest-test-html'></div>
     </body>
 </html>
