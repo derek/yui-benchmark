@@ -59,6 +59,7 @@ vows.describe('YUI Benchmark').addBatch({
                 source: path.join(yuiBenchPath, '/tests/assets/3/config.js'),
                 working: true,
                 port: 3000,
+                iterations: 1,
                 timeout: 300000,
                 loglevel: 'debug',
                 tmp: tmp

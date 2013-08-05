@@ -52,6 +52,7 @@ Or, execute with the `--phantom` option for completely automated testing.
 
 ### CLI Options
 
+* `--iterations=<integer>` - The number of times to execute each test suite. Results will be averaged. *Default: `1`*
 * `--loglevel=<string>` - `info`, `debug`, `verbose`, or `silent`.  *Default: `info`* Shorthands: `--debug`, `--verbose`, `--silent`.
 * `--phantom=<boolean>` - Use Phantom.js as your test browser. *Default: `false`*
 * `--port=<integer>` - The HTTP port to listen on. *Default: `3000`*

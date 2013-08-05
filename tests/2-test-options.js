@@ -133,6 +133,21 @@ var tests = {
         }
     },
 
+    '--iterations' : {
+        'unspecified': {
+            topic: parse([]).iterations,
+            'should resolve to 1': function (iterations) {
+                assert.equal(iterations, 1);
+            }
+        },
+        'specified': {
+            topic: parse(['--iterations', '2']).iterations,
+            'should resolve to the given value': function (iterations) {
+                assert.equal(iterations, 2);
+            }
+        }
+    },
+
     '--timeout' : {
         'unspecified': {
             topic: parse([]).timeout,
