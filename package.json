@@ -19,7 +19,8 @@
         "rimraf": "~2.1.4",
         "win-spawn": "~1.1.1",
         "winston": "~0.7.2",
-        "yeti": "~0.2.24"
+        "yeti": "~0.2.24",
+        "esprima": "~1.0.3"
     },
     "devDependencies": {
         "istanbul": "~0.1.36",
