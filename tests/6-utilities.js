@@ -21,9 +21,16 @@ tests['htmlEntitiesDecode'] = {
 
 tests['htmlEntitiesEncode'] = {
     topic: utilities.htmlEntitiesEncode('&<>"'),
-   	'should encode a string properly': function (actual) {
-		assert.equal('&amp;&lt;&gt;&quot;', actual);
-   	}
+    'should encode a string properly': function (actual) {
+        assert.equal('&amp;&lt;&gt;&quot;', actual);
+    }
+};
+
+tests['getLocalIP'] = {
+    topic: utilities.getLocalIP(),
+    'should encode a string properly': function (actual) {
+        assert.isNotNull(actual.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/));
+    }
 };
 
 vows.describe('utilities').addBatch(tests).export(module);

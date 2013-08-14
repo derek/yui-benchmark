@@ -19,7 +19,6 @@ tests['prettify'] = {
     topic: parser.prettify(raw),
    	'should exist': function (actual) {
    		var expected = fs.readFileSync(path.join(__dirname, 'assets/7/out/table.txt'), 'utf-8');
-   		// console.log(actual, expected);
 		assert.equal(expected, actual);
    	}
 };

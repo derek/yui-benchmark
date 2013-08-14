@@ -25,7 +25,8 @@ if (!fs.existsSync(tmp)) {
 var argv = [
     '--repo=' + repo,
     '--source=./tests/assets/3/config.js',
-    '--ref=v3.8.0',
+    '--ref=v3.9.0',
+    '--ref=d89374d7213ad8260e5004200e8f99efd54e705b',
     '--loglevel=debug',
     '--tmp=' + tmp
 ];
@@ -44,17 +45,13 @@ vows.describe('YUI Benchmark').addBatch({
         'should initialize values correctly' : function (topic) {
             assert.deepEqual([], topic.results);
             assert.deepEqual([], topic.tasks);
-            assert.deepEqual([], topic.testURLs);
             assert.deepEqual({}, topic.refTable);
             assert.equal(null, topic.server);
             assert.equal(null, topic.repo);
-            assert.equal(null, topic.yetiHub);
-            assert.equal(null, topic.yetiClient);
-            assert.equal(0, topic.batchCount);
-            assert.equal(0, topic.batchesComplete);
-            assert.equal(path.join(yuiBenchPath, 'lib/'), topic.yuiBenchPath);
+            assert.equal(null, topic.yeti.hub);
+            assert.equal(null, topic.yeti.client);
             assert.deepEqual({
-                refs: [ 'v3.8.0', 'Working' ],
+                refs: [ 'v3.9.0', 'd89374d7213ad8260e5004200e8f99efd54e705b', 'Working' ],
                 repo: repo,
                 source: path.join(yuiBenchPath, '/tests/assets/3/config.js'),
                 working: true,
@@ -73,13 +70,15 @@ vows.describe('YUI Benchmark').addBatch({
             'should find the seed file': function (topic) {
                 assert.equal(this.yb.repo, repo);
             },
-            '> prepRefs' : {
+            '> gatherRefDetails' : {
                 topic: function (topic) {
-                    this.yb.prepRefs(this.callback);
+                    this.yb.gatherRefDetails(this.callback);
                 },
                 'should populate refTable': function (topic) {
-                    assert.equal(this.yb.refTable['v3.8.0'].ref, 'v3.8.0');
-                    assert.equal(this.yb.refTable['v3.8.0'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                    assert.equal(this.yb.refTable['v3.9.0'].ref, 'v3.9.0');
+                    assert.equal(this.yb.refTable['v3.9.0'].sha, 'b7d710018c74a268ce8a333a3e7b77c6db349062');
+                    assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].ref, 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                    assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
                     assert.equal(this.yb.refTable[WIP].sha, null);
                     assert.equal(this.yb.refTable[WIP].ref, WIP);
                 },
@@ -87,45 +86,45 @@ vows.describe('YUI Benchmark').addBatch({
                     topic: function (topic) {
                         this.yb.createTasks(this.callback);
                     },
-                    'should create 2 tasks': function (topic) {
-                        assert.equal(this.yb.tasks.length, 2);
+                    'should create 3 tasks': function (topic) {
+                        assert.equal(this.yb.tasks.length, 3);
                     },
-                    '> gatherTestURLs' : {
+                    '> prepRepos' : {
                         topic: function (topic) {
-                            this.yb.gatherTestURLs(this.callback);
+                            this.yb.prepRepos(this.callback);
                         },
-                        'should gather two URLs': function (topic) {
-                            assert.equal(this.yb.testURLs.length, 2);
+                        'so the build files exist': function (topic) {
+                            this.yb.tasks.forEach(function (task) {
+                                var seedPath = task.buildPath + '/yui/yui.js';
+                                assert.isTrue(fs.existsSync(seedPath));
+                            });
                         },
-                        '> prepRepos' : {
+                        '> startExpress' : {
                             topic: function (topic) {
-                                this.yb.prepRepos(this.callback);
+                                this.yb.startExpress(this.callback);
                             },
-                            'so the build files exist': function (topic) {
-                                this.yb.tasks.forEach(function (task) {
-                                    var seedPath = task.buildPath + '/yui/yui.js';
-                                    assert.isTrue(fs.existsSync(seedPath));
-                                });
+                            'should fire up express': function (topic) {
+                                assert.isNotEmpty(this.yb.server);
                             },
-                            '> startExpress' : {
+                            '> startYeti' : {
                                 topic: function (topic) {
-                                    this.yb.startExpress(this.callback);
+                                    this.yb.startYeti(this.callback);
                                 },
-                                'should fire up express': function (topic) {
-                                    assert.isNotEmpty(this.yb.server);
+                                'should fire up yeti': function (topic) {
+                                    assert.isNotEmpty(this.yb.yeti.client);
                                 },
-                                '> startYeti' : {
+                                '> executeTests' : {
                                     topic: function (topic) {
-                                        this.yb.startYeti(this.callback);
+                                        this.yb.executeTests();
+                                        this.callback();
                                     },
-                                    'should fire up yeti': function (topic) {
-                                        assert.isNotEmpty(this.yb.yetiHub);
-                                        assert.isNotEmpty(this.yb.yetiClient);
+                                    'should create a Yeti batch': function (topic) {
+                                        assert.isNotEmpty(this.yb.yeti.batch);
                                     },
-                                    '> handleResult' : {
+                                    '> handleAgentResult' : {
                                         topic: function (topic) {
                                             var data = require('../tests/assets/3/results');
-                                            this.yb.handleResult('Firefox', {results:data, url:'////0'});
+                                            this.yb.handleAgentResult('Firefox', {results:data, url:'////0'});
                                             this.callback();
                                         },
                                         'should handle results': function (topic) {
