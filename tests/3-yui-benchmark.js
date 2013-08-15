@@ -26,6 +26,7 @@ var argv = [
     '--repo=' + repo,
     '--source=./tests/assets/3/config.js',
     '--ref=v3.9.0',
+    '--ref=d89374d7213ad8260e5004200e8f99efd54e705b',
     '--loglevel=debug',
     '--tmp=' + tmp
 ];
@@ -50,7 +51,7 @@ vows.describe('YUI Benchmark').addBatch({
             assert.equal(null, topic.yeti.hub);
             assert.equal(null, topic.yeti.client);
             assert.deepEqual({
-                refs: [ 'v3.9.0', 'Working' ],
+                refs: [ 'v3.9.0', 'd89374d7213ad8260e5004200e8f99efd54e705b', 'Working' ],
                 repo: repo,
                 source: path.join(yuiBenchPath, '/tests/assets/3/config.js'),
                 working: true,
@@ -76,8 +77,8 @@ vows.describe('YUI Benchmark').addBatch({
                 'should populate refTable': function (topic) {
                     assert.equal(this.yb.refTable['v3.9.0'].ref, 'v3.9.0');
                     assert.equal(this.yb.refTable['v3.9.0'].sha, 'b7d710018c74a268ce8a333a3e7b77c6db349062');
-                    // assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].ref, 'd89374d7213ad8260e5004200e8f99efd54e705b');
-                    // assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                    assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].ref, 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                    assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
                     assert.equal(this.yb.refTable[WIP].sha, null);
                     assert.equal(this.yb.refTable[WIP].ref, WIP);
                 },
@@ -85,8 +86,8 @@ vows.describe('YUI Benchmark').addBatch({
                     topic: function (topic) {
                         this.yb.createTasks(this.callback);
                     },
-                    'should create 2 tasks': function (topic) {
-                        assert.equal(this.yb.tasks.length, 2);
+                    'should create 3 tasks': function (topic) {
+                        assert.equal(this.yb.tasks.length, 3);
                     },
                     '> prepRepos' : {
                         topic: function (topic) {
