@@ -53,11 +53,6 @@ app.on('complete', handleComplete);
 app.on('error', handleError);
 app.boot();
 
-// If requested, spawn a Phantom.js instance
-if (options.phantom) {
-    spawnPhantom();
-}
-
 /**
  * Fired when YUI Benchmark is booted up and ready
  *
@@ -73,9 +68,15 @@ function handleReady () {
     console.log("Waiting for agents to connect at %s", remoteURL);
     console.log("...also available locally at %s", localURL);
 
+    // If requested, spawn a Phantom.js instance
+    if (options.phantom) {
+        spawnPhantom();
+    }
+
     if (options.autoexecute) {
         // Todo: This is very fragile.  Implement a better strategy of beginning
-        // test execution when everythng is ready.
+        // test execution when everythng is ready.  Should probably wait until one
+        // or more browsers are connected.
         setTimeout(function () {
             app.executeTests();
         }, 2000);
