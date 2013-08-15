@@ -14,7 +14,7 @@ var fs = require('fs'),
     site = require('../lib/app/server'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
-    repo = path.resolve(__dirname, '../../yui3'),
+    repo = path.resolve(process.env.YUI3_PATH),
     tmp = path.join(repo, '.builds');
 
 if (!fs.existsSync(tmp)) {

@@ -4,11 +4,4 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-"use strict";
-
-// process.argv = [
-//     null,
-//     null,
-//     '--yuipath=../yui3',
-//     '--source=./examples/benchmarkjs-suite.js'
-// ];
+process.env.YUI3_PATH = '../yui3';
