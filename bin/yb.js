@@ -70,16 +70,13 @@ function handleReady () {
 
     // If requested, spawn a Phantom.js instance
     if (options.phantom) {
-        spawnPhantom();
-    }
+        app.yeti.client.once('agentConnect', function handleAgentConnect (agentName) {
+            if (agentName.match(/^PhantomJS/)) {
+                app.executeTests();
+            }
+        });
 
-    if (options.autoexecute) {
-        // Todo: This is very fragile.  Implement a better strategy of beginning
-        // test execution when everythng is ready.  Should probably wait until one
-        // or more browsers are connected.
-        setTimeout(function () {
-            app.executeTests();
-        }, 2000);
+        spawnPhantom();
     }
     else {
         rl = readline.createInterface({
