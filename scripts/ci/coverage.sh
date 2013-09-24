@@ -1,6 +1,7 @@
 #!/bin/sh
 
 SRC_DIR=${SRC_DIR:-.}
+YUI3_PATH=${SRC_DIR:-.}/yui3
 COVERAGE_DIR=${COVERAGE_DIR:-tmp}
 TEST_RESULTS_DIR=${TEST_RESULTS_DIR:-tmp}
 
