@@ -11,6 +11,7 @@ var fs = require("fs"),
     path = require("path"),
     vows = require('vows'),
     assert = require('assert'),
+    mkdirp = require('mkdirp'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
     parseOptions = require('../lib/utilities').parseOptions,
     repo = path.resolve(process.env.YUI3_PATH),
@@ -19,7 +20,7 @@ var fs = require("fs"),
     WIP = 'Working';
 
 if (!fs.existsSync(tmp)) {
-    fs.mkdirSync(tmp);
+    mkdirp.sync(tmp);
 }
 
 var argv = [
