@@ -30,8 +30,7 @@ var argv = [
     '--loglevel=debug',
     '--tmp=' + tmp
 ];
-console.log('argv');
-console.log(argv);
+process.stderr.write('\nargv\n' + argv.toString() + '\n\n');
 vows.describe('YUI Benchmark').addBatch({
     'yui-benchmark': {
         'topic': function () {
