@@ -38,5 +38,11 @@
         "yb-compile" : "./bin/yb-compile.js",
         "yb-clean" : "./bin/yb-clean.js"
     },
-    "preferGlobal": "true"
+    "preferGlobal": "true",
+    "licenses":[
+        {
+            "type" : "BSD",
+            "url" : "https://github.com/yui/yui-benchmark/blob/master/LICENSE.md"
+        }
+    ]
 }
