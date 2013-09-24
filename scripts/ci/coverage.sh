@@ -9,6 +9,9 @@ cd ${SRC_DIR}
 mkdir -p ${COVERAGE_DIR}
 mkdir -p ${TEST_RESULTS_DIR}
 
+echo "YUI3_PATH";
+echo $YUI3_PATH
+
 ./node_modules/.bin/istanbul cover \
     --dir ${COVERAGE_DIR} \
     --print none ./node_modules/.bin/vows \
