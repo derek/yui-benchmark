@@ -4,9 +4,9 @@ SRC_DIR=${SRC_DIR:-.}
 COVERAGE_DIR=${COVERAGE_DIR:-tmp}
 TEST_RESULTS_DIR=${TEST_RESULTS_DIR:-tmp}
 
-env;
-
 export YUI3_PATH=$SRC_DIR/yui3;
+
+env;
 
 cd ${SRC_DIR}
 mkdir -p ${COVERAGE_DIR}

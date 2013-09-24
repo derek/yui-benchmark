@@ -30,6 +30,13 @@ var argv = [
     '--loglevel=debug',
     '--tmp=' + tmp
 ];
+
+process.stderr.write('\n-------\nenv\n');
+for (var key in process.env) {
+    process.stderr.write(key + '=' + process.env[key] + '\n');
+}
+
+
 process.stderr.write('\nargv\n' + argv.toString() + '\n\n');
 vows.describe('YUI Benchmark').addBatch({
     'yui-benchmark': {
