@@ -1,5 +1,5 @@
 var foo = require('foo');
-var suite = new PerfSuite({
+var foo = new PerfSuite({
     name: 'Test suite 02',
     assets: ['assets/foo.html'],
     tests: [
