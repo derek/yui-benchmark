@@ -1,64 +1,64 @@
 {
-  "name": "yui-benchmark",
-  "author": "Derek Gathright <derek.gathright@yahoo.com>",
-  "version": "0.2.0-pre",
-  "engines": {
-    "node": ">=0.8.0"
-  },
-  "dependencies": {
-    "async": "~0.2.6",
-    "benchmark": "~1.0.0",
-    "cli-table": "~0.2.0",
-    "cpr": "~0.1.1",
-    "esprima": "~1.0.3",
-    "eventemitter2": "~0.4.11",
-    "express": "~3.1.0",
-    "glob": "~3.2.6",
-    "handlebars": "~1.0.12",
-    "mime": "~1.2.9",
-    "mkdirp": "~0.3.5",
-    "nopt": "~2.1.1",
-    "numeral": "~1.4.8",
-    "osenv": "~0.0.3",
-    "rimraf": "~2.1.4",
-    "win-spawn": "~1.1.1",
-    "winston": "~0.7.2",
-    "yeti": "~0.2.24"
-  },
-  "devDependencies": {
-    "istanbul": "~0.1.36",
-    "jshint": "~2.0.0",
-    "vows": "~0.7.0",
-    "yui-lint": "~0.1.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/derek/yui-benchmark.git"
-  },
-  "scripts": {
-    "pretest": "./scripts/npm/pretest.sh",
-    "test": "./scripts/npm/test.sh",
-    "clean": "npm prune; rm -rf coverage tmp;"
-  },
-  "bin": {
-    "yb": "./bin/yb.js",
-    "yb-clean": "./bin/yb-clean.js",
-    "yb-compile": "./bin/yb-compile.js",
-    "yb-parse": "./bin/yb-parse.js"
-  },
-  "preferGlobal": "true",
-  "licenses": [
-    {
-      "type": "BSD",
-      "url": "https://github.com/derek/yui-benchmark/blob/master/LICENSE.md"
-    }
-  ],
-  "keywords": [
-    "yui",
-    "yuilibrary",
-    "cli",
-    "performance",
-    "benchmark",
-    "testing"
-  ]
+    "name": "yui-benchmark",
+    "author": "Derek Gathright <derek.gathright@yahoo.com>",
+    "version": "0.2.0-pre",
+    "engines": {
+        "node": ">=0.8.0"
+    },
+    "dependencies": {
+        "async": "~0.2.6",
+        "benchmark": "~1.0.0",
+        "cli-table": "~0.2.0",
+        "cpr": "~0.1.1",
+        "esprima": "~1.0.3",
+        "eventemitter2": "~0.4.11",
+        "express": "~3.1.0",
+        "glob": "~3.2.6",
+        "handlebars": "~1.0.12",
+        "mime": "~1.2.9",
+        "mkdirp": "~0.3.5",
+        "nopt": "~2.1.1",
+        "numeral": "~1.4.8",
+        "osenv": "~0.0.3",
+        "rimraf": "~2.1.4",
+        "win-spawn": "~1.1.1",
+        "winston": "~0.7.2",
+        "yeti": "~0.2.24"
+    },
+    "devDependencies": {
+        "istanbul": "~0.1.36",
+        "jshint": "~2.0.0",
+        "vows": "~0.7.0",
+        "yui-lint": "~0.1.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/derek/yui-benchmark.git"
+    },
+    "scripts": {
+        "pretest": "./scripts/npm/pretest.sh",
+        "test": "./scripts/npm/test.sh",
+        "clean": "npm prune; rm -rf coverage tmp;"
+    },
+    "bin": {
+        "yb": "./bin/yb.js",
+        "yb-clean": "./bin/yb-clean.js",
+        "yb-compile": "./bin/yb-compile.js",
+        "yb-parse": "./bin/yb-parse.js"
+    },
+    "preferGlobal": "true",
+    "licenses": [
+        {
+            "type": "BSD",
+            "url": "https://github.com/derek/yui-benchmark/blob/master/LICENSE.md"
+        }
+    ],
+    "keywords": [
+        "yui",
+        "yuilibrary",
+        "cli",
+        "performance",
+        "benchmark",
+        "testing"
+    ]
 }
