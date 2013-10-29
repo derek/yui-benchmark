@@ -6,12 +6,14 @@ Code licensed under the BSD License:
 http://yuilibrary.com/license/
 */
 
-var nopt = require("nopt"),
-    path = require("path"),
-    fs = require("fs"),
+'use strict';
+
+var fs = require("fs"),
     mkdirp = require('mkdirp'),
-    compile = require('../lib/app/compiler'),
+    nopt = require("nopt"),
+    path = require("path"),
     vm = require('vm'),
+    compile = require('../lib/app/compiler'),
     options = nopt({
         "template" : path,
         "watch" : Boolean

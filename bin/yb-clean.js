@@ -8,9 +8,9 @@ http://yuilibrary.com/license/
 
 'use strict';
 
-var osenv = require('osenv'),
+var glob = require('glob'),
+    osenv = require('osenv'),
     path = require('path'),
-    glob = require('glob'),
     rimraf = require('rimraf'),
     tmproot = osenv.tmpdir();
 
