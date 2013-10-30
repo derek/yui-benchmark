@@ -4,11 +4,7 @@ A toolkit to simplify JavaScript performance testing.
 
 ## Installing
 
-NPM packages are coming soon, but in the meantime:
-
-	git clone git@github.com:derek/yui-benchmark.git
-	cd yui-benchmark
-	sudo npm install -g
+	npm install -g yui-benchmark
 
 ## Using YUI Benchmark
 
@@ -128,13 +124,10 @@ In addition to `yb`, you'll have a few extra tools that may be helpful:
 
 ## Yogi
 Additionally, you can test performance via [Yogi](https://github.com/yui/yogi) by
-installing [this plugin](https://github.com/derek/yogi-perf).  Once installed,
-Run `$ yogi perf` from within your component's directory, and Yogi will execute any
-tests found in your component's `tests/performance/` directory. If executed from
-the root level of the `yui3` repository, all performance tests in the library will be executed.
-
-NPM package coming soon.  In the meantime, install via
-`npm install -g https://github.com/derek/yogi-perf/tarball/master`.
+installing [this plugin](https://github.com/derek/yogi-perf) via `npm install -g yogi-perf`.
+Once installed, run `$ yogi perf` from within your component's directory, and Yogi will execute any
+tests found in `tests/performance/`. If executed from the root level of the `yui3` repository,
+all performance tests in the library will be executed.
 
 ### Options
 The following options are passed from `yogi perf` to `yb`:
