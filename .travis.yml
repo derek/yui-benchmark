@@ -11,6 +11,8 @@ install:
     - ln -s ${YUI3_PATH}/node_modules/.bin/yogi ${MY_BIN}/yogi;
     - ln -s ${YUI3_PATH}/node_modules/yogi/node_modules/.bin/shifter ${MY_BIN}/shifter;
 before_script:
-    - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3
+    - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3;
 script:
-    - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3
+    - env;
+    - YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3;
+    - npm test;
