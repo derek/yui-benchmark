@@ -72,6 +72,7 @@ function handleReady () {
     if (options.phantom) {
         app.yeti.client.once('agentConnect', function handleAgentConnect (agentName) {
             if (agentName.match(/^PhantomJS/)) {
+                console.log('Executing tests...');
                 app.executeTests();
             }
         });

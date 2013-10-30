@@ -10,34 +10,34 @@ A toolkit to simplify JavaScript performance testing.
 
 Here's an example from  within the `yui3` repository:
 
-	$ cd ./yui3/src/app/tests/performance
-	$ yb app-view.js
-	info: Compiling "Y.View performance tests" (contains 2 tests) for 1 refs (Working)
-	info: Listening at http://127.0.0.1:3000
+	$ yb src/app/tests/performance/app-model.js
+	Waiting for agents to connect at http://10.72.115.67:3000
+	...also available locally at http://127.0.0.1:3000
+	When ready, press Enter to begin testing.
 
 Now point your browser to `http://127.0.0.1:3000` and YUI Benchmark will take care of the rest!
 
 Or, execute with the `--phantom` option for completely automated testing.  For example:
 
-	$ yb app-view.js --phantom
-	info: Compiling "Y.View performance tests" (contains 2 tests) for 1 refs (Working)
-	info: Listening at http://127.0.0.1:3000
-	info: Executing with PhantomJS
-	info: Agent connect: PhantomJS (1.9.1) / Mac OS from 127.0.0.1
-	info: Got result for task 0 from PhantomJS (1.9.1) / Mac OS
+	$ yb src/app/tests/performance/app-model.js --phantom
+	Waiting for agents to connect at http://10.72.115.67:3000
+	...also available locally at http://127.0.0.1:3000
+	  Agent connect: PhantomJS (1.9.1) / Mac OS from 127.0.0.1
+	Executing tests...
+	Got result from PhantomJS (1.9.1) / Mac OS
 
-	### Y.View: Instantiate a bare view
+	### Y.Model: Instantiate a bare model
 		┌───────────┬──────────────────────────────┐
 		│           │  PhantomJS (1.9.1) / Mac OS  │
 		├───────────┼──────────────────────────────┤
-		│  Working  │  28.996k  ±0.7%              │
+		│  Working  │  31.454k  ±6.5%              │
 		└───────────┴──────────────────────────────┘
 
-	### Y.View: Instantiate and subclass a bare view
+	### Y.Model: Subclass and instantiate a bare model
 		┌───────────┬──────────────────────────────┐
 		│           │  PhantomJS (1.9.1) / Mac OS  │
 		├───────────┼──────────────────────────────┤
-		│  Working  │  15.065k  ±0.6%              │
+		│  Working  │  15.635k  ±6.5%              │
 		└───────────┴──────────────────────────────┘
 
 ### CLI Options
@@ -130,7 +130,7 @@ tests found in `tests/performance/`. If executed from the root level of the `yui
 all performance tests in the library will be executed.
 
 ### Options
-The following options are passed from `yogi perf` to `yb`:
+The following options are relayed from `yogi perf` to `yb`:
 
 * `--loglevel`
 * `--ref`
@@ -138,10 +138,10 @@ The following options are passed from `yogi perf` to `yb`:
 * `--tmp`
 * `--working`
 
-The following options are also supported:
+The following options are also supported and specific to `yogi perf`:
 
-* `outdir` - Where `--raw` files can be dumped.
-* `component` - A specific component to test.
+* `--outdir` - Where `--raw` files can be dumped.
+* `--component` - A specific component to test.
 
 ## License
 YUI Benchmark is open-sourced with a BSD license.  See [LICENSE.md](LICENSE.md).
