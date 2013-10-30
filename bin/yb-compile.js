@@ -31,10 +31,10 @@ var fs = require("fs"),
 
 function writeSuite (suite, targetDir) {
     var outPath = path.join(targetDir, suite.name),
-        html = suite.html;
+        code = suite.code;
 
     // Write the HTML to the filesystem, and log the path
-    fs.writeFile(outPath, html, function () {
+    fs.writeFile(outPath, code, function () {
         console.log(outPath);
     });
 
