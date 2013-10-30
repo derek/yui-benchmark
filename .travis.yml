@@ -5,13 +5,9 @@ before_install:
     - npm -g i
 install:
     - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3
-    - export MY_BIN=${SRC_DIR}/bin;
-    - export PATH=${PATH}:${MY_BIN};
-    - git clone git@github.com:yui/yui3.git ${YUI3_PATH};
+    - mkdir ${YUI3_PATH};
     - cd ${YUI3_PATH};
-    - ynpm install;
-    - ln -s ${YUI3_PATH}/node_modules/.bin/yogi ${MY_BIN}/yogi;
-    - ln -s ${YUI3_PATH}/node_modules/yogi/node_modules/.bin/shifter ${MY_BIN}/shifter;
+    - npm install yui3;
 before_script:
     - cd ${YUI3_PATH};
     - ${SRC_DIR}/bin/yb-clean.js;
