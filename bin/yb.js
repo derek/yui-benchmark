@@ -84,7 +84,7 @@ function handleReady () {
             }
             else {
                 log.error('Please install the phantomjs binary in your path!');
-                exit(1);
+                exit();
             }
         });
     }
