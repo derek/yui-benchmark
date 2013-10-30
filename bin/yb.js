@@ -14,6 +14,7 @@ var fs = require('fs'),
     path = require('path'),
     readline = require("readline"),
     spawn = require('win-spawn'),
+    exec = require('child_process').exec,
     parser = require('../lib/app/parser'),
     utilities = require('../lib/utilities'),
     YUIBenchmark = require('../lib/app/yui-benchmark'),
@@ -70,14 +71,22 @@ function handleReady () {
 
     // If requested, spawn a Phantom.js instance
     if (options.phantom) {
-        app.yeti.client.once('agentConnect', function handleAgentConnect (agentName) {
-            if (agentName.match(/^PhantomJS/)) {
-                console.log('Executing tests...');
-                app.executeTests();
+        isPhantomInstalled(function (installed) {
+            if (installed) {
+                app.yeti.client.once('agentConnect', function handleAgentConnect (agentName) {
+                    if (agentName.match(/^PhantomJS/)) {
+                        console.log('Executing tests...');
+                        app.executeTests();
+                    }
+                });
+
+                spawnPhantom();
+            }
+            else {
+                log.error('Please install the phantomjs binary in your path!');
+                exit(1);
             }
         });
-
-        spawnPhantom();
     }
     else {
         rl = readline.createInterface({
@@ -160,7 +169,7 @@ function exit (successful) {
  *
  * @private
  */
-function spawnPhantom() {
+function spawnPhantom () {
     var scriptPath = path.join(__dirname, '../lib/assets/phantom-load-url.js'),
         port = app.config.port;
 
@@ -200,6 +209,13 @@ function resetTimeout () {
  *
  * @private
  */
-function timeoutElapsed() {
+function timeoutElapsed () {
     throw new Error('Inactivity timeout');
+}
+
+function isPhantomInstalled (cb) {
+    exec('phantomjs --version', function(stdin, stdout) {
+        var version = stdout.trim().replace('\n', '');
+        cb(!!version);
+    });
 }
