@@ -8,3 +8,4 @@ before_install:
     - git clone git://github.com/yui/yui3.git ${YUI3_PATH};
     - cd ${YUI3_PATH};
     - npm install;
+    - cd ${TRAVIS_BUILD_DIR};
