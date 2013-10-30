@@ -13,6 +13,6 @@ install:
 before_script:
     - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3;
 script:
+    - cd ${TRAVIS_BUILD_DIR};
     - env;
-    - YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3;
     - npm test;
