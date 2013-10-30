@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/derek/yui-benchmark.png)](https://travis-ci.org/derek/yui-benchmark)
+
 # YUI Benchmark
 
 A toolkit to simplify JavaScript performance testing.
