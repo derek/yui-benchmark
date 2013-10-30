@@ -5,8 +5,5 @@ before_install:
     - export GRUNT_SKIP_BUILD=1;
     - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3;
     - git clone git://github.com/yui/yui3.git ${YUI3_PATH};
-install:
     - cd ${YUI3_PATH};
-    - npm install;
-    - cd ${TRAVIS_BUILD_DIR};
     - npm install;
