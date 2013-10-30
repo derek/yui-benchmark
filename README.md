@@ -75,7 +75,7 @@ For example, if we wanted to see how much faster `app-model.js` was between YUI 
 		│  v3.9.0   │  7.454k  ±2.2%               │
 		│  v3.12.0  │  16.240k  ±0.9%  +118%       │
 		└───────────┴──────────────────────────────┘
-And in `.builds` you'll find two versioned build directories, cached for any subsequent builds.
+And in `.builds` you'll find two versioned build directories, cached for any subsequent tests.
 
 	$ ls -1 .builds
 	v3.12.0-8655935bc2c668f3ee3d93db7709446169aa08b3

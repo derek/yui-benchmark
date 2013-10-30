@@ -14,13 +14,18 @@ var fs = require("fs"),
     path = require("path"),
     vm = require('vm'),
     compile = require('../lib/app/compiler'),
+    utilities = require('../lib/utilities'),
     options = nopt({
         "template" : path,
-        "watch" : Boolean
+        "watch" : Boolean,
+        "loglevel": String
     }, {
         "t" : "--template",
-        "w" : "--watch"
+        "w" : "--watch",
+        'debug': ['--loglevel', 'debug']
     }, process.argv, 2),
+    getLogger = utilities.getLogger,
+    log = getLogger(options.loglevel),
     srcConfig = path.join(process.cwd(), options.argv.remain[0]),
     targetDir = (options.argv.remain[1] || process.cwd());
 
@@ -49,7 +54,8 @@ function processConfig (srcConfigPath, targetDir) {
         context = {suite: null},
         perfSuiteSource = fs.readFileSync(path.join(__dirname, '../lib/assets/perf-suite.js'), 'utf-8'),
         configSource = fs.readFileSync(srcConfigPath, 'utf-8'),
-        suite;
+        suite,
+        compiled;
 
     // Turn the config string into an object
     vm.runInNewContext(perfSuiteSource + configSource, context);
@@ -67,9 +73,15 @@ function processConfig (srcConfigPath, targetDir) {
         }
     }
 
-    // Compile and write it to the file system
-    suite = compile(suite, srcDir);
-    writeSuite(suite, targetDir);
+    // Compile the suite
+    compiled = compile(suite, srcDir);
+
+    // Log the configuration object
+    log.debug('Suite Configuration');
+    log.debug(JSON.stringify(suite, null, 4));
+
+    // Write the HTML & assets to the filesystem
+    writeSuite(compiled, targetDir);
 }
 
 if (options.watch) {
