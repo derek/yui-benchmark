@@ -8,6 +8,3 @@ install:
     - mkdir ${YUI3_PATH};
     - cd ${YUI3_PATH};
     - npm install yui3;
-before_script:
-    - cd ${YUI3_PATH};
-    - ${SRC_DIR}/bin/yb-clean.js;
