@@ -1,10 +1,9 @@
 language: node_js
 node_js:
     - "0.10"
-before_install:
-    - npm -g i
 install:
     - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3
     - mkdir ${YUI3_PATH};
     - cd ${YUI3_PATH};
     - npm install yui3;
+    - cd ${TRAVIS_BUILD_DIR};
