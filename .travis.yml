@@ -5,14 +5,10 @@ install:
     - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3;
     - export MY_BIN=${TRAVIS_BUILD_DIR}/bin;
     - export PATH=${PATH}:${MY_BIN};
+    - export GRUNT_SKIP_BUILD=1;
     - git clone git://github.com/yui/yui3.git ${YUI3_PATH};
     - cd ${YUI3_PATH};
     - npm install;
     - ln -s ${YUI3_PATH}/node_modules/.bin/yogi ${MY_BIN}/yogi;
     - ln -s ${YUI3_PATH}/node_modules/yogi/node_modules/.bin/shifter ${MY_BIN}/shifter;
-before_script:
-    - export YUI3_PATH=${TRAVIS_BUILD_DIR}/yui3;
-script:
     - cd ${TRAVIS_BUILD_DIR};
-    - env;
-    - npm test;
