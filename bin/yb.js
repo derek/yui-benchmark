@@ -28,8 +28,7 @@ var fs = require('fs'),
     localIP = getLocalIP(),
     app,
     phantomProcess,
-    timerTimeout,
-    rl;
+    timerTimeout;
 
 // Catch any exceptions in this process
 process.on('uncaughtException', handleError);
@@ -62,20 +61,24 @@ app.boot();
 function handleReady () {
     var port = app.config.port,
         remoteURL = 'http://' + localIP + ':' + port,
-        localURL = 'http://127.0.0.1:' + port;
+        localURL = 'http://127.0.0.1:' + port,
+        rl;
 
     resetTimeout();
 
-    console.log("Waiting for agents to connect at %s", remoteURL);
-    console.log("...also available locally at %s", localURL);
-
-    // If requested, spawn a Phantom.js instance
-    if (options.phantom) {
+    // If this is using nodejs, just run the tests
+    if (options.nodejs) {
+        console.log('Executing tests ...');
+        app.executeTests();
+    }
+    // Or, spawn a Phantom.js instance
+    else if (options.phantom) {
         isPhantomInstalled(function (installed) {
             if (installed) {
+                // Add a listener to execute the tests when the browser connects
                 app.yeti.client.once('agentConnect', function handleAgentConnect (agentName) {
                     if (agentName.match(/^PhantomJS/)) {
-                        console.log('Executing tests...');
+                        console.log('Executing tests ...');
                         app.executeTests();
                     }
                 });
@@ -88,6 +91,7 @@ function handleReady () {
             }
         });
     }
+    // Otherwise, wait for a manual start
     else {
         rl = readline.createInterface({
             input: process.stdin,
@@ -99,6 +103,9 @@ function handleReady () {
             console.log('Executing tests...');
             app.executeTests();
         });
+
+        console.log("Waiting for agents to connect at %s", remoteURL);
+        console.log("...also available locally at %s", localURL);
     }
 }
 
