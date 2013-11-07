@@ -25,25 +25,22 @@ Automated testing is great for quick results or in CI environments (such as [Tra
 For example:
 
 	$ yb src/app/tests/performance/app-model.js --phantom
-	Waiting for agents to connect at http://10.72.115.67:3000
-	...also available locally at http://127.0.0.1:3000
-	  Agent connect: PhantomJS (1.9.1) / Mac OS from 127.0.0.1
 	Executing tests...
 	Got result from PhantomJS (1.9.1) / Mac OS
 
 	### Y.Model: Instantiate a bare model
-		┌───────────┬──────────────────────────────┐
-		│           │  PhantomJS (1.9.1) / Mac OS  │
-		├───────────┼──────────────────────────────┤
-		│  Working  │  31.454k  ±6.5%              │
-		└───────────┴──────────────────────────────┘
+		┌──────────────────────────────┐
+		│  PhantomJS (1.9.1) / Mac OS  │
+		├──────────────────────────────┤
+		│  31.454k  ±6.5%              │
+		└──────────────────────────────┘
 
 	### Y.Model: Subclass and instantiate a bare model
-		┌───────────┬──────────────────────────────┐
-		│           │  PhantomJS (1.9.1) / Mac OS  │
-		├───────────┼──────────────────────────────┤
-		│  Working  │  15.635k  ±6.5%              │
-		└───────────┴──────────────────────────────┘
+		┌──────────────────────────────┐
+		│  PhantomJS (1.9.1) / Mac OS  │
+		├──────────────────────────────┤
+		│  15.635k  ±6.5%              │
+		└──────────────────────────────┘
 
 ### Multi-version testing
 By default, YUI Benchmark will only test your "working" tree, but it is designed to do so much more!  Namely, to help you out with multi-version testing.  For instance, if you write a test and want to know how performance has improved over time, YUI Benchmark can help you out here, simply specify additional [Git refs](http://git-scm.com/book/en/Git-Internals-Git-References) via the `--ref` option.  For each additional ref, YUI Benchmark will clone your repo to a temporary path, rebuild YUI (if neccesary), and cache it in a `.builds` directory in your YUI repository path.
