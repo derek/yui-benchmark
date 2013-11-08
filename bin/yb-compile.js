@@ -18,7 +18,8 @@ var fs = require("fs"),
     options = nopt({
         "template" : path,
         "watch" : Boolean,
-        "loglevel": String
+        "loglevel": String,
+        "node": Boolean
     }, {
         "t" : "--template",
         "w" : "--watch",
@@ -60,6 +61,10 @@ function processConfig (srcConfigPath, targetDir) {
     // Turn the config string into an object
     vm.runInNewContext(perfSuiteSource + configSource, context);
     suite = context.suite.exportConfig();
+
+    if (options.node) {
+        suite.runner = 'node';
+    }
 
     // Create the target directory if it doesn't exist
     if (!fs.existsSync(targetDir)) {

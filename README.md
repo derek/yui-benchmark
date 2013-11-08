@@ -82,11 +82,12 @@ And in `.builds` you'll find two versioned build directories, cached for any sub
 
 * `--iterations=<integer>` - The number of times to execute each test suite. Results will be averaged. *Default: `1`*
 * `--loglevel=<string>` - `info`, `debug`, `verbose`, or `silent`.  *Default: `info`* Shorthands: `--debug`, `--verbose`, `--silent`.
+* `--node=<boolean>` - If this is a Node.js test (instead of Web). *Default: `false`*
 * `--phantom=<boolean>` - Use Phantom.js as your test browser. *Default: `false`*
 * `--port=<integer>` - The HTTP port to listen on. *Default: `3000`*
 * `--raw=<path>` - A path to dump the raw JSON
 * `--ref=<string>` - Which ref(s) of the YUI repository you'd like to execute the performance test against. Specify as many as you'd like (each with its own `--ref`).
-* `--repo=<path>` - Path to your local YUI repository. If unspecified, it assumes you are inside the repository.
+* `--repo=<path>` - Path to your local YUI repository.
 * `--tmp=<path>` - A path where temporary files can be stored. *Default: OS assigned*
 * `--timeout=<integer>` - How long to wait (in seconds) before aborting this process. *Default: `300`*
 * `--working=<boolean>` - Whether or not to include your working tree as a test ref. *Default: `true`* Shorthands: `--no-working`.

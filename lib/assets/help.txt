@@ -1,10 +1,11 @@
 
 --Usage--
-  yb [<source path>] [--help] [--loglevel <level>] [--phantom] [--port <num>] [--ref <git ref>] [--raw <path>] [--tmp <directory>] [--timeout <seconds>] [--working]
+  yb [<source path>] [--help] [--loglevel <level>] [--phantom] [--port <num>] [--ref <git ref>] [--raw <path>] [--tmp <directory>] [--timeout <seconds>] [--working/--no-working]
 
 --Options--
   --iterations: The number of times to execute each test suite. Default: 1. Shorthands: -i
   --loglevel: info, debug, verbose, or silent.  Default: info. Shorthands: --debug, --verbose, --silent.
+  --node: If this is a Node.js test (instead of Web). Default: false
   --phantom: Use Phantom.js as your test browser. Default: false
   --port: The HTTP port to listen on. Default: 3000
   --raw: A path to dump the raw JSON
