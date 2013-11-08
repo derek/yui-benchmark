@@ -59,76 +59,96 @@ vows.describe('YUI Benchmark').addBatch({
                 iterations: 1,
                 timeout: 300000,
                 loglevel: 'debug',
-                tmp: tmp
+                tmp: tmp,
+                node: false
             }, topic.config);
         },
-        '> findYUISeed' : {
+        '> bindListeners': {
             topic: function (topic) {
                 this.yb = topic;
-                topic.findYUISeed(this.callback);
+                topic.bindListeners(this.callback);
             },
-            'should find the seed file': function (topic) {
-                assert.equal(this.yb.repo, repo);
+            'should parse the suite': function (topic) {
+                // should check for an event listener binding
             },
-            '> gatherRefDetails' : {
+            '> parseSuite': {
                 topic: function (topic) {
-                    this.yb.gatherRefDetails(this.callback);
+                    this.yb = topic;
+                    topic.parseSuite(this.callback);
                 },
-                'should populate refTable': function (topic) {
-                    assert.equal(this.yb.refTable['v3.9.0'].ref, 'v3.9.0');
-                    assert.equal(this.yb.refTable['v3.9.0'].sha, 'b7d710018c74a268ce8a333a3e7b77c6db349062');
-                    // assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].ref, 'd89374d7213ad8260e5004200e8f99efd54e705b');
-                    // assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
-                    assert.equal(this.yb.refTable[WIP].sha, null);
-                    assert.equal(this.yb.refTable[WIP].ref, WIP);
+                'should parse the suite': function (topic) {
+                    assert.equal(this.yb.parsedSuite.name, 'Y.View Performance');
                 },
-                '> createTasks' : {
+                '> findYUISeed' : {
                     topic: function (topic) {
-                        this.yb.createTasks(this.callback);
+                        this.yb = topic;
+                        topic.findYUISeed(this.callback);
                     },
-                    'should create 2 tasks': function (topic) {
-                        assert.equal(this.yb.tasks.length, 2);
+                    'should find the seed file': function (topic) {
+                        assert.equal(this.yb.repo, repo);
                     },
-                    '> prepRepos' : {
+                    '> gatherRefDetails' : {
                         topic: function (topic) {
-                            this.yb.prepRepos(this.callback);
+                            this.yb.gatherRefDetails(this.callback);
                         },
-                        'so the build files exist': function (topic) {
-                            this.yb.tasks.forEach(function (task) {
-                                var seedPath = task.buildPath + '/yui/yui.js';
-                                assert.isTrue(fs.existsSync(seedPath));
-                            });
+                        'should populate refTable': function (topic) {
+                            assert.equal(this.yb.refTable['v3.9.0'].ref, 'v3.9.0');
+                            assert.equal(this.yb.refTable['v3.9.0'].sha, 'b7d710018c74a268ce8a333a3e7b77c6db349062');
+                            // assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].ref, 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                            // assert.equal(this.yb.refTable['d89374d7213ad8260e5004200e8f99efd54e705b'].sha, 'd89374d7213ad8260e5004200e8f99efd54e705b');
+                            assert.equal(this.yb.refTable[WIP].sha, null);
+                            assert.equal(this.yb.refTable[WIP].ref, WIP);
                         },
-                        '> startExpress' : {
+                        '> createTasks' : {
                             topic: function (topic) {
-                                this.yb.startExpress(this.callback);
+                                this.yb.createTasks(this.callback);
                             },
-                            'should fire up express': function (topic) {
-                                assert.isNotEmpty(this.yb.server);
+                            'should create 2 tasks': function (topic) {
+                                assert.equal(this.yb.tasks.length, 2);
                             },
-                            '> startYeti' : {
+                            '> prepRepos' : {
                                 topic: function (topic) {
-                                    this.yb.startYeti(this.callback);
+                                    this.yb.prepRepos(this.callback);
                                 },
-                                'should fire up yeti': function (topic) {
-                                    assert.isNotEmpty(this.yb.yeti.client);
+                                'so the build files exist': function (topic) {
+                                    this.yb.tasks.forEach(function (task) {
+                                        var seedPath = task.buildPath + '/yui/yui.js';
+                                        assert.isTrue(fs.existsSync(seedPath));
+                                    });
                                 },
-                                '> executeTests' : {
+                                '> startExpress' : {
                                     topic: function (topic) {
-                                        this.yb.executeTests();
-                                        this.callback();
+                                        this.yb.startExpress(this.callback);
                                     },
-                                    'should create a Yeti batch': function (topic) {
-                                        assert.isNotEmpty(this.yb.yeti.batch);
+                                    'should fire up express': function (topic) {
+                                        assert.isNotEmpty(this.yb.server);
                                     },
-                                    '> handleAgentResult' : {
+                                    '> startYeti' : {
                                         topic: function (topic) {
-                                            var data = require('../tests/assets/3/results');
-                                            this.yb.handleAgentResult('Firefox', {results:data, url:'////0'});
-                                            this.callback();
+                                            this.yb.startYeti(this.callback);
                                         },
-                                        'should handle results': function (topic) {
-                                            assert.equal(8, this.yb.results.length);
+                                        'should fire up yeti': function (topic) {
+                                            assert.isNotEmpty(this.yb.yeti.client);
+                                        },
+                                        '> executeTests' : {
+                                            topic: function (topic) {
+                                                this.yb.executeTests();
+                                                this.callback();
+                                            },
+                                            'should create a Yeti batch': function (topic) {
+                                                assert.isNotEmpty(this.yb.yeti.batch);
+                                            },
+                                            '> handleAgentResult' : {
+                                                topic: function (topic) {
+                                                    var data = require('../tests/assets/3/results');
+                                                    this.yb.handleAgentResult('Firefox', {results:data, url:'////0'});
+                                                    this.callback();
+                                                },
+                                                'should handle results': function (topic) {
+                                                    // console.log(this.yb);
+                                                    assert.equal(this.yb.results.length, 8);
+                                                }
+                                            }
                                         }
                                     }
                                 }

@@ -51,7 +51,7 @@ vows.describe('compiler').addBatch({
                 fs.readFile('./tests/assets/5/out/test-suite-01.html', 'utf-8', this.callback)
             },
             'should match': function (html) {
-                var expected = md5(this.suite.html),
+                var expected = md5(this.suite.code),
                     actual = md5(html);
 
                 assert.equal(expected, actual);
@@ -98,7 +98,7 @@ vows.describe('compiler').addBatch({
                 fs.readFile('./tests/assets/5/out/test-suite-02.html', 'utf-8', this.callback)
             },
             'should match': function (html) {
-                var expected = md5(this.suite.html),
+                var expected = md5(this.suite.code),
                     actual = md5(html);
 
                 assert.equal(expected, actual);
@@ -116,7 +116,7 @@ vows.describe('compiler').addBatch({
                 fs.readFile('./tests/assets/5/out/test-suite-03.html', 'utf-8', this.callback)
             },
             'should match': function (html) {
-                var expected = (this.suite.html),
+                var expected = (this.suite.code),
                     actual = (html);
 
                 assert.equal(expected, actual);

@@ -1,26 +1,12 @@
-var suite = new PerfSuite({
-    name: 'Smallest timeout value',
+var suite = new PerfSuite('Y.View Performance', {
     assets: ['assets/ok.txt'],
-    tests: [
-        {
-            name: 'timeout = 0',
-            async: true,
-            fn: function (deferred) {
-                // async test
-                setTimeout(function() {
-                    deferred.resolve();
-                }, 0);
-            }
-        },
-        {
-            name: 'timeout = 1',
-            async: true,
-            fn: function (deferred) {
-                // async test
-                setTimeout(function() {
-                    deferred.resolve();
-                }, 0);
-            }
-        }
-    ]
+    yui: {
+        use: ['app']
+    }
+});
+
+suite.add({
+    'Y.View: Instantiate a bare view': function () {
+        var view = new Y.View();
+    }
 });
