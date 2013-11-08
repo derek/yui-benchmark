@@ -1,0 +1,58 @@
+var Benchmark = require('benchmark'),
+	name = '{{name}}',
+    suite;
+
+// Create the Benchmark.js test suite
+suite = new Benchmark.Suite({
+
+    // The name of the suite
+    name: name,
+
+    // called when the suite starts running
+    onStart: function (e) {
+        console.log('Executing ' + suite.options.name + ' (' + suite.length + ' tests)...');
+    },
+
+    // called between running benchmarks
+    onCycle: function (e) {
+        console.log(e.target.toString());
+    },
+
+    // called when aborted
+    onAbort: function (e) {
+        console.log('Abort');
+    },
+
+    // called when a test errors
+    onError: function (e) {
+        throw new Error(e.target.error.message)
+    },
+
+    // called when reset
+    onReset: function (e) {
+        console.log('Reset');
+    },
+
+    // called when the suite completes running
+    onComplete: function (e) {
+        var tests = [], test;
+
+        while (test = suite.shift()) {
+            tests.push(test);
+        }
+
+        console.log('Testing complete');
+    }
+});
+
+{{#each tests}}
+suite.add({
+    name: '{{this.name}}',
+    defer: {{this.defer}},
+    setup: {{{this.setup}}},
+    teardown: {{{this.teardown}}},
+    fn: {{{this.fn}}}
+});
+{{/each}}
+
+suite.run({ async: true });

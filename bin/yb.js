@@ -66,8 +66,8 @@ function handleReady () {
 
     resetTimeout();
 
-    // If this is using nodejs, just run the tests
-    if (options.nodejs) {
+    // If this is using node, just run the tests
+    if (options.node) {
         console.log('Executing tests ...');
         app.executeTests();
     }
@@ -220,6 +220,11 @@ function timeoutElapsed () {
     throw new Error('Inactivity timeout');
 }
 
+/**
+ * Checks to see if Phantom.js is instaled
+ *
+ * @private
+ */
 function isPhantomInstalled (cb) {
     exec('phantomjs --version', function(stdin, stdout) {
         var version = stdout.trim().replace('\n', '');
