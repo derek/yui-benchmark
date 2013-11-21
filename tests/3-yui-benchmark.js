@@ -24,7 +24,7 @@ if (!fs.existsSync(tmp)) {
 }
 
 var argv = [
-    '--repo=' + repo,
+    '--yui-repo=' + repo,
     '--source=./tests/assets/3/config.js',
     '--ref=v3.9.0',
     '--loglevel=debug',
@@ -52,7 +52,7 @@ vows.describe('YUI Benchmark').addBatch({
             assert.equal(null, topic.yeti.client);
             assert.deepEqual({
                 refs: [ 'v3.9.0', 'Working' ],
-                repo: repo,
+                'yui-repo': repo,
                 source: path.join(yuiBenchPath, '/tests/assets/3/config.js'),
                 working: true,
                 port: 3000,

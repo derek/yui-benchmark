@@ -87,7 +87,7 @@ And in `.builds` you'll find two versioned build directories, cached for any sub
 * `--port=<integer>` - The HTTP port to listen on. *Default: `3000`*
 * `--raw=<path>` - A path to dump the raw JSON
 * `--ref=<string>` - Which ref(s) of the YUI repository you'd like to execute the performance test against. Specify as many as you'd like (each with its own `--ref`).
-* `--repo=<path>` - Path to your local YUI repository.
+* `--yui-repo=<path>` - Path to your local YUI repository.
 * `--tmp=<path>` - A path where temporary files can be stored. *Default: OS assigned*
 * `--timeout=<integer>` - How long to wait (in seconds) before aborting this process. *Default: `300`*
 * `--working=<boolean>` - Whether or not to include your working tree as a test ref. *Default: `true`* Shorthands: `--no-working`.

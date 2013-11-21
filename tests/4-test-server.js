@@ -22,7 +22,7 @@ if (!fs.existsSync(tmp)) {
 }
 
 var argv = [
-    '--repo=' + repo,
+    '--yui-repo=' + repo,
     '--source=./tests/assets/3/config.js',
     '--ref=v3.8.0',
     '--loglevel=debug',

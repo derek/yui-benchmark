@@ -87,15 +87,15 @@ var tests = {
         }
     },
 
-    '--repo' : {
+    '--yui-repo' : {
         'unspecified': {
-            topic: parse([]).repo,
+            topic: parse([])['yui-repo'],
             'should resolve to null': function (repo) {
                 assert.isNull(repo);
             }
         },
         'specified': {
-            topic: parse(['--repo', '/path/to/yui']).repo,
+            topic: parse(['--yui-repo', '/path/to/yui'])['yui-repo'],
             'should resolve to the given value': function (repo) {
                 assert.deepEqual(repo, '/path/to/yui');
             }

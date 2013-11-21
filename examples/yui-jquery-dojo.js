@@ -15,19 +15,19 @@ var suite = new PerfSuite('Node Attributes', {
     }
 });
 
-suite.add('jQuery', function () {
+suite.add('jQuery - DOM Selection', function () {
     for (var sel in selectors) {
         $(sel);
     }
 });
 
-suite.add('YUI', function () {
+suite.add('YUI - DOM Selection', function () {
     for (var sel in selectors) {
         Y.one(sel);
     }
 });
 
-suite.add('Dojo', function () {
+suite.add('Dojo - DOM Selection', function () {
     for (var sel in selectors) {
         query(sel);
     }
