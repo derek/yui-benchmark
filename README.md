@@ -10,39 +10,86 @@ A toolkit to simplify JavaScript performance testing.
 
 ## Using YUI Benchmark
 
-Here's an example from  within the `yui3` repository:
+Here's an example using a simple JavaScript test to compare performance of Array creation.
 
-	$ yb src/app/tests/performance/app-model.js
-	Waiting for agents to connect at http://10.72.115.67:3000
-	...also available locally at http://127.0.0.1:3000
+	$ yb examples/vanilla.js
 	When ready, press Enter to begin testing.
+	Waiting for agents to connect at http://192.168.72.145:3000
+	...also available locally at http://127.0.0.1:3000
+	info: Agent connect: Firefox (28.0) / Mac OS from 127.0.0.1
+	info: Agent connect: Chrome (31.0.1650.57) / Mac OS from 127.0.0.1
 
-Now point your browser to `http://127.0.0.1:3000`, hit `Enter` in yrou terminal, and YUI Benchmark will take care of the rest!
+Now point your browser(s) to `http://localhost:3000`, hit `Enter` in your terminal, and YUI Benchmark will take care of the rest!
 
-### Automated Testing
-Automated testing is great for quick results or in CI environments (such as [Travis CI](https://travis-ci.org/)).  Once you have [Phantom.js](http://phantomjs.org/) installed, you can execute tests with the `--phantom` option for completely automated testing.
-
-For example:
-
-	$ yb src/app/tests/performance/app-model.js --phantom
 	Executing tests...
-	Got result from PhantomJS (1.9.1) / Mac OS
+	info: Got result from Chrome (31.0.1650.57) / Mac OS
+	info: Got result from Firefox (28.0) / Mac OS
 
-	### Y.Model: Instantiate a bare model
+	### new Array()
+		┌──────────────────────────────────┬───────────────────────────┐
+		│  Chrome (31.0.1650.57) / Mac OS  │  Firefox (28.0) / Mac OS  │
+		├──────────────────────────────────┼───────────────────────────┤
+		│  33.638m  ±8.7%                  │  151.841m  ±5.4%          │
+		└──────────────────────────────────┴───────────────────────────┘
+
+	### []
+		┌──────────────────────────────────┬───────────────────────────┐
+		│  Chrome (31.0.1650.57) / Mac OS  │  Firefox (28.0) / Mac OS  │
+		├──────────────────────────────────┼───────────────────────────┤
+		│  55.880m  ±5.6%                  │  152.028m  ±7.5%          │
+		└──────────────────────────────────┴───────────────────────────┘
+
+### Automated Web Testing
+Automated testing is great for quick results or in CI environments (such as [Travis CI](https://travis-ci.org/)).  
+Once you have [Phantom.js](http://phantomjs.org/) installed, you can execute tests with the `--phantom` option for completely automated testing.
+
+For example, here's an asynchronous test that uses `setTimeout` to delay resolution:
+
+	$ yb examples/async.js --phantom
+	info: Agent connect: PhantomJS (1.9.2) / Mac OS from 127.0.0.1
+	Executing tests ...
+	info: Got result from PhantomJS (1.9.2) / Mac OS
+
+	### Half second timeout
 		┌──────────────────────────────┐
-		│  PhantomJS (1.9.1) / Mac OS  │
+		│  PhantomJS (1.9.2) / Mac OS  │
 		├──────────────────────────────┤
-		│  31.454k  ±6.5%              │
+		│  1.997  ±0.1%                │
 		└──────────────────────────────┘
 
-	### Y.Model: Subclass and instantiate a bare model
+	### One second timeout
 		┌──────────────────────────────┐
-		│  PhantomJS (1.9.1) / Mac OS  │
+		│  PhantomJS (1.9.2) / Mac OS  │
 		├──────────────────────────────┤
-		│  15.635k  ±6.5%              │
+		│  0.999  ±0.0%                │
 		└──────────────────────────────┘
 
-### Multi-version testing
+### Node.js Testing
+YUI Benchmark isn't just for web-based testing, it can also compile your test into a Node.js script.  This can be toggled by using the `--node` CLI flag.
+
+For example, here's a test that will compare Node's `path.resolve` to `path.join`:
+
+	$ yb examples/node.js --node
+	Executing tests ...
+
+	### path.resolve
+		┌─────────────────────┐
+		│  Node v0.10.21      │
+		├─────────────────────┤
+		│  105.654k  ±3.4%    │
+		└─────────────────────┘
+
+	### path.join
+		┌─────────────────────┐
+		│  Node v0.10.21      │
+		├─────────────────────┤
+		│  158.308k  ±4.3%    │
+		└─────────────────────┘
+
+## YUI Testing
+YUI Benchmark was written as a general purpose JavaScript benchmarking toolkit, but as you can imagine, it has special capabilities included for use with YUI testing.
+
+### Multi-version YUI Testing
 By default, YUI Benchmark will only test your "working" tree, but it is designed to do so much more!  Namely, to help you out with multi-version testing.  For instance, if you write a test and want to know how performance has improved over time, YUI Benchmark can help you out here, simply specify additional [Git refs](http://git-scm.com/book/en/Git-Internals-Git-References) via the `--ref` option.  For each additional ref, YUI Benchmark will clone your repo to a temporary path, rebuild YUI (if neccesary), and cache it in a `.builds` directory in your YUI repository path.
 
 For example, if we wanted to see how much faster `app-model.js` was between YUI v3.9.0 and v3.12.0, and skip our working code...
@@ -78,7 +125,7 @@ And in `.builds` you'll find two versioned build directories, cached for any sub
 	v3.12.0-8655935bc2c668f3ee3d93db7709446169aa08b3
 	v3.9.0-b7d710018c74a268ce8a333a3e7b77c6db349062
 
-### Additional CLI Options
+## Additional CLI Options
 
 * `--iterations=<integer>` - The number of times to execute each test suite. Results will be averaged. *Default: `1`*
 * `--loglevel=<string>` - `info`, `debug`, `verbose`, or `silent`.  *Default: `info`* Shorthands: `--debug`, `--verbose`, `--silent`.
@@ -161,7 +208,7 @@ In addition to `yb`, you'll have a few extra tools that may be helpful:
  * `yb-compile` - Compiles a config file to an executable performance test (e.g. `yb-compile path/to/source.js`).  After execution, open the generated HTML file in a browser and take a look at the console for results.
  * `yb-parse` - Converts a raw JSON results file to pretty tables (e.g. `cat myResults.json | yb-parse`). Also, this provides a nice starting point if you want to make your own parser.
 
-## Yogi
+## YUI - Yogi
 Additionally, you can test performance via [Yogi](https://github.com/yui/yogi) by
 installing the [yogi-perf plugin](https://github.com/derek/yogi-perf) via `npm install -g yogi-perf`.
 Once installed, run `$ yogi perf` from within your component's directory, and Yogi will execute any

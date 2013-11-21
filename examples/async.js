@@ -1,6 +1,6 @@
 var suite = new PerfSuite('Async tests', {
     tests: [{
-        name: 'Half second',
+        name: 'Half second timout',
         async: true,
         fn: function (deferred) {
             setTimeout(function() {
@@ -8,7 +8,7 @@ var suite = new PerfSuite('Async tests', {
             }, 500);
         }
     },{
-        name: '1 second',
+        name: 'One second timeout',
         async: true,
         fn: function (deferred) {
             setTimeout(function() {
