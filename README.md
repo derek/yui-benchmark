@@ -25,23 +25,10 @@ Now point your browser(s) to `http://localhost:3000`, hit `Enter` in your termin
 	info: Got result from Chrome (31.0.1650.57) / Mac OS
 	info: Got result from Firefox (28.0) / Mac OS
 
-	### new Array()
-		┌──────────────────────────────────┬───────────────────────────┐
-		│  Chrome (31.0.1650.57) / Mac OS  │  Firefox (28.0) / Mac OS  │
-		├──────────────────────────────────┼───────────────────────────┤
-		│  33.638m  ±8.7%                  │  151.841m  ±5.4%          │
-		└──────────────────────────────────┴───────────────────────────┘
-
-	### []
-		┌──────────────────────────────────┬───────────────────────────┐
-		│  Chrome (31.0.1650.57) / Mac OS  │  Firefox (28.0) / Mac OS  │
-		├──────────────────────────────────┼───────────────────────────┤
-		│  55.880m  ±5.6%                  │  152.028m  ±7.5%          │
-		└──────────────────────────────────┴───────────────────────────┘
+![Test results](http://i.imgur.com/2UwvHmp.png)
 
 ### Automated Web Testing
-Automated testing is great for quick results or in CI environments (such as [Travis CI](https://travis-ci.org/)).  
-Once you have [Phantom.js](http://phantomjs.org/) installed, you can execute tests with the `--phantom` option for completely automated testing.
+Automated testing is great for quick results or in CI environments (such as [Travis CI](https://travis-ci.org/)).  Once you have [Phantom.js](http://phantomjs.org/) installed, you can execute tests with the `--phantom` option for completely automated testing.
 
 For example, here's an asynchronous test that uses `setTimeout` to delay resolution:
 
@@ -50,19 +37,7 @@ For example, here's an asynchronous test that uses `setTimeout` to delay resolut
 	Executing tests ...
 	info: Got result from PhantomJS (1.9.2) / Mac OS
 
-	### Half second timeout
-		┌──────────────────────────────┐
-		│  PhantomJS (1.9.2) / Mac OS  │
-		├──────────────────────────────┤
-		│  1.997  ±0.1%                │
-		└──────────────────────────────┘
-
-	### One second timeout
-		┌──────────────────────────────┐
-		│  PhantomJS (1.9.2) / Mac OS  │
-		├──────────────────────────────┤
-		│  0.999  ±0.0%                │
-		└──────────────────────────────┘
+![Test results](http://i.imgur.com/PdslUp2.png)
 
 ### Node.js Testing
 YUI Benchmark isn't just for web-based testing, it can also compile your test into a Node.js script.  This can be toggled by using the `--node` CLI flag.
@@ -72,19 +47,7 @@ For example, here's a test that will compare Node's `path.resolve` to `path.join
 	$ yb examples/node.js --node
 	Executing tests ...
 
-	### path.resolve
-		┌─────────────────────┐
-		│  Node v0.10.21      │
-		├─────────────────────┤
-		│  105.654k  ±3.4%    │
-		└─────────────────────┘
-
-	### path.join
-		┌─────────────────────┐
-		│  Node v0.10.21      │
-		├─────────────────────┤
-		│  158.308k  ±4.3%    │
-		└─────────────────────┘
+![Test results](http://i.imgur.com/wALA8LW.png)
 
 ## YUI Testing
 YUI Benchmark was written as a general purpose JavaScript benchmarking toolkit, but as you can imagine, it has special capabilities included for use with YUI testing.
@@ -104,21 +67,8 @@ For example, if we wanted to see how much faster `app-model.js` was between YUI 
 	Got result from PhantomJS (1.9.1) / Mac OS
 	Got result from PhantomJS (1.9.1) / Mac OS
 
-	### Y.Model: Instantiate a bare model
-		┌───────────┬──────────────────────────────┐
-		│           │  PhantomJS (1.9.1) / Mac OS  │
-		├───────────┼──────────────────────────────┤
-		│  v3.9.0   │  10.518k  ±1.2%              │
-		│  v3.12.0  │  33.180k  ±1.0%  +215%       │
-		└───────────┴──────────────────────────────┘
+![Test results](http://i.imgur.com/WmEBd9R.png)
 
-	### Y.Model: Subclass and instantiate a bare model
-		┌───────────┬──────────────────────────────┐
-		│           │  PhantomJS (1.9.1) / Mac OS  │
-		├───────────┼──────────────────────────────┤
-		│  v3.9.0   │  7.454k  ±2.2%               │
-		│  v3.12.0  │  16.240k  ±0.9%  +118%       │
-		└───────────┴──────────────────────────────┘
 And in `.builds` you'll find two versioned build directories, cached for any subsequent tests.
 
 	$ ls -1 .builds
@@ -143,23 +93,28 @@ And in `.builds` you'll find two versioned build directories, cached for any sub
 
 Test files simply contain the ingredients for a performance test suite, and little more.
 
-For example, here's the source file we were using in the above examples:
+For example, here's the source file we were using in the async example:
 
-    var suite = new PerfSuite('Y.Model performance tests', {
-        yui: {
-            use: ['app']
-        }
-    });
+	var suite = new PerfSuite('Async tests', {
+	    tests: [{
+	        name: 'Half second timout',
+	        async: true,
+	        fn: function (deferred) {
+	            setTimeout(function() {
+	                deferred.resolve();
+	            }, 500);
+	        }
+	    },{
+	        name: 'One second timeout',
+	        async: true,
+	        fn: function (deferred) {
+	            setTimeout(function() {
+	                deferred.resolve();
+	            }, 1000);
+	        }
+	    }]
+	});
 
-    suite.add({
-        'Y.Model: Instantiate a bare model': function () {
-            var model = new Y.Model();
-        },
-        'Y.Model: Subclass and instantiate a bare model': function () {
-            var MyModel = Y.Base.create('myModel', Y.Model, []),
-                model   = new MyModel();
-        }
-    });
 
 To get a better idea, check out some more examples in the YUI source tree
 
@@ -168,7 +123,9 @@ To get a better idea, check out some more examples in the YUI source tree
  * [node](https://github.com/yui/yui3/tree/master/src/node/tests/performance/)
  * [promise](https://github.com/yui/yui3/tree/master/src/promise/tests/performance/promise.js)
 
-### Suites
+Or in yui-benchmark's [examples directory](examples).
+
+### PerfSuites
 Suites are objects that contain the following properties:
 
 **Required**
@@ -181,9 +138,13 @@ Suites are objects that contain the following properties:
  * `global` - An object containing `setup` and/or `teardown` functions to be run before/after any tests in the suite.
  * `slug` - A short-name for this suite. Used for URLs and filenames.
  * `html` - A string or relative path on your filesystem to some HTML to be placed inside the `body` tag.
+ * `jquery` - A boolean. Defaults to `false`.
  * `yui`
-    * `config` - A YUI config object
-    * `use` - An array of modules to include in your suite
+    * `config` - A YUI config object.
+    * `use` - An array of modules to include in your suite.
+ * `dojo`
+ 	* `require` - An array of modules to include in your test.
+ 	* `exportAs` - An array of names your `require` values should be exported as.
 
 ### Tests
 Tests are objects that contain the following properties:
@@ -195,7 +156,7 @@ Tests are objects that contain the following properties:
 
 **Optional**
 
- * `async` - If this test should be considered an async test. If `true`, your test function will recieve a callback as the first argument. Execute that when your test is complete.
+ * `async` - If this test should be considered an async test. If `true`, your test function will recieve a callback as the first argument. Execute it when your test is complete.
  * `setup` - A function to execute before the test cycle. This will override anything specified in `global.setup`.
  * `teardown` - A function to execute after the test cycle. This will override anything specified in `global.teardown`.
 
