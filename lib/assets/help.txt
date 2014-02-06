@@ -10,7 +10,7 @@
   --port: The HTTP port to listen on. Default: 3000
   --raw: A path to dump the raw JSON
   --ref: Which ref(s) of the YUI repository you'd like to execute the performance test against. Specify as many as you'd like (each with its own --ref).
-  --repo: Path to your local YUI repository. If unspecified, it assumes you are inside the repository.
+  --yui-repo: Path to your local YUI repository. If unspecified, it assumes you are inside the repository.
   --tmp: A path where temporary files can be stored. Default: OS assigned
   --timeout: How long to wait (in seconds) before aborting this process. Default: 300
   --working: Whether or not to include your working tree as a test ref. Default: true. Shorthands: --no-working.
