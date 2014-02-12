@@ -8,11 +8,7 @@
 
     <body>
         <h1>Performance Test: Test suite 02</h1>
-        <p>Test results available in console.</p>
-
-        <script type="text/x-handlebars-template" id="perftest-test-html-template">
-            
-        </script>
+        <p>Test results available via console.log</p>
 
         <script>
         var name = document.getElementsByTagName('title')[0].innerHTML,
@@ -26,9 +22,6 @@
         function ready () {
             // Have all the loaders finished?
             if (--readyCount === 0) {
-
-                // First, populate the test HTML
-                resetHTML();
 
                 // Next, add the tests
                 addTests();
@@ -113,13 +106,14 @@
 
         <!-- bottomHTML -->        <script type="text/javascript" src="http://yui.yahooapis.com/3.10.3/build/yui/yui-min.js"></script>
         <script>
-            var Y = YUI({}).use('', ready);
+            var Y = YUI({}).use('node', ready);
         </script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.1/dojo/dojo.js" data-dojo-config="async: false"></script>
         <script>
-        require(, function () {
-            
+        require(["dojo/query"], function (query) {
+            window.query = query;
+
             ready();
         });
         </script>

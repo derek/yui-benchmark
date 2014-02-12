@@ -2,8 +2,13 @@ var suite = new PerfSuite({
     name: 'Test suite 02',
     description: 'Tests basic library inclusion',
     jquery: true,
-    dojo: true,
-    yui: true,
+    yui: {
+        use: ['node']
+    },
+    dojo: {
+        require: ['dojo/query'],
+        exportAs: ['query']
+    },
     tests: [
         {
             name: 'test 3',

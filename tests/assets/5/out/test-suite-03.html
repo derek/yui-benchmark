@@ -8,11 +8,7 @@
 
     <body>
         <h1>Performance Test: Test suite 03</h1>
-        <p>Test results available in console.</p>
-
-        <script type="text/x-handlebars-template" id="perftest-test-html-template">
-            
-        </script>
+        <p>Test results available via console.log</p>
 
         <script>
         var name = document.getElementsByTagName('title')[0].innerHTML,
@@ -26,9 +22,6 @@
         function ready () {
             // Have all the loaders finished?
             if (--readyCount === 0) {
-
-                // First, populate the test HTML
-                resetHTML();
 
                 // Next, add the tests
                 addTests();

@@ -43,7 +43,7 @@ vows.describe('compiler').addBatch({
     'suite 01': {
         topic: compile(suite1, assetPath),
         'should generate the correct suite name': function (suite) {
-            assert.equal('test-suite-01.html', suite.name);
+            assert.equal(suite.name, 'test-suite-01.html');
         },
         'and the generated HTML': {
             topic: function (suite) {
@@ -51,10 +51,10 @@ vows.describe('compiler').addBatch({
                 fs.readFile('./tests/assets/5/out/test-suite-01.html', 'utf-8', this.callback)
             },
             'should match': function (html) {
-                var expected = md5(this.suite.code),
-                    actual = md5(html);
+                var expected = (this.suite.code),
+                    actual = (html);
 
-                assert.equal(expected, actual);
+                assert.equal(actual, expected);
             }
         },
         'and the assets': {
@@ -62,7 +62,7 @@ vows.describe('compiler').addBatch({
                 return topic.assets;
             },
             'should have a length of 1': function (assets) {
-                assert.equal(1, assets.length);
+                assert.equal(assets.length, 1);
             },
             'and the content': {
                 topic: function (topic) {
@@ -70,27 +70,27 @@ vows.describe('compiler').addBatch({
                     fs.readFile('./tests/assets/5/out/assets/foo.html', 'utf-8', this.callback);
                 },
                 'should match': function (content) {
-                    var expected = md5(this.asset.content),
-                        actual = md5(content);
+                    var expected = (this.asset.content),
+                        actual = (content);
 
-                    assert.equal(expected, actual);
+                    assert.equal(actual, expected);
                 }
             },
             'and the mime should match': function (assets) {
-                assert.equal(assets[0].mime, 'text/html');
+                assert.equal('text/html', assets[0].mime);
             },
             'and the name should match': function (assets) {
-                assert.equal(assets[0].name, 'foo.html');
+                assert.equal('foo.html', assets[0].name);
             }
         }
     },
     'suite 02': {
         topic: compile(suite2, assetPath),
         'should generate the correct name': function (suite) {
-            assert.equal('test-suite-02.html', suite.name);
+            assert.equal(suite.name, 'test-suite-02.html');
         },
         'and should assemble the assets': function (suite) {
-            assert.equal(0, suite.assets.length);
+            assert.equal(suite.assets.length, 0);
         },
         'and the generated HTML': {
             topic: function (suite) {
@@ -101,14 +101,14 @@ vows.describe('compiler').addBatch({
                 var expected = md5(this.suite.code),
                     actual = md5(html);
 
-                assert.equal(expected, actual);
+                assert.equal(actual, expected);
             }
         }
     },
     'suite 03': {
         topic: compile(suite3, assetPath),
         'should generate the correct name': function (suite) {
-            assert.equal('test-suite-03.html', suite.name);
+            assert.equal(suite.name, 'test-suite-03.html');
         },
         'and the generated HTML': {
             topic: function (suite) {
@@ -119,7 +119,7 @@ vows.describe('compiler').addBatch({
                 var expected = (this.suite.code),
                     actual = (html);
 
-                assert.equal(expected, actual);
+                assert.equal(actual, expected);
             }
         }
     }
