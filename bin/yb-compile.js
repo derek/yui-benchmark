@@ -71,13 +71,6 @@ function processConfig (srcConfigPath, targetDir) {
         mkdirp.sync(targetDir);
     }
 
-    // Import the suite's HTML
-    if (suite.html) {
-        if (fs.existsSync(path.join(srcDir, suite.html))) {
-            suite.html = fs.readFileSync(path.join(srcDir, suite.html), 'utf-8');
-        }
-    }
-
     // Compile the suite
     compiled = compile(suite, srcDir);
 
