@@ -1,7 +1,7 @@
 {
     "name": "yui-benchmark",
     "author": "Derek Gathright <derek.gathright@yahoo.com>",
-    "version": "0.3.0-pre",
+    "version": "0.3.1",
     "engines": {
         "node": ">=0.8.0"
     },
